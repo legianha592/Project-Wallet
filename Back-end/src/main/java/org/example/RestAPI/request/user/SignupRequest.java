@@ -10,11 +10,13 @@ public class SignupRequest {
     private final int MIN_LENGTH = 6;
     private String user_name;
     private String password;
+    private String confirm_password;
     private String result;
 
-    public SignupRequest(String user_name, String password) {
+    public SignupRequest(String user_name, String password, String confirm_password) {
         this.user_name = user_name;
         this.password = password;
+        this.confirm_password = confirm_password;
         this.checkValidRequest();
     }
 
@@ -40,6 +42,9 @@ public class SignupRequest {
                 result = FinalMessage.INVALID_PASSWORD_VALUE;
                 return;
             }
+        }
+        if(!this.password.equals(this.confirm_password)){
+            result = FinalMessage.CONFIRM_FAIL;
         }
 
         result = new String("OK");

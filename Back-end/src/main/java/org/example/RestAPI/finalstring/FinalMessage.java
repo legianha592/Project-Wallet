@@ -11,6 +11,7 @@ public class FinalMessage {
     public static final String INVALID_NEW_PASSWORD_VALUE = "Mật khẩu mới chứa kí tự không hợp lệ";
     public static final String CHANGE_PASSWORD_SUCCESS = "Đổi mật khẩu thành công";
     public static final String USERNAME_EXISTED = "Tên đăng kí đã tồn tại";
+    public static final String CONFIRM_FAIL = "Hai chuỗi mật khẩu không giống nhau";
     //Đăng nhập
     public static final String LOGIN_SUCCESS = "Đăng nhập thành công";
     public static final String NO_USER = "Không tồn tại người dùng";
