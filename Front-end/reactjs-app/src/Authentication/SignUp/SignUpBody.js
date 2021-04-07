@@ -4,19 +4,30 @@ function SignUpBody(props){
     const [state, setState] = useState({
         user_name : "",
         password : "",
+        confirm_password: ""
     })
 
     const onChangeUsername = (e) => {
         setState({
             user_name : e.target.value,
-            password : state.password
+            password : state.password,
+            confirm_password : state.confirm_password
         })
     }
 
     const onChangePassword = (e) => {
         setState({
             user_name : state.user_name,
-            password : e.target.value
+            password : e.target.value,
+            confirm_password : state.confirm_password
+        })
+    }
+
+    const onChangeConfirmPassword = (e) => {
+        setState({
+            user_name : state.user_name,
+            password : state.password,
+            confirm_password : e.target.value
         })
     }
 
@@ -25,7 +36,8 @@ function SignUpBody(props){
         props.submitInfo(state);
         setState({
             user_name : "",
-            password : ""
+            password : "",
+            confirm_password: ""
         })
     }
 
@@ -40,6 +52,10 @@ function SignUpBody(props){
                     placeholder="Password"
                     value={state.password}
                     onChange={onChangePassword}/>
+                <input type="text"
+                    placeholder="Confirm Password"
+                    value={state.confirm_password}
+                    onChange={onChangeConfirmPassword}/>
                 <input type="submit"
                     value="Submit"/>
             </form>

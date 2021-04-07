@@ -45,6 +45,7 @@ public class SignupRequest {
         }
         if(!this.password.equals(this.confirm_password)){
             result = FinalMessage.CONFIRM_FAIL;
+            return;
         }
 
         result = new String("OK");
