@@ -1,8 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 
-function SignUpFooter(){
+function SignUpFooter(props){
     return(
-        <div className="signup-footer">Footer</div>
+        <div className="signup-footer">{props.footer}</div>
     )
 }
 

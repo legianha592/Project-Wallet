@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {useHistory} from "react-router-dom"
 import axios from "axios";
 
@@ -7,6 +7,8 @@ import SignUpBody from "./SignUpBody"
 import SignUpFooter from "./SignUpFooter"
 
 function SignUp(){
+    const [state, setState] = useState("Footer")
+
     let history = useHistory();
 
     const handleResponse = (response) => {
@@ -15,7 +17,7 @@ function SignUp(){
             history.push("/login")
         }
         else{
-            console.log("Fail to change page")
+            setState(response.data.message);
         }
     }
 
@@ -31,7 +33,7 @@ function SignUp(){
         <div className="signup">
             <SignUpHeader />
             <SignUpBody submitInfo={submitInfo}/>
-            <SignUpFooter />
+            <SignUpFooter footer={state}/>
         </div>
     )
 }
