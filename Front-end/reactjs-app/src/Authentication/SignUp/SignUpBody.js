@@ -31,9 +31,9 @@ function SignUpBody(props){
         })
     }
 
-    const submitInfo = (e) => {
+    const submitSignUp = (e) => {
         e.preventDefault();
-        props.submitInfo(state);
+        props.submitSignUp(state);
         setState({
             user_name : "",
             password : "",
@@ -51,7 +51,7 @@ function SignUpBody(props){
 
     return(
         <div className="signup-body">
-            <form onSubmit={submitInfo}>
+            <form onSubmit={submitSignUp}>
                 <input type="text"
                     placeholder="User name"
                     value={state.user_name}

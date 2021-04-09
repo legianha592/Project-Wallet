@@ -20,9 +20,9 @@ function LoginBody(props){
         })
     }
 
-    const submitInfo = (e) => {
+    const submitLogin = (e) => {
         e.preventDefault();
-        props.submitInfo(state);
+        props.submitLogin(state);
         setState({
             user_name : "",
             password : "",
@@ -39,7 +39,7 @@ function LoginBody(props){
 
     return(
         <div className="login-body">
-            <form onSubmit={submitInfo}>
+            <form onSubmit={submitLogin}>
                 <input type="text"
                     placeholder="User name"
                     value={state.user_name}

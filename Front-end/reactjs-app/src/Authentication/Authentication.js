@@ -12,6 +12,7 @@ import {
   Link,
   useRouteMatch,
 } from "react-router-dom";
+import axios from "axios";
 
 function Authentication() {
   let match = useRouteMatch();
@@ -20,6 +21,28 @@ function Authentication() {
     header: "",
     footer: "",
   });
+
+  const submitLogin = (data) => {
+      axios.post("http://localhost:8080/user/login", data)
+        .then(response => {
+            console.log(response.data)
+            setState({
+                header : state.header,
+                footer : response.data.message
+            })
+        })
+  }
+
+  const submitSignUp = (data) => {
+    axios.post("http://localhost:8080/user/signup", data)
+      .then(response => {
+        console.log(response.data)
+          setState({
+              header : state.header,
+              footer : response.data.message
+          })
+      })
+}
 
   const setHeaderAndFooter = (title) => {
     setState({
@@ -31,29 +54,31 @@ function Authentication() {
   return (
     <BrowserRouter>
       <div>
-        <nav>
+        <div>
           <ul>
             <li>
-              <Link to={`${match.url}/login`}>Login</Link>
+              <Link to="/user/login">Login</Link>
             </li>
             <li>
-              <Link to={`${match.url}/signup`}>Sign Up</Link>
+              <Link to="/user/signup">Sign Up</Link>
             </li>
           </ul>
-        </nav>
+        </div>
 
         <Switch>
-          <Route path={`${match.path}/login`}>
+          <Route path="/user/login">
             <Header header={state.header} />
-            <LoginBody setHeaderAndFooter={setHeaderAndFooter} />
+            <LoginBody setHeaderAndFooter={setHeaderAndFooter} 
+                submitLogin={submitLogin} />
             <Footer footer={state.footer} />
           </Route>
-          <Route path={`${match.path}/signup`}>
+          <Route path="/user/signup">
             <Header header={state.header} />
-            <SignUpBody setHeaderAndFooter={setHeaderAndFooter} />
+            <SignUpBody setHeaderAndFooter={setHeaderAndFooter} 
+                submitSignUp={submitSignUp}/>
             <Footer footer={state.footer} />
           </Route>
-          <Route path={match.path}>Inside home page!</Route>
+          <Route path="/">Inside home page!</Route>
         </Switch>
       </div>
     </BrowserRouter>
