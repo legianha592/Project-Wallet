@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useEffect, useState} from "react"
 
 function LoginBody(props){
     const [state, setState] = useState({
@@ -35,7 +35,7 @@ function LoginBody(props){
             footer : "Footer of Login"
         }
         props.setHeaderAndFooter(title)
-    })
+    }, [])
 
     return(
         <div className="login-body">

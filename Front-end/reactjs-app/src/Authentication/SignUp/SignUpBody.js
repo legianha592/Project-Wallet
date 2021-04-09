@@ -47,7 +47,7 @@ function SignUpBody(props){
             footer : "Footer of Sign Up"
         }
         props.setHeaderAndFooter(title)
-    })
+    }, [])
 
     return(
         <div className="signup-body">
