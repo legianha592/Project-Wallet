@@ -1,25 +1,14 @@
-import React from "react"
-import {BrowserRouter, Switch, Route } from "react-router-dom"
+import React from "react";
+import { BrowserRouter, Switch, Route, Link } from "react-router-dom";
 
-import SignUp from "./Authentication/SignUp/SignUp"
-import Login from "./Authentication/Login/Login"
+import Authentication from "./Authentication/Authentication"
 
-function App(){
-    return(
-        <div>
-            <Switch>
-                <Route path="/signup">
-                    <SignUp />
-                </Route>
-                <Route path="/login">
-                    <Login />
-                </Route>
-                <Route path="/">
-                    Home!!!
-                </Route>
-            </Switch>
-        </div>
-    )
+function App() {
+  return (
+    <div>
+      <Authentication />
+    </div>
+  );
 }
 
 export default App;

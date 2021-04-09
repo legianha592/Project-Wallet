@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 function SignUpBody(props){
     const [state, setState] = useState({
@@ -40,6 +40,14 @@ function SignUpBody(props){
             confirm_password: ""
         })
     }
+
+    useEffect(() => {
+        const title = {
+            header : "Sign Up",
+            footer : "Footer of Sign Up"
+        }
+        props.setHeaderAndFooter(title)
+    })
 
     return(
         <div className="signup-body">

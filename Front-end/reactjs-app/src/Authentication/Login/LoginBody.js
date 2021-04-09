@@ -29,6 +29,14 @@ function LoginBody(props){
         })
     }
 
+    useEffect(() => {
+        const title = {
+            header : "Login",
+            footer : "Footer of Login"
+        }
+        props.setHeaderAndFooter(title)
+    })
+
     return(
         <div className="login-body">
             <form onSubmit={submitInfo}>
