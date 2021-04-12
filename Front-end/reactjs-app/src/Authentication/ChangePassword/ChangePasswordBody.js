@@ -1,4 +1,4 @@
-import React from "react"
+import React, {useEffect, useState} from "react"
 
 function ChangePasswordBody(props){
     const [state, setState] = useState({
@@ -22,7 +22,7 @@ function ChangePasswordBody(props){
 
     const submitSignUp = (e) => {
         e.preventDefault();
-        props.submitSignUp(state);
+        props.submitChangePassword(state);
         setState({
             old_password : "",
             new_password: ""
