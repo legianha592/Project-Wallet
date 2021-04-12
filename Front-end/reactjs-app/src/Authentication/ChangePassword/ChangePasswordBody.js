@@ -1,0 +1,74 @@
+import React from "react"
+
+function ChangePasswordBody(props){
+    const [state, setState] = useState({
+        user_name : "",
+        password : "",
+        confirm_password: ""
+    })
+
+    const onChangeUsername = (e) => {
+        setState({
+            user_name : e.target.value,
+            password : state.password,
+            confirm_password : state.confirm_password
+        })
+    }
+
+    const onChangePassword = (e) => {
+        setState({
+            user_name : state.user_name,
+            password : e.target.value,
+            confirm_password : state.confirm_password
+        })
+    }
+
+    const onChangeConfirmPassword = (e) => {
+        setState({
+            user_name : state.user_name,
+            password : state.password,
+            confirm_password : e.target.value
+        })
+    }
+
+    const submitSignUp = (e) => {
+        e.preventDefault();
+        props.submitSignUp(state);
+        setState({
+            user_name : "",
+            password : "",
+            confirm_password: ""
+        })
+    }
+
+    useEffect(() => {
+        const title = {
+            header : "Sign Up",
+            footer : "Footer of Sign Up"
+        }
+        props.setHeaderAndFooter(title)
+    }, [])
+
+    return(
+        <div className="signup-body">
+            <form onSubmit={submitSignUp}>
+                <input type="text"
+                    placeholder="User name"
+                    value={state.user_name}
+                    onChange={onChangeUsername}/>
+                <input type="text"
+                    placeholder="Password"
+                    value={state.password}
+                    onChange={onChangePassword}/>
+                <input type="text"
+                    placeholder="Confirm Password"
+                    value={state.confirm_password}
+                    onChange={onChangeConfirmPassword}/>
+                <input type="submit"
+                    value="Submit"/>
+            </form>
+        </div>
+    )
+}
+
+export default ChangePasswordBody;
