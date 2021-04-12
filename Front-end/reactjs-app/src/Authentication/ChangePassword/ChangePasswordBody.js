@@ -2,32 +2,21 @@ import React from "react"
 
 function ChangePasswordBody(props){
     const [state, setState] = useState({
-        user_name : "",
-        password : "",
-        confirm_password: ""
+        old_password : "",
+        new_password: ""
     })
 
-    const onChangeUsername = (e) => {
+    const onChangeOldPassword = (e) => {
         setState({
-            user_name : e.target.value,
-            password : state.password,
-            confirm_password : state.confirm_password
+            old_password : e.target.value,
+            new_password : state.new_password
         })
     }
 
-    const onChangePassword = (e) => {
+    const onChangeNewPassword = (e) => {
         setState({
-            user_name : state.user_name,
-            password : e.target.value,
-            confirm_password : state.confirm_password
-        })
-    }
-
-    const onChangeConfirmPassword = (e) => {
-        setState({
-            user_name : state.user_name,
-            password : state.password,
-            confirm_password : e.target.value
+            old_password : state.old_password,
+            new_password : e.target.value
         })
     }
 
@@ -35,16 +24,15 @@ function ChangePasswordBody(props){
         e.preventDefault();
         props.submitSignUp(state);
         setState({
-            user_name : "",
-            password : "",
-            confirm_password: ""
+            old_password : "",
+            new_password: ""
         })
     }
 
     useEffect(() => {
         const title = {
-            header : "Sign Up",
-            footer : "Footer of Sign Up"
+            header : "Change Password",
+            footer : "Footer of Change Password"
         }
         props.setHeaderAndFooter(title)
     }, [])
@@ -53,17 +41,13 @@ function ChangePasswordBody(props){
         <div className="signup-body">
             <form onSubmit={submitSignUp}>
                 <input type="text"
-                    placeholder="User name"
-                    value={state.user_name}
-                    onChange={onChangeUsername}/>
+                    placeholder="Old Password"
+                    value={state.old_password}
+                    onChange={onChangeOldPassword}/>
                 <input type="text"
-                    placeholder="Password"
-                    value={state.password}
-                    onChange={onChangePassword}/>
-                <input type="text"
-                    placeholder="Confirm Password"
-                    value={state.confirm_password}
-                    onChange={onChangeConfirmPassword}/>
+                    placeholder="New Password"
+                    value={state.new_password}
+                    onChange={onChangeNewPassword}/>
                 <input type="submit"
                     value="Submit"/>
             </form>
