@@ -21,12 +21,7 @@ function LoginBody(props){
     }
 
     const submitLogin = (e) => {
-        e.preventDefault();
         props.submitLogin(state);
-        setState({
-            user_name : "",
-            password : "",
-        })
     }
 
     useEffect(() => {

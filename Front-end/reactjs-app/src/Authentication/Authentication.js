@@ -5,18 +5,19 @@ import SignUpBody from "./SignUp/SignUpBody";
 import ChangePasswordBody from "./ChangePassword/ChangePasswordBody"
 import Header from "./Header-Footer/Header";
 import Footer from "./Header-Footer/Footer";
+import ListWallets from "../Wallet/ListWallets"
 
 import {
   BrowserRouter,
   Switch,
   Route,
   Link,
-  useRouteMatch,
+  useHistory,
 } from "react-router-dom";
 import axios from "axios";
 
 function Authentication() {
-  // let match = useRouteMatch();
+  const history = useHistory();
 
   const [state, setState] = useState({
     header: "",
@@ -25,11 +26,13 @@ function Authentication() {
 
   const submitLogin = (data) => {
     axios.post("http://localhost:8080/user/login", data).then((response) => {
-      console.log(response.data);
-      setState({
-        header: state.header,
-        footer: response.data.message,
-      });
+      console.log(response.data)
+      // if (response.data.result != null){
+        history.push("/wallet/list/" + response.data.result.id);
+      // }
+      // else{
+      //   window.alert(response.data.message)
+      // }
     });
   };
 
@@ -102,7 +105,12 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/">Inside home page!</Route>
+          <Route path="/wallet/list/:userId">
+            <ListWallets>
+
+            </ListWallets>
+          </Route>
+          <Route exact path="/">This is Home!</Route>
         </Switch>
       </div>
     </BrowserRouter>
