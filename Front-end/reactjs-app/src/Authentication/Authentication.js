@@ -5,19 +5,22 @@ import SignUpBody from "./SignUp/SignUpBody";
 import ChangePasswordBody from "./ChangePassword/ChangePasswordBody"
 import Header from "./Header-Footer/Header";
 import Footer from "./Header-Footer/Footer";
+import ListWallets from "../Wallet/ListWallets"
 
 import {
   BrowserRouter,
+  Router,
   Switch,
   Route,
   Link,
   useRouteMatch,
+  useHistory,
 } from "react-router-dom";
 import axios from "axios";
 
 function Authentication() {
   // let match = useRouteMatch();
-
+  let history = useHistory()
   const [state, setState] = useState({
     header: "",
     footer: "",
@@ -26,10 +29,13 @@ function Authentication() {
   const submitLogin = (data) => {
     axios.post("http://localhost:8080/user/login", data).then((response) => {
       console.log(response.data);
-      setState({
-        header: state.header,
-        footer: response.data.message,
-      });
+      if (response.data.result !== null){
+        // window.alert(response.data.result.id)
+        history.push("/wallet/list/" + response.data.result.id) 
+      }
+      else{
+        window.alert(response.data.message)
+      }
     });
   };
 
@@ -78,7 +84,7 @@ function Authentication() {
         </div>
 
         <Switch>
-          <Route path="/user/login">
+          <Route exact path="/user/login">
             <Header header={state.header} />
             <LoginBody
               setHeaderAndFooter={setHeaderAndFooter}
@@ -86,7 +92,7 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/user/signup">
+          <Route exact path="/user/signup">
             <Header header={state.header} />
             <SignUpBody
               setHeaderAndFooter={setHeaderAndFooter}
@@ -94,7 +100,7 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/user/changepassword">
+          <Route exact path="/user/changepassword">
             <Header header={state.header} />
             <ChangePasswordBody
               setHeaderAndFooter={setHeaderAndFooter}
@@ -102,7 +108,10 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/">Inside home page!</Route>
+          <Route exact path="/wallet/list/:userId">
+            <ListWallets />
+          </Route>
+          <Route exact path="/">Inside home page!</Route>
         </Switch>
       </div>
     </BrowserRouter>

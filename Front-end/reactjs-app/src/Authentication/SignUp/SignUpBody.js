@@ -47,6 +47,7 @@ function SignUpBody(props){
             footer : "Footer of Sign Up"
         }
         props.setHeaderAndFooter(title)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return(
