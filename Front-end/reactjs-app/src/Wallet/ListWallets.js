@@ -30,14 +30,19 @@ function ListWallets(){
     
     return(
         <div>
-            
-
             <h1>Inside list wallet, user id = {userId}</h1>
+            <table>
+            <tr>
+                <th>Wallet id</th>
+                <th>Wallet name</th>
+                <th>total amount</th>
+            </tr>
             <>
             {wallets.map((wallet) => (
                 <Wallet key={wallet.id} wallet={wallet} />
             ))}
             </>
+            </table>
         </div>
     )
 }

@@ -1,14 +1,18 @@
 
-import {Link} from "react-router-dom";
+import {useHistory} from "react-router-dom";
 function Record({record}){
-  return (
-    <div>
-      <h3>
-      <Link to="/record/list/">{record.id} : {record.title} - {record.amount} VND</Link>
-        
-      </h3>
-    </div>
-  )
+    let history = useHistory()
+    const redirect = () => {
+        history.push(`/record/detail/${record.id}`)
+    }
+
+    return (
+        <tr onClick={redirect}>
+            <td>{record.id}</td>
+            <td>{record.title}</td>
+            <td>{record.amount}</td>
+        </tr>
+    )
 }
 
 export default Record;

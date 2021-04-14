@@ -1,13 +1,19 @@
 
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
+
+
 function Wallet({wallet}){
-  return (
-    <div>
-      <h3>
-      <Link to={"/record/list/" + wallet.id} params={{ walletId: wallet.id }}>{wallet.wallet_name} - {wallet.total_amount}</Link>
-      </h3>
-    </div>
-  )
+    let history = useHistory()
+    const redirect = () => {
+        history.push(`/record/list/${wallet.id}`)
+    }
+    return (
+        <tr onClick={redirect}>
+            <td>{wallet.id}</td>
+            <td>{wallet.wallet_name}</td>
+            <td>{wallet.total_amount}</td>
+        </tr>
+    )
 }
 
 export default Wallet;

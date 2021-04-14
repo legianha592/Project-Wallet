@@ -65,9 +65,17 @@ function ListRecords(){
             {showAddRecord && <AddRecord onAdd={addRecord} />}
             <h1>Inside list wallet, wallet id = {walletId}</h1>
             <>
-            {records.map((record) => (
-                <Record key={record.id} record={record} />
-            ))}
+            <table>
+                <tr>
+                    <th>Record id</th>
+                    <th>Record title</th>
+                    <th>Amunt</th>
+                </tr>
+                {records.map((record) => (
+                    <Record key={record.id} record={record} />
+                ))}
+            </table>
+            
             </>
         </div>
     )
