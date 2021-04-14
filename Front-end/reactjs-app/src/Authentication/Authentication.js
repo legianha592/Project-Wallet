@@ -6,7 +6,7 @@ import ChangePasswordBody from "./ChangePassword/ChangePasswordBody"
 import Header from "./Header-Footer/Header";
 import Footer from "./Header-Footer/Footer";
 import ListWallets from "../Wallet/ListWallets"
-
+import { USER_ROOT_URL } from "../utils/constants";
 import {
   Router,
   Switch,
@@ -15,6 +15,7 @@ import {
   useHistory,
 } from "react-router-dom";
 import axios from "axios";
+import ListRecords from "../Record/ListRecords";
 
 function Authentication() {
   let history = useHistory()
@@ -24,7 +25,7 @@ function Authentication() {
   });
 
   const submitLogin = (data) => {
-    axios.post("http://localhost:8080/user/login", data).then((response) => {
+    axios.post(USER_ROOT_URL + "/login", data).then((response) => {
       console.log(response.data)
       if (response.data.result != null){
         history.push("/wallet/list/" + response.data.result.id);
@@ -36,7 +37,7 @@ function Authentication() {
   };
 
   const submitSignUp = (data) => {
-    axios.post("http://localhost:8080/user/signup", data).then((response) => {
+    axios.post(USER_ROOT_URL + "/signup", data).then((response) => {
       console.log(response.data);
       setState({
         header: state.header,
@@ -46,7 +47,7 @@ function Authentication() {
   };
 
   const submitChangePassword = (data) => {
-    axios.post("http://localhost:8080/user/changepassword", data).then((response) => {
+    axios.post(USER_ROOT_URL + "/changepassword", data).then((response) => {
       console.log(response.data);
       setState({
         header : state.header,
@@ -106,6 +107,9 @@ function Authentication() {
           </Route>
           <Route exact path="/wallet/list/:userId">
             <ListWallets />
+          </Route>
+          <Route exact path="/record/list/:walletId">
+            <ListRecords />
           </Route>
           <Route exact path="/">Inside home page!</Route>
         </Switch>
