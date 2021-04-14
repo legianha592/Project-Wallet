@@ -35,6 +35,7 @@ function ChangePasswordBody(props){
             footer : "Footer of Change Password"
         }
         props.setHeaderAndFooter(title)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return(

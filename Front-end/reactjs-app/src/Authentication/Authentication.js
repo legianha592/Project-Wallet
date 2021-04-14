@@ -9,6 +9,7 @@ import ListWallets from "../Wallet/ListWallets"
 
 import {
   BrowserRouter,
+  Router,
   Switch,
   Route,
   Link,
@@ -17,8 +18,8 @@ import {
 import axios from "axios";
 
 function Authentication() {
-  const history = useHistory();
-
+  // let match = useRouteMatch();
+  let history = useHistory()
   const [state, setState] = useState({
     header: "",
     footer: "",
@@ -81,7 +82,7 @@ function Authentication() {
         </div>
 
         <Switch>
-          <Route path="/user/login">
+          <Route exact path="/user/login">
             <Header header={state.header} />
             <LoginBody
               setHeaderAndFooter={setHeaderAndFooter}
@@ -89,7 +90,7 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/user/signup">
+          <Route exact path="/user/signup">
             <Header header={state.header} />
             <SignUpBody
               setHeaderAndFooter={setHeaderAndFooter}
@@ -97,7 +98,7 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/user/changepassword">
+          <Route exact path="/user/changepassword">
             <Header header={state.header} />
             <ChangePasswordBody
               setHeaderAndFooter={setHeaderAndFooter}
@@ -105,12 +106,10 @@ function Authentication() {
             />
             <Footer footer={state.footer} />
           </Route>
-          <Route path="/wallet/list/:userId">
-            <ListWallets>
-
-            </ListWallets>
+          <Route exact path="/wallet/list/:userId">
+            <ListWallets />
           </Route>
-          <Route exact path="/">This is Home!</Route>
+          <Route exact path="/">Inside home page!</Route>
         </Switch>
       </div>
     </BrowserRouter>

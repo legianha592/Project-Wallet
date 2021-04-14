@@ -21,7 +21,12 @@ function LoginBody(props){
     }
 
     const submitLogin = (e) => {
+        // e.preventDefault();
         props.submitLogin(state);
+        // setState({
+        //     user_name : "",
+        //     password : "",
+        // })
     }
 
     useEffect(() => {
@@ -30,6 +35,7 @@ function LoginBody(props){
             footer : "Footer of Login"
         }
         props.setHeaderAndFooter(title)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return(
