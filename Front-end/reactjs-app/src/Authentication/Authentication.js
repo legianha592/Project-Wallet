@@ -8,7 +8,6 @@ import Footer from "./Header-Footer/Footer";
 import ListWallets from "../Wallet/ListWallets"
 
 import {
-  BrowserRouter,
   Router,
   Switch,
   Route,
@@ -18,7 +17,6 @@ import {
 import axios from "axios";
 
 function Authentication() {
-  // let match = useRouteMatch();
   let history = useHistory()
   const [state, setState] = useState({
     header: "",
@@ -28,12 +26,12 @@ function Authentication() {
   const submitLogin = (data) => {
     axios.post("http://localhost:8080/user/login", data).then((response) => {
       console.log(response.data)
-      // if (response.data.result != null){
+      if (response.data.result != null){
         history.push("/wallet/list/" + response.data.result.id);
-      // }
-      // else{
-      //   window.alert(response.data.message)
-      // }
+      }
+      else{
+        window.alert(response.data.message)
+      }
     });
   };
 
@@ -65,7 +63,7 @@ function Authentication() {
   };
 
   return (
-    <BrowserRouter>
+    <Router history={history}>
       <div>
         <div>
           <ul>
@@ -112,7 +110,7 @@ function Authentication() {
           <Route exact path="/">Inside home page!</Route>
         </Switch>
       </div>
-    </BrowserRouter>
+    </Router>
   );
 }
 

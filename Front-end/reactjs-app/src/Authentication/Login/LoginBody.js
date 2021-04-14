@@ -21,7 +21,7 @@ function LoginBody(props){
     }
 
     const submitLogin = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         props.submitLogin(state);
         // setState({
         //     user_name : "",
