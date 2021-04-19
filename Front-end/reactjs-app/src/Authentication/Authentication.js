@@ -16,6 +16,7 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import ListRecords from "../Record/ListRecords";
+import { Container, Typography } from "@material-ui/core";
 
 function Authentication() {
   let history = useHistory()
@@ -27,10 +28,10 @@ function Authentication() {
   const submitLogin = (data) => {
     axios.post(USER_ROOT_URL + "/login", data).then((response) => {
       console.log(response.data)
-      if (response.data.result != null){
+      if (response.data.result != null) {
         history.push("/wallet/list/" + response.data.result.id);
       }
-      else{
+      else {
         window.alert(response.data.message)
       }
     });
@@ -50,8 +51,8 @@ function Authentication() {
     axios.post(USER_ROOT_URL + "/changepassword", data).then((response) => {
       console.log(response.data);
       setState({
-        header : state.header,
-        footer : response.data.message,
+        header: state.header,
+        footer: response.data.message,
       })
     })
   }
@@ -65,55 +66,41 @@ function Authentication() {
 
   return (
     <Router history={history}>
-      <div>
-        <div>
-          <ul>
-            <li>
-              <Link to="/user/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/user/signup">Sign Up</Link>
-            </li>
-            <li>
-              <Link to="/user/changepassword">Change Password</Link>
-            </li>
-          </ul>
-        </div>
+      <>
+        <Header header={state.header} />
+        <main>
 
-        <Switch>
-          <Route exact path="/user/login">
-            <Header header={state.header} />
-            <LoginBody
-              setHeaderAndFooter={setHeaderAndFooter}
-              submitLogin={submitLogin}
-            />
+          <Switch>
+            <Route exact path="/user/login">
+              <LoginBody
+                setHeaderAndFooter={setHeaderAndFooter}
+                submitLogin={submitLogin}
+              />
+            </Route>
+            <Route exact path="/user/signup">
+              <SignUpBody
+                setHeaderAndFooter={setHeaderAndFooter}
+                submitSignUp={submitSignUp}
+              />
+            </Route>
+            <Route exact path="/user/changepassword">
+              <ChangePasswordBody
+                setHeaderAndFooter={setHeaderAndFooter}
+                submitChangePassword={submitChangePassword}
+              />
+            </Route>
+            <Route exact path="/wallet/list/:userId">
+              <ListWallets />
+            </Route>
+            <Route exact path="/record/list/:walletId">
+              <ListRecords />
+            </Route>
+            <Route exact path="/">Inside home page!</Route>
             <Footer footer={state.footer} />
-          </Route>
-          <Route exact path="/user/signup">
-            <Header header={state.header} />
-            <SignUpBody
-              setHeaderAndFooter={setHeaderAndFooter}
-              submitSignUp={submitSignUp}
-            />
-            <Footer footer={state.footer} />
-          </Route>
-          <Route exact path="/user/changepassword">
-            <Header header={state.header} />
-            <ChangePasswordBody
-              setHeaderAndFooter={setHeaderAndFooter}
-              submitChangePassword={submitChangePassword}
-            />
-            <Footer footer={state.footer} />
-          </Route>
-          <Route exact path="/wallet/list/:userId">
-            <ListWallets />
-          </Route>
-          <Route exact path="/record/list/:walletId">
-            <ListRecords />
-          </Route>
-          <Route exact path="/">Inside home page!</Route>
-        </Switch>
-      </div>
+          </Switch>
+        </main>
+
+      </>
     </Router>
   );
 }
