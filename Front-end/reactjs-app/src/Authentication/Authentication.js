@@ -34,8 +34,7 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 }));
-export default function Authentication() {
-
+export default function Authentication(props) {
   const classes = useStyles()
   let history = useHistory()
   const [state, setState] = useState({
@@ -86,7 +85,18 @@ export default function Authentication() {
     <Router history={history}>
       <>
         <div className={classes.root}>
-          <Header header={state.header} />
+          <Switch>
+            <Route exact path="/user/login">
+              <Header header={state.header} />
+            </Route>
+            <Route exact path="/user/signup">
+              <Header header={state.header} />
+            </Route>
+            <Route exact path="/user/changepassword">
+              <Header header={state.header} />
+            </Route>
+          </Switch>
+
           <main className={classes.main}>
             <Switch>
               <Route exact path="/user/login">
@@ -98,32 +108,15 @@ export default function Authentication() {
               <Route exact path="/user/changepassword">
                 <ChangePasswordBody setHeaderAndFooter={setHeaderAndFooter} submitChangePassword={submitChangePassword} />
               </Route>
-              <Route exact path="/wallet/list/:userId"> <Dashboard />  </Route>
+              <Route exact path="/wallet/list/:userId"> <Dashboard /></Route>
               <Route exact path="/record/list/:walletId">
                 <ListRecords />
               </Route>
-              <Route exact path="/">Inside home page!</Route>
-            </Switch>
-            <Switch>
-              <Route exact path="/user/login">
-                <LoginBody setHeaderAndFooter={setHeaderAndFooter} submitLogin={submitLogin} />
-              </Route>
-              <Route exact path="/user/signup">
-                <SignUpBody setHeaderAndFooter={setHeaderAndFooter} submitSignUp={submitSignUp} />
-              </Route>
-              <Route exact path="/user/changepassword">
-                <ChangePasswordBody setHeaderAndFooter={setHeaderAndFooter} submitChangePassword={submitChangePassword} />
-              </Route>
-              <Route exact path="/wallet/list/:userId"> <Dashboard />  </Route>
-              <Route exact path="/record/list/:walletId">
-                <ListRecords />
-              </Route>
-              <Route exact path="/">Inside home page!</Route>
+              <Route exact path="/dashboard"> <Dashboard /> </Route>
             </Switch>
           </main>
           <Footer footer={state.footer} />
         </div>
-
       </>
     </Router>
   );
