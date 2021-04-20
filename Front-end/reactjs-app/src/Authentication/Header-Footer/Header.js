@@ -4,19 +4,6 @@ import React from "react";
 
 function Header(props) {
 
-    //     <div>
-    //     <ul>
-    //       <li>
-    //         <Link to="/user/login">Login</Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/user/signup">Sign Up</Link>
-    //       </li>
-    //       <li>
-    //         <Link to="/user/changepassword">Change Password</Link>
-    //       </li>
-    //     </ul>
-    //   </div>
     return (
         <>
             <CssBaseline />
