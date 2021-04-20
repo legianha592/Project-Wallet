@@ -1,6 +1,8 @@
 package org.example.RestAPI.finalstring;
 
 public class FinalMessage {
+    //Cookie
+    public static final String LOGIN_COOKIE = "logincookie";
     //Đăng kí
     public static final String SIGNUP_SUCCESS = "Đăng kí thành công";
     public static final String INVALID_USERNAME_LENGTH = "Độ dài tên không hợp lệ";
