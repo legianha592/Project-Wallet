@@ -11,6 +11,7 @@ import org.example.RestAPI.response.importer.UserExcelImporterResponse;
 import org.example.RestAPI.response.user.ChangePasswordResponse;
 import org.example.RestAPI.response.user.LoginResponse;
 import org.example.RestAPI.response.user.SignupResponse;
+import org.example.RestAPI.service.IAuthenticationService;
 import org.example.RestAPI.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
@@ -22,6 +23,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,6 +32,9 @@ import java.util.Optional;
 public class UserController {
     @Autowired
     IUserService userService;
+
+    @Autowired
+    IAuthenticationService authenticationService;
 
     @GetMapping("/all")
     public List<User> findAll(){
@@ -63,7 +68,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest request){
+    public ResponseEntity login(@RequestBody LoginRequest request, HttpServletResponse response){
 //        System.out.println("request = " + request.getUser_name());
 //        System.out.println("request = " + request.getPassword());
 //        System.out.println("request = " + request.isRememberMe());
@@ -77,6 +82,9 @@ public class UserController {
                 message = new Message<>(FinalMessage.WRONG_PASSWORD, null);
             }
             else{
+                if (request.isRemember_me()){
+                    authenticationService.setLoggedInCookie(response, findUser.get());
+                }
                 message = new Message<>(FinalMessage.LOGIN_SUCCESS,
                         new LoginResponse(findUser.get(), request.isRemember_me()));
             }
