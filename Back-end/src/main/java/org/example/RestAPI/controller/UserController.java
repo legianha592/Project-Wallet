@@ -64,7 +64,9 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest request){
-//        System.out.println(user.getUser_name());
+//        System.out.println("request = " + request.getUser_name());
+//        System.out.println("request = " + request.getPassword());
+//        System.out.println("request = " + request.isRememberMe());
         Optional<User> findUser = userService.findByUser_name(request.getUser_name());
         Message<LoginResponse> message;
         if (findUser.isEmpty()){
@@ -76,7 +78,7 @@ public class UserController {
             }
             else{
                 message = new Message<>(FinalMessage.LOGIN_SUCCESS,
-                        new LoginResponse(findUser.get(), request.isRememberMe()));
+                        new LoginResponse(findUser.get(), request.isRemember_me()));
             }
         }
         return new ResponseEntity<Message<LoginResponse>>(message, HttpStatus.OK);

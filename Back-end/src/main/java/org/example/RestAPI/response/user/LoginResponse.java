@@ -23,13 +23,13 @@ public class LoginResponse {
         double total_amount;
     }
 
-    public LoginResponse(User user, boolean isRememberMe){
+    public LoginResponse(User user, boolean remember_me){
         this.id = user.getId();
-        this.isRememberMe = isRememberMe;
+        this.remember_me = remember_me;
         this.addList_wallet(user);
     }
     private long id;
-    private boolean isRememberMe;
+    private boolean remember_me;
     private List<MyWallet> list_wallet = new ArrayList<>();
 
     private void addList_wallet(User user){
