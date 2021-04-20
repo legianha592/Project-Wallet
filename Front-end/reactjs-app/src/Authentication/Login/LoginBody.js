@@ -98,14 +98,6 @@ export default function LoginBody(props) {
         // })
     }
 
-    useEffect(() => {
-        const title = {
-            header: "Login",
-            footer: "Footer of Login"
-        }
-        props.setHeaderAndFooter(title)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
 
     return (
         <Container component="main" maxWidth="xs">

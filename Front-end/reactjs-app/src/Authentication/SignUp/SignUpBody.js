@@ -74,15 +74,6 @@ export default function SignUpBody(props) {
         })
     }
 
-    useEffect(() => {
-        const title = {
-            header: "Sign Up",
-            footer: "Footer of Sign Up"
-        }
-        props.setHeaderAndFooter(title)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
