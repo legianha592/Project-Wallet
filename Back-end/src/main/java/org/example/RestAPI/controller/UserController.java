@@ -76,7 +76,7 @@ public class UserController {
             }
             else{
                 message = new Message<>(FinalMessage.LOGIN_SUCCESS,
-                        new LoginResponse(findUser.get()));
+                        new LoginResponse(findUser.get(), request.isRememberMe()));
             }
         }
         return new ResponseEntity<Message<LoginResponse>>(message, HttpStatus.OK);
