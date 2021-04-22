@@ -2,20 +2,14 @@ import React, { useState } from "react";
 
 import LoginBody from "./Login/LoginBody";
 import SignUpBody from "./SignUp/SignUpBody";
-import ChangePasswordBody from "./ChangePassword/ChangePasswordBody"
 import Header from "./Header-Footer/Header";
 import Footer from "./Header-Footer/Footer";
 import { USER_ROOT_URL } from "../utils/constants";
 import {
-  Router,
-  Switch,
   Route,
-  useHistory,
 } from "react-router-dom";
 import axios from "axios";
-import ListRecords from "../Record/ListRecords";
 import { makeStyles } from "@material-ui/core";
-import Dashboard from "../Dashboard/Dashboard";
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',

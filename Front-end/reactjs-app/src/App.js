@@ -2,7 +2,7 @@ import React from "react";
 import { Redirect, Route, Router, Switch, useHistory } from "react-router";
 import { createBrowserHistory } from 'history'
 import Authentication from "./Authentication/Authentication";
-import Dashboard from "./Dashboard/Dashboard";
+import Dashboard from "./Dashboard/View/Dashboard";
 
 export const myHistory = createBrowserHistory()
 
