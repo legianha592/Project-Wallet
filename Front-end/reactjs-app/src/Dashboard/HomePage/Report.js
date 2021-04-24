@@ -5,8 +5,6 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from '../View/Chart';
-
-import Orders from '../View/Orders';
 import Deposits from '../View/Deposits';
 
 const useStyles = makeStyles((theme) => ({
@@ -26,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Home() {
+export default function Report() {
 
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
@@ -44,12 +42,6 @@ export default function Home() {
                 <Grid item xs={12} md={4} lg={3}>
                     <Paper className={fixedHeightPaper}>
                         <Deposits />
-                    </Paper>
-                </Grid>
-                {/* Recent Orders */}
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                        <Orders />
                     </Paper>
                 </Grid>
             </Grid>

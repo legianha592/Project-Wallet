@@ -33,15 +33,15 @@ export default function MainSideMenu() {
                         <ListItemText primary="Dashboard" />
                     </ListItem>
                 </Link>
-                <Link to="/dashboard/transaction" style={{ textDecoration: 'none' }}>
+                <Link to="/dashboard/records" style={{ textDecoration: 'none', color: "black" }}>
                     <ListItem button>
                         <ListItemIcon>
                             <ShoppingCartIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Transaction" />
+                        <ListItemText primary="Records" />
                     </ListItem>
                 </Link>
-                <Link to="/dashboard/report" style={{ textDecoration: 'none' }}>
+                <Link to="/dashboard/report" style={{ textDecoration: 'none', color: "black" }}>
                     <ListItem button>
                         <ListItemIcon>
                             <ShoppingCartIcon />
