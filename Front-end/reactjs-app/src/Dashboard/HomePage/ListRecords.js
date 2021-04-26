@@ -3,7 +3,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import Orders from '../View/Orders';
+import { getUser } from '../../utils/UserManager';
+import Records from '../View/Records';
 
 
 
@@ -24,6 +25,9 @@ const useStyles = makeStyles((theme) => ({
 export default function ListRecord() {
 
     const classes = useStyles();
+    var user = getUser()
+    console.log(user)
+
 
     return (
         <Container maxWidth="lg" className={classes.container}>
@@ -31,7 +35,7 @@ export default function ListRecord() {
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Orders />
+                        <Records />
                     </Paper>
                 </Grid>
             </Grid>

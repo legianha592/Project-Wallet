@@ -5,9 +5,8 @@ import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Chart from '../View/Chart';
-
-import Orders from '../View/Orders';
 import Deposits from '../View/Deposits';
+import Records from '../View/Records';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -49,7 +48,7 @@ export default function Home() {
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Orders />
+                        <Records />
                     </Paper>
                 </Grid>
             </Grid>

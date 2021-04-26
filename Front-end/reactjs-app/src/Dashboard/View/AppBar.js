@@ -11,6 +11,11 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MainSideMenu from './MainListItems'
+import getUser from '../../utils/UserManager';
+import { useEffect } from 'react';
+import { getWallets } from '../../services/WalletService';
+import { Button } from '@material-ui/core';
+import { setCurrentWalletId } from '../../utils/WalletManager';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -86,9 +91,25 @@ export default function MainAppBar() {
     const handleDrawerOpen = () => {
         setOpen(true);
     };
+    const [wallets, setWallets] = React.useState([]);
     const handleDrawerClose = () => {
         setOpen(false);
     };
+    var user = getUser()
+    useEffect(() => {
+        const getWalletsFromServer = async () => {
+            const walletsFromServer = await getWallets()
+            console.log(walletsFromServer)
+            setWallets(walletsFromServer)
+        }
+
+        getWalletsFromServer()
+    }, [])
+
+    const opTapWallet = (wallet_id) => {
+        setCurrentWalletId(wallet_id)
+        
+    }
 
     return (
         <>
@@ -103,14 +124,17 @@ export default function MainAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
-                        Dashboard
-                    </Typography>
-                    <IconButton color="inherit">
-                        <Badge badgeContent={4} color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
+                    {wallets.map((wallet) => (
+                        <Button
+                            key={wallet.id}
+                            component="h1"
+                            variant="h6"
+                            color="inherit"
+                            className={classes.title}
+                            onClick={opTapWallet(wallet.id)}>
+                            {wallet.wallet_name}
+                        </Button>
+                    ))}
                 </Toolbar>
             </AppBar>
             <Drawer

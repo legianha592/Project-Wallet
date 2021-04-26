@@ -10,6 +10,9 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core";
+import Cookie from 'universal-cookie'
+
+
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -29,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Authentication = (props) => {
   const classes = useStyles()
-
+  const cookie = new Cookie()
   const [state, setState] = useState({
     header: "",
     footer: "",
@@ -39,6 +42,7 @@ const Authentication = (props) => {
     axios.post(USER_ROOT_URL + "/login", data).then((response) => {
       console.log(response.data)
       if (response.data.result != null) {
+        cookie.set("user", response.data.result)
         props.history.push("/dashboard")
       }
       else {
