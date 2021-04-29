@@ -28,7 +28,6 @@ function ListRecords(){
     const fetchRecords = async () => {
         const res = await fetch(`${RECORD_ROOT_URL}/list?walletId=${walletId}`)
         const data = await res.json()
-
         return data
     }
 
