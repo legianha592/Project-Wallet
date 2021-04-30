@@ -8,15 +8,11 @@ export const myHistory = createBrowserHistory()
 
 function App() {
 
-  const openDashboard = () => {
-    myHistory.push("/dashboard")
-  }
-
   return (
     <Router history={myHistory}>
       <Switch>
         <Redirect exact from="/" to="/user/login" />
-        <Route path="/user" > <Authentication onLoginSuccess={openDashboard} history={myHistory} /></Route>
+        <Route path="/user" > <Authentication /></Route>
         <Route path="/dashboard" > <Dashboard /></Route>
       </Switch>
     </Router>
