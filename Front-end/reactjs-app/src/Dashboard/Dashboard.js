@@ -9,6 +9,9 @@ import ListRecord from './HomePage/ListRecords';
 import Home from './HomePage/Home'
 import Report from './HomePage/Report';
 import MainAppBar from './View/AppBar';
+import { useEffect } from 'react';
+import { myHistory } from '../App';
+import { getUser } from '../utils/UserManager';
 
 function Copyright() {
   return (
@@ -39,6 +42,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      let checkUser = getUser()
+      if (checkUser === "null") {
+        myHistory.push("/user/login")
+      }
+    }
+
+    checkLogin()
+  }, [])
+
   return (
     <div className={classes.root}>
       <CssBaseline />

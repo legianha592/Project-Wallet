@@ -62,12 +62,10 @@ const Authentication = () => {
       });
     });
   };
-  console.log("haha")
-
   useEffect(() => {
     const checkLogin = async () => {
-      var user = getUser()
-      if (user != null) {
+      let checkUser = getUser()
+      if (checkUser !== "null") {
         myHistory.push("/dashboard")
       }
     }
