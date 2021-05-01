@@ -1,5 +1,4 @@
-import React from "react";
-import { Redirect, Route, Router, Switch, useHistory } from "react-router";
+import { Redirect, Route, Router, Switch } from "react-router";
 import { createBrowserHistory } from 'history'
 import Authentication from "./Authentication/Authentication";
 import Dashboard from "./Dashboard/Dashboard";
@@ -7,7 +6,6 @@ import Dashboard from "./Dashboard/Dashboard";
 export const myHistory = createBrowserHistory()
 
 function App() {
-
   return (
     <Router history={myHistory}>
       <Switch>

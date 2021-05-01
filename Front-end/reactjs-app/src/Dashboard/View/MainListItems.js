@@ -7,27 +7,21 @@ import DashboardIcon from '@material-ui/icons/Dashboard';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import { Link } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core';
 import { Divider, List } from '@material-ui/core';
 import { myHistory } from '../../App';
-import { setUser } from '../../utils/UserManager';
+import { removeUser } from '../../utils/UserManager';
+import { removeCurrentWalletId } from '../../utils/WalletManager';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-        flexDirection: 'column',
-        minHeight: '100vh',
-    },
-}));
 
-const logout = () => {
-    setUser(null)
-    myHistory.push("/user/login")
-}
 
 
 export default function MainSideMenu() {
-    const classes = useStyles()
+    const logout = () => {
+        removeUser()
+        removeCurrentWalletId()
+        myHistory.push("/user/login")
+    }
+
     return (
         <div>
             <List>

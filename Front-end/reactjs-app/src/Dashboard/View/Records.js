@@ -40,7 +40,7 @@ export default function Records() {
   const [records, setRecords] = useState([])
   useEffect(() => {
     const getRecordsFromServer = async () => {
-      const walletID = getCurrentWalletId()
+      const walletID = await getCurrentWalletId()
       const recordsFromServer = await getRecords(walletID)
       if (recordsFromServer != null) {
         setRecords(recordsFromServer)

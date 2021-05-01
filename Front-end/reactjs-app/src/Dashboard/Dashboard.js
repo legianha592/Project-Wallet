@@ -11,7 +11,8 @@ import Report from './HomePage/Report';
 import MainAppBar from './View/AppBar';
 import { useEffect } from 'react';
 import { myHistory } from '../App';
-import { getUser } from '../utils/UserManager';
+import { getUser, isLoggedIn } from '../utils/UserManager';
+import Checkout from './CreateWallet/Checkout';
 
 function Copyright() {
   return (
@@ -45,8 +46,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     const checkLogin = async () => {
-      let checkUser = getUser()
-      if (checkUser === "null") {
+      let isLogin = await isLoggedIn()
+      if (!isLogin) {
         myHistory.push("/user/login")
       }
     }
@@ -63,6 +64,7 @@ export default function Dashboard() {
         <Route path="/dashboard/home"><Home /></Route>
         <Route path="/dashboard/records"><ListRecord /></Route>
         <Route path="/dashboard/report"><Report /></Route>
+        <Route path="/dashboard/createWallet"><Checkout /></Route>
       </main>
     </div>
   );
