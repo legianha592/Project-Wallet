@@ -12,7 +12,7 @@ import MainAppBar from './View/AppBar';
 import { useEffect } from 'react';
 import { myHistory } from '../App';
 import { getUser, isLoggedIn } from '../utils/UserManager';
-import Checkout from './Form/Checkout';
+import FormCreateWallet from './Form/FormCreateWallet';
 
 function Copyright() {
   return (

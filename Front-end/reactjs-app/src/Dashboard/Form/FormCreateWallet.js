@@ -48,6 +48,11 @@ export default function FormCreateWallet() {
     const classes = useStyles();
     const [walletName, setWalletName] = React.useState('')
     const handleAddWallet = async () => {
+        if (!walletName) {
+            alert('Wallet name cannot be empty')
+            return
+        }
+
         let result = await addWallet(walletName)
         console.log(result)
     };

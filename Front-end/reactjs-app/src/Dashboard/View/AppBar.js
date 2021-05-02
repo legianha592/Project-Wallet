@@ -15,7 +15,7 @@ import getUser from '../../utils/UserManager';
 import { useEffect } from 'react';
 import { getWallets } from '../../services/WalletService';
 import { Button, Icon, Divider } from '@material-ui/core';
-import { setCurrentWalletId } from '../../utils/WalletManager';
+import { getCurrentWalletId, setCurrentWalletId } from '../../utils/WalletManager';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import AddIcon from '@material-ui/icons/Add';
 import { myHistory } from '../../App';
@@ -103,6 +103,7 @@ export default function MainAppBar() {
         setOpen(true);
     };
     const [wallets, setWallets] = React.useState([]);
+    const [indexWallet, setIndexWallet] = React.useState([]);
     const handleDrawerClose = () => {
         setOpen(false);
     };
@@ -112,6 +113,15 @@ export default function MainAppBar() {
             const walletsFromServer = await getWallets()
             if (walletsFromServer !== undefined) {
                 setWallets(walletsFromServer)
+                let currentWalletID = await getCurrentWalletId()
+                console.log(currentWalletID)
+                if (currentWalletID !== undefined) {
+                    setIndexWallet(currentWalletID)
+                } else {
+                    setCurrentWalletId(walletsFromServer[0].id)
+                    setIndexWallet(walletsFromServer[0].id)
+                }
+
             }
             console.log("walletsFromServer", walletsFromServer)
 
@@ -121,8 +131,11 @@ export default function MainAppBar() {
     }, [])
 
     const opTapWallet = (wallet_id) => {
+        console.log(wallet_id)
         setCurrentWalletId(wallet_id)
+        setIndexWallet(wallet_id)
     }
+
     return (
         <>
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -153,9 +166,10 @@ export default function MainAppBar() {
                             key={wallet.id}
                             component="h1"
                             variant="contained"
-                            color="default"
+                            color={indexWallet === wallet.id ? "secondary" : "default"}
+
                             className={classes.walletButton}
-                            onClick={opTapWallet(wallet.id)}>
+                            onClick={() => { opTapWallet(wallet.id) }}>
                             <AccountBalanceWalletIcon />
                             {wallet.wallet_name}
                         </Button>
