@@ -22,7 +22,7 @@ export async function addRecord(record) {
     //record.amount = 1123
     //record.title = "ahaha";
 
-    record.wallet_id = getCurrentWalletId()
+    record.wallet_id = await getCurrentWalletId()
     record.typeRecord_id = 1
     //record.date =  "01/01/2021";
     //record.note = "test";

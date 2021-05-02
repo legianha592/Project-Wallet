@@ -12,7 +12,7 @@ import MainAppBar from './View/AppBar';
 import { useEffect } from 'react';
 import { myHistory } from '../App';
 import { getUser, isLoggedIn } from '../utils/UserManager';
-import Checkout from './CreateWallet/Checkout';
+import Checkout from './Form/Checkout';
 
 function Copyright() {
   return (
@@ -64,7 +64,7 @@ export default function Dashboard() {
         <Route path="/dashboard/home"><Home /></Route>
         <Route path="/dashboard/records"><ListRecord /></Route>
         <Route path="/dashboard/report"><Report /></Route>
-        <Route path="/dashboard/createWallet"><Checkout /></Route>
+        <Route path="/dashboard/createWallet"><FormCreateWallet /></Route>
       </main>
     </div>
   );

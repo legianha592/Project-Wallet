@@ -19,6 +19,7 @@ import { setCurrentWalletId } from '../../utils/WalletManager';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import AddIcon from '@material-ui/icons/Add';
 import { myHistory } from '../../App';
+import { Link } from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -122,10 +123,6 @@ export default function MainAppBar() {
     const opTapWallet = (wallet_id) => {
         setCurrentWalletId(wallet_id)
     }
-
-    const onTapCreateWallet = () => {
-        myHistory.push("/dashboard/createWallet")
-    }
     return (
         <>
             <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -139,14 +136,17 @@ export default function MainAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Button
-                        component="h1"
-                        variant="contained"
-                        onClick={onTapCreateWallet()}
-                        className={classes.walletButton}>
-                        <AddIcon />
-                        Create Wallet
+                    <Link to="/dashboard/createWallet" style={{ textDecoration: 'none', color: "black" }}>
+                        <Button
+
+                            component="h1"
+                            variant="contained"
+                            className={classes.walletButton}>
+                            <AddIcon />
+                            Create Wallet
                     </Button>
+                    </Link>
+
                     <Divider orientation="vertical" flexItem className={classes.appBarDivider} />
                     {wallets.map((wallet) => (
                         <Button
