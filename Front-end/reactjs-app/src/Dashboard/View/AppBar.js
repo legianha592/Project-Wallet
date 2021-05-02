@@ -151,13 +151,22 @@ export default function MainAppBar() {
                     </IconButton>
                     <Link to="/dashboard/createWallet" style={{ textDecoration: 'none', color: "black" }}>
                         <Button
-
                             component="h1"
                             variant="contained"
                             className={classes.walletButton}>
                             <AddIcon />
                             Create Wallet
-                    </Button>
+                        </Button>
+                    </Link>
+
+                    <Link to="/dashboard/createRecord" style={{ textDecoration: 'none', color: "black" }}>
+                        <Button
+                            component="h1"
+                            variant="contained"
+                            className={classes.walletButton}>
+                            <AddIcon />
+                            Create Record
+                        </Button>
                     </Link>
 
                     <Divider orientation="vertical" flexItem className={classes.appBarDivider} />

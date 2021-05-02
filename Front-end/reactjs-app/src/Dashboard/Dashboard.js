@@ -13,7 +13,7 @@ import { useEffect } from 'react';
 import { myHistory } from '../App';
 import { getUser, isLoggedIn } from '../utils/UserManager';
 import FormCreateWallet from './Form/FormCreateWallet';
-
+import FormCreateRecord from './Form/FormCreateRecord'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -65,6 +65,7 @@ export default function Dashboard() {
         <Route path="/dashboard/records"><ListRecord /></Route>
         <Route path="/dashboard/report"><Report /></Route>
         <Route path="/dashboard/createWallet"><FormCreateWallet /></Route>
+        <Route path="/dashboard/createRecord"><FormCreateRecord /></Route>
       </main>
     </div>
   );
