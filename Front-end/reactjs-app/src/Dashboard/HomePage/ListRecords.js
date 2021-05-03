@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
+        position: 'center'
     },
 }));
 

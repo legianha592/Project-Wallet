@@ -6,11 +6,14 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import List from '@material-ui/core/List';
 import Title from './Title';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { getRecords } from '../../services/RecordService';
 import { getCurrentWalletId } from '../../utils/WalletManager';
+import { ListItem } from '@material-ui/core/ListItem';
+import Record from './Record';
 // Generate Order Data
 function createData(id, date, name, shipTo, paymentMethod, amount) {
   return { id, date, name, shipTo, paymentMethod, amount };
@@ -31,6 +34,14 @@ function preventDefault(event) {
 const useStyles = makeStyles((theme) => ({
   seeMore: {
     marginTop: theme.spacing(3),
+  },
+  root: {
+    width: '100%',
+    //maxWidth: '36ch',
+    backgroundColor: theme.palette.background.paper,
+  },
+  inline: {
+    display: 'inline',
   },
 }));
 
@@ -53,7 +64,7 @@ export default function Records() {
 
   return (
     <React.Fragment>
-      <Title>Recent Records</Title>
+      {/* <Title>Recent Records</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
@@ -72,13 +83,27 @@ export default function Records() {
               <TableCell align="right">{record.amount}</TableCell>
             </TableRow>
           ))}
+          {records.map((record) => (
+            <TableRow key={record.id + 10000}>
+              <TableCell>{record.id}</TableCell>
+              <TableCell>{record.title}</TableCell>
+              <TableCell>{record.note}</TableCell>
+              <TableCell align="right">{record.amount}</TableCell>
+            </TableRow>
+          ))}
         </TableBody>
       </Table>
       <div className={classes.seeMore}>
         <Link color="primary" href="#" onClick={preventDefault}>
           See more orders
         </Link>
-      </div>
+      </div> */}
+      <List className={classes.root}>
+        {records.map((record) => (
+          <Record record={record} />
+        ))}
+      </List>
     </React.Fragment>
+
   );
 }
