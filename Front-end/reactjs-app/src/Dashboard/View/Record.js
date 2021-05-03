@@ -2,7 +2,6 @@
 import React from 'react';
 import { ListItem, ListItemAvatar, Avatar, Typography, Divider, ListItemText, ListItemSecondaryAction } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import NumberFormat from 'react-number-format';
 
 
 const useStyles = makeStyles((theme) => ({

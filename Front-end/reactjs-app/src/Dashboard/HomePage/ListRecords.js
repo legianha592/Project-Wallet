@@ -5,8 +5,10 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { getUser } from '../../utils/UserManager';
 import Records from '../View/Records';
-
-
+import { getRecords } from '../../services/RecordService';
+import { getCurrentWalletId } from '../../utils/WalletManager';
+import { Box } from '@material-ui/core';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -20,23 +22,93 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         position: 'center'
     },
+
+    topPaper: {
+        //padding: theme.spacing(2),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+        position: 'center',
+
+    },
 }));
 
 
 export default function ListRecord() {
 
     const classes = useStyles();
-    var user = getUser()
-    console.log(user)
+    const [records, setRecords] = React.useState([])
+    const [currentMonth, setCurrentMonth] = React.useState([])
+    const [currentYear, setCurrentYear] = React.useState([])
+    React.useEffect(() => {
+        const getRecordsFromServer = async () => {
+            const walletID = await getCurrentWalletId()
+            const recordsFromServer = await getRecords(walletID)
+            if (recordsFromServer != null) {
+                setRecords(recordsFromServer)
+            }
+            console.log(recordsFromServer)
+
+        }
+
+        const getCurrentDateTime = () => {
+            let today = new Date()
+            let year = today.getFullYear()
+            let month = today.getMonth()
+            console.log(year, month)
+            setCurrentMonth(month)
+            setCurrentYear(year)
+        }
+
+
+        getRecordsFromServer()
+        getCurrentDateTime()
+    }, [])
+
+    const today = Date.now();
 
 
     return (
         <Container maxWidth="lg" className={classes.container}>
-            <Grid container spacing={3}>
+            <Grid container >
+                <Grid item xs={12}>
+                    <Paper className={classes.topPaper} bgcolor="grey.300">
+                        <Box display="flex" justifyContent="center" p={1}>
+                            <Box just p={1} flexGrow={1} >
+                                <Button
+                                    fullWidth={true}
+                                    component="h1"
+                                    variant="text"
+                                    className={classes.walletButton}>
+                                    Previous Month
+                                </Button>
+                            </Box>
+                            <Box just p={1} flexGrow={1}>
+                                <Button
+                                    fullWidth={true}
+                                    component="h1"
+                                    variant="text"
+                                    className={classes.walletButton}>
+                                    {currentMonth}/{currentYear}
+                                </Button>
+                            </Box>
+                            <Box just p={1} flexGrow={1} >
+                                <Button
+                                    fullWidth={true}
+                                    component="h1"
+                                    variant="text"
+                                    className={classes.walletButton}>
+                                    Next Month
+                                </Button>
+                            </Box>
+                        </Box>
+                    </Paper>
+
+                </Grid>
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Records />
+                        <Records records={records} />
                     </Paper>
                 </Grid>
             </Grid>
