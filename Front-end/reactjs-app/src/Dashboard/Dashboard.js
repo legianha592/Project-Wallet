@@ -9,7 +9,11 @@ import ListRecord from './HomePage/ListRecords';
 import Home from './HomePage/Home'
 import Report from './HomePage/Report';
 import MainAppBar from './View/AppBar';
-
+import { useEffect } from 'react';
+import { myHistory } from '../App';
+import { getUser, isLoggedIn } from '../utils/UserManager';
+import FormCreateWallet from './Form/FormCreateWallet';
+import FormCreateRecord from './Form/FormCreateRecord'
 function Copyright() {
   return (
     <Typography variant="body2" color="textSecondary" align="center">
@@ -39,6 +43,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles();
+
+  useEffect(() => {
+    const checkLogin = async () => {
+      let isLogin = await isLoggedIn()
+      if (!isLogin) {
+        myHistory.push("/user/login")
+      }
+    }
+
+    checkLogin()
+  }, [])
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -48,6 +64,8 @@ export default function Dashboard() {
         <Route path="/dashboard/home"><Home /></Route>
         <Route path="/dashboard/records"><ListRecord /></Route>
         <Route path="/dashboard/report"><Report /></Route>
+        <Route path="/dashboard/createWallet"><FormCreateWallet /></Route>
+        <Route path="/dashboard/createRecord"><FormCreateRecord /></Route>
       </main>
     </div>
   );

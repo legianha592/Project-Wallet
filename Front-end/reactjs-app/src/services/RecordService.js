@@ -6,17 +6,23 @@ import { getCurrentWalletId } from '../utils/WalletManager';
 export default function RecordService() { }
 
 export async function getRecords(walletId) {
+    if (walletId == null) { return null }
     const res = await fetch(`${RECORD_ROOT_URL}/list?walletId=${walletId}`)
     const data = await res.json()
     console.log(walletId, data.result)
-    return data.result.list_record
+    if (data.result != null) {
+        return data.result.list_record
+    } else {
+        return null
+    }
+
 }
 
 export async function addRecord(record) {
     //record.amount = 1123
     //record.title = "ahaha";
 
-    record.wallet_id = getCurrentWalletId()
+    record.wallet_id = await getCurrentWalletId()
     record.typeRecord_id = 1
     //record.date =  "01/01/2021";
     //record.note = "test";

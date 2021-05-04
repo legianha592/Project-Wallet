@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import LoginBody from "./Login/LoginBody";
 import SignUpBody from "./SignUp/SignUpBody";
@@ -11,6 +11,8 @@ import {
 import axios from "axios";
 import { makeStyles } from "@material-ui/core";
 import Cookie from 'universal-cookie'
+import { isLoggedIn, setUser } from "../utils/UserManager";
+import { myHistory } from '../App';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -30,20 +32,19 @@ const useStyles = makeStyles((theme) => ({
       theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
   },
 }));
-const Authentication = (props) => {
+const Authentication = () => {
   const classes = useStyles()
-  const cookie = new Cookie()
   const [state, setState] = useState({
     header: "",
     footer: "",
   });
 
   const submitLogin = (data) => {
-    axios.post(USER_ROOT_URL + "/login", data).then((response) => {
+    axios.post(USER_ROOT_URL + "/login", data).then(function (response) {
       console.log(response.data)
       if (response.data.result != null) {
-        cookie.set("user", response.data.result)
-        props.history.push("/dashboard")
+        setUser(response.data.result)
+        myHistory.push("/dashboard/home")
       }
       else {
         window.alert(response.data.message)
@@ -60,7 +61,17 @@ const Authentication = (props) => {
       });
     });
   };
-  console.log("haha")
+  useEffect(() => {
+    const checkLogin = async () => {
+      let islogin = await isLoggedIn()
+      if (islogin) {
+        console.log(islogin)
+        myHistory.push("/dashboard/home")
+      }
+    }
+
+    checkLogin()
+  }, [])
   return (
     <>
       <div className={classes.root}>

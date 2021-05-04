@@ -14,13 +14,18 @@ import MainSideMenu from './MainListItems'
 import getUser from '../../utils/UserManager';
 import { useEffect } from 'react';
 import { getWallets } from '../../services/WalletService';
-import { Button } from '@material-ui/core';
-import { setCurrentWalletId } from '../../utils/WalletManager';
+import { Button, Icon, Divider } from '@material-ui/core';
+import { getCurrentWalletId, setCurrentWalletId } from '../../utils/WalletManager';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import AddIcon from '@material-ui/icons/Add';
+import { myHistory } from '../../App';
+import { Link } from 'react-router-dom';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
+        spacing: 8,
     },
     toolbarIcon: {
         display: 'flex',
@@ -49,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
     },
     menuButtonHidden: {
         display: 'none',
+    },
+    walletButton: {
+        marginRight: 8,
     },
     title: {
         flexGrow: 1,
@@ -82,6 +90,9 @@ const useStyles = makeStyles((theme) => ({
     fixedHeight: {
         height: 240,
     },
+    appBarDivider: {
+        marginRight: 8
+    }
 }));
 
 
@@ -92,23 +103,37 @@ export default function MainAppBar() {
         setOpen(true);
     };
     const [wallets, setWallets] = React.useState([]);
+    const [indexWallet, setIndexWallet] = React.useState([]);
     const handleDrawerClose = () => {
         setOpen(false);
     };
-    var user = getUser()
+
     useEffect(() => {
         const getWalletsFromServer = async () => {
             const walletsFromServer = await getWallets()
-            console.log(walletsFromServer)
-            setWallets(walletsFromServer)
+            if (walletsFromServer !== undefined) {
+                setWallets(walletsFromServer)
+                let currentWalletID = await getCurrentWalletId()
+                console.log(currentWalletID)
+                if (currentWalletID !== undefined) {
+                    setIndexWallet(currentWalletID)
+                } else {
+                    setCurrentWalletId(walletsFromServer[0].id)
+                    setIndexWallet(walletsFromServer[0].id)
+                }
+
+            }
+            console.log("walletsFromServer", walletsFromServer)
+
         }
 
         getWalletsFromServer()
     }, [])
 
     const opTapWallet = (wallet_id) => {
+        console.log(wallet_id)
         setCurrentWalletId(wallet_id)
-        
+        setIndexWallet(wallet_id)
     }
 
     return (
@@ -124,17 +149,42 @@ export default function MainAppBar() {
                     >
                         <MenuIcon />
                     </IconButton>
+                    <Link to="/dashboard/createWallet" style={{ textDecoration: 'none', color: "black" }}>
+                        <Button
+                            component="h1"
+                            variant="contained"
+                            className={classes.walletButton}>
+                            <AddIcon />
+                            Create Wallet
+                        </Button>
+                    </Link>
+
+                    <Link to="/dashboard/createRecord" style={{ textDecoration: 'none', color: "black" }}>
+                        <Button
+                            component="h1"
+                            variant="contained"
+                            className={classes.walletButton}>
+                            <AddIcon />
+                            Create Record
+                        </Button>
+                    </Link>
+
+                    <Divider orientation="vertical" flexItem className={classes.appBarDivider} />
                     {wallets.map((wallet) => (
                         <Button
                             key={wallet.id}
                             component="h1"
-                            variant="h6"
-                            color="inherit"
-                            className={classes.title}
-                            onClick={opTapWallet(wallet.id)}>
+                            variant="contained"
+                            color={indexWallet === wallet.id ? "secondary" : "default"}
+
+                            className={classes.walletButton}
+                            onClick={() => { opTapWallet(wallet.id) }}>
+                            <AccountBalanceWalletIcon />
                             {wallet.wallet_name}
                         </Button>
                     ))}
+                    <Icon className={classes.title}></Icon>
+
                 </Toolbar>
             </AppBar>
             <Drawer
