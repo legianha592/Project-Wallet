@@ -43,7 +43,9 @@ const Authentication = () => {
     axios.post(USER_ROOT_URL + "/login", data).then(function (response) {
       console.log(response.data)
       if (response.data.result != null) {
-        setUser(response.data.result)
+        if (response.data.result.remember_me){
+          setUser(response.data.result)
+        }
         myHistory.push("/dashboard/home")
       }
       else {
