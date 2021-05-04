@@ -73,12 +73,14 @@ export default function LoginBody(props) {
     const [state, setState] = useState({
         user_name: "",
         password: "",
+        remember_me: false
     })
 
     const onChangeUsername = (e) => {
         setState({
             user_name: e.target.value,
             password: state.password,
+            remember_me: state.remember_me,
         })
     }
 
@@ -86,11 +88,21 @@ export default function LoginBody(props) {
         setState({
             user_name: state.user_name,
             password: e.target.value,
+            remember_me: state.remember_me
+        })
+    }
+
+    const onChangeRememberMe = (e) => {
+        setState({
+            user_name: state.user_name,
+            password: state.password,
+            remember_me: !state.remember_me
         })
     }
 
     const submitLogin = (e) => {
         e.preventDefault();
+        console.log(state)
         props.submitLogin(state);
         // setState({
         //     user_name : "",
@@ -137,7 +149,7 @@ export default function LoginBody(props) {
                         onChange={onChangePassword}
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        control={<Checkbox value={state.remember_me} color="primary" onChange={onChangeRememberMe}/>}
                         label="Remember me"
                     />
                     <Button

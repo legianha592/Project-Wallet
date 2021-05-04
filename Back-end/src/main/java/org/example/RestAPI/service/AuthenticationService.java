@@ -20,7 +20,9 @@ public class AuthenticationService implements IAuthenticationService{
     public void setLoggedInCookie(HttpServletResponse response, User user) {
         Cookie loginCookie = new Cookie(FinalMessage.LOGIN_COOKIE, String.valueOf(user.getId()));
         loginCookie.setMaxAge(30 * 60);
+        loginCookie.setDomain("localhost");
         loginCookie.setPath("/");
+        System.out.println("cookie = " + loginCookie.getDomain() + " - " + loginCookie.getPath());
         response.addCookie(loginCookie);
     }
 

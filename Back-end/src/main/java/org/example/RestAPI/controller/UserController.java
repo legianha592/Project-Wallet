@@ -48,7 +48,6 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity addUser(@RequestBody SignupRequest request){
-//        System.out.println(request.getResult());
         Optional<User> findUser = userService.findByUser_name(request.getUser_name());
         Message<SignupResponse> message;
         if (findUser.isEmpty()){
@@ -69,9 +68,6 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody LoginRequest request, HttpServletResponse response){
-//        System.out.println("request = " + request.getUser_name());
-//        System.out.println("request = " + request.getPassword());
-//        System.out.println("request = " + request.isRememberMe());
         Optional<User> findUser = userService.findByUser_name(request.getUser_name());
         Message<LoginResponse> message;
         if (findUser.isEmpty()){

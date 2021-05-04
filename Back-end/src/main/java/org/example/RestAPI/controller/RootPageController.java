@@ -25,24 +25,13 @@ public class RootPageController {
     @GetMapping("/")
     public ResponseEntity getRootPage(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
-//        if (cookies != null){
-//            for (Cookie cookie : cookies){
-//                System.out.println(cookie.getName() + " - " + cookie.getPath() + " - " + cookie.getMaxAge());
-//            }
-//        }
-//        else{
-//            System.out.println("cookies is null");
-//        }
-
         User user = authenticationService.getLoggedInUser(request);
         Message<LoginResponse> message;
         if (user == null){
             message = new Message<>(FinalMessage.NO_USER, null);
-//            System.out.println("message = " + FinalMessage.NO_USER);
         }
         else{
             message = new Message<>(FinalMessage.LOGIN_SUCCESS, new LoginResponse(user, true));
-//            System.out.println("message = " + FinalMessage.LOGIN_SUCCESS);
         }
         return new ResponseEntity<Message<LoginResponse>>(message, HttpStatus.OK);
     }
