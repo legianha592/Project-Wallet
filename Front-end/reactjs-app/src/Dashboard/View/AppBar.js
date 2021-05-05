@@ -109,31 +109,33 @@ export default function MainAppBar() {
     };
 
     useEffect(() => {
+        const getIndexWalletId = async () => {
+            let id = await getCurrentWalletId()
+            console.log("getIndexWalletId: ", id)
+            setIndexWallet(parseInt(id))
+        }
+
         const getWalletsFromServer = async () => {
-            const walletsFromServer = await getWallets()
+            let walletsFromServer = await getWallets()
             if (walletsFromServer !== undefined) {
                 setWallets(walletsFromServer)
-                let currentWalletID = await getCurrentWalletId()
-                console.log(currentWalletID)
-                if (currentWalletID !== undefined) {
-                    setIndexWallet(currentWalletID)
-                } else {
-                    setCurrentWalletId(walletsFromServer[0].id)
-                    setIndexWallet(walletsFromServer[0].id)
-                }
-
             }
             console.log("walletsFromServer", walletsFromServer)
-
+            await getIndexWalletId()
         }
 
         getWalletsFromServer()
     }, [])
 
-    const opTapWallet = (wallet_id) => {
-        console.log(wallet_id)
+    const opTapWallet = async (wallet_id) => {
         setCurrentWalletId(wallet_id)
         setIndexWallet(wallet_id)
+        if (myHistory.location.pathname.includes("/dashboard/records")) {
+            console.log(myHistory.location.pathname, wallet_id)
+            myHistory.go(0)
+        }
+
+
     }
 
     return (
@@ -176,7 +178,6 @@ export default function MainAppBar() {
                             component="h1"
                             variant="contained"
                             color={indexWallet === wallet.id ? "secondary" : "default"}
-
                             className={classes.walletButton}
                             onClick={() => { opTapWallet(wallet.id) }}>
                             <AccountBalanceWalletIcon />

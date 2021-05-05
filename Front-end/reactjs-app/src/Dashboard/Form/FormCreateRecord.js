@@ -11,6 +11,7 @@ import { getCurrentWalletId } from '../../utils/WalletManager';
 import axios from "axios"
 import { myHistory } from '../../App';
 import { RECORD_ROOT_URL } from '../../utils/constants';
+import { useEffect } from 'react';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -56,6 +57,7 @@ export default function FormCreateRecord() {
     const [date, setDate] = React.useState('')
     const handleAddWallet = async () => {
         if (!amount || !note || !date || !title) {
+            console.log(date)
             alert('please fill out all required fields')
             return
         }
@@ -75,7 +77,8 @@ export default function FormCreateRecord() {
         }
         record.wallet_id = parseInt(walletId)
         record.typeRecord_id = 1;
-        //record.date =  "01/01/2021";
+        let d = new Date(date)
+        record.date = d.toLocaleDateString();
         //record.note = "test";
         console.log(record);
         axios.post(RECORD_ROOT_URL + "/create", record).then((response) => {
@@ -86,11 +89,11 @@ export default function FormCreateRecord() {
                 window.alert(response.data.message)
             }
         });
-
-
-
-
     }
+
+    useEffect(() => {
+        document.getElementById('date').valueAsDate = new Date();
+    }, [])
 
 
     return (

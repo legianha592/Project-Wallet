@@ -13,7 +13,7 @@ export async function getRecords(walletId) {
     if (data.result != null) {
         return data.result.list_record
     } else {
-        return null
+        return []
     }
 
 }

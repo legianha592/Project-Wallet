@@ -3,12 +3,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { getUser } from '../../utils/UserManager';
-import Records from '../View/Records';
 import { getRecords } from '../../services/RecordService';
 import { getCurrentWalletId } from '../../utils/WalletManager';
 import { Box } from '@material-ui/core';
 import { Button } from '@material-ui/core';
+import { List } from '@material-ui/core';
+import Record from './Record';
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -30,6 +30,17 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         position: 'center',
 
+    },
+    seeMore: {
+        marginTop: theme.spacing(3),
+    },
+    root: {
+        width: '100%',
+        //maxWidth: '36ch',
+        backgroundColor: theme.palette.background.paper,
+    },
+    inline: {
+        display: 'inline',
     },
 }));
 
@@ -108,7 +119,15 @@ export default function ListRecord() {
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
-                        <Records records={records} />
+                        <List className={classes.root}>
+
+                            {
+                                records === undefined ? "No data" :
+                                    records.map((record) => (
+                                        <Record record={record} />
+                                    ))
+                            }
+                        </List>
                     </Paper>
                 </Grid>
             </Grid>
