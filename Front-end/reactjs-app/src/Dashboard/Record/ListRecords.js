@@ -82,7 +82,7 @@ export default function ListRecord() {
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container >
-                <Grid item xs={12}>
+                {/* <Grid item xs={12}>
                     <Paper className={classes.topPaper} bgcolor="grey.300">
                         <Box display="flex" justifyContent="center" p={1}>
                             <Box just p={1} flexGrow={1} >
@@ -114,8 +114,7 @@ export default function ListRecord() {
                             </Box>
                         </Box>
                     </Paper>
-
-                </Grid>
+                </Grid> */}
                 {/* Recent Orders */}
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
