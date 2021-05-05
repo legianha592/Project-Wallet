@@ -47,15 +47,15 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Records({ records }) {
   const classes = useStyles();
-
-
-
   return (
     <React.Fragment>
       <List className={classes.root}>
-        {records.map((record) => (
-          <Record record={record} />
-        ))}
+
+        {
+          records === undefined ? "No data" :
+            records.map((record) => (
+              <Record record={record} />
+            ))}
       </List>
     </React.Fragment>
 
