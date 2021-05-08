@@ -5,6 +5,7 @@ import org.example.RestAPI.importer.UserExcelImporter;
 import org.example.RestAPI.model.Message;
 import org.example.RestAPI.model.User;
 import org.example.RestAPI.request.user.ChangePasswordRequest;
+import org.example.RestAPI.request.user.CheckValidUserRequest;
 import org.example.RestAPI.request.user.LoginRequest;
 import org.example.RestAPI.request.user.SignupRequest;
 import org.example.RestAPI.response.importer.UserExcelImporterResponse;
@@ -48,6 +49,7 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity addUser(@RequestBody SignupRequest request){
+        CheckValidUserRequest.checkSignupRequest(request);
         Optional<User> findUser = userService.findByUser_name(request.getUser_name());
         Message<SignupResponse> message;
         if (findUser.isEmpty()){
@@ -90,6 +92,7 @@ public class UserController {
 
     @PutMapping("/changepassword")
     public ResponseEntity changePassword(@RequestBody ChangePasswordRequest request){
+        CheckValidUserRequest.checkChangePasswordRequest(request);
         Optional<User> findUser = userService.findById(request.getId());
         Message<ChangePasswordResponse> message;
         if (findUser.isEmpty()){
