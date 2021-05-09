@@ -43,10 +43,11 @@ const Authentication = () => {
     axios.post(USER_ROOT_URL + "/login", data).then(function (response) {
       console.log(response.data)
       if (response.data.result != null) {
-        if (response.data.result.remember_me){
-          setUser(response.data.result)
-        }
-        myHistory.push("/dashboard/home")
+        // if (response.data.result.remember_me){
+        //   setUser(response.data.result)
+        // }
+        setUser(response.data.result)
+        myHistory.push("/dashboard/records")
       }
       else {
         window.alert(response.data.message)
@@ -68,7 +69,7 @@ const Authentication = () => {
       let islogin = await isLoggedIn()
       if (islogin) {
         console.log(islogin)
-        myHistory.push("/dashboard/home")
+        myHistory.push("/dashboard/records")
       }
     }
 

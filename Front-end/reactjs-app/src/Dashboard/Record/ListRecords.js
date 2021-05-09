@@ -45,23 +45,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ListRecord() {
+export default function ListRecord(props) {
 
     const classes = useStyles();
-    const [records, setRecords] = React.useState([])
     const [currentMonth, setCurrentMonth] = React.useState([])
     const [currentYear, setCurrentYear] = React.useState([])
     React.useEffect(() => {
-        const getRecordsFromServer = async () => {
-            const walletID = await getCurrentWalletId()
-            const recordsFromServer = await getRecords(walletID)
-            if (recordsFromServer != null) {
-                setRecords(recordsFromServer)
-            }
-            console.log(recordsFromServer)
-
-        }
-
         const getCurrentDateTime = () => {
             let today = new Date()
             let year = today.getFullYear()
@@ -72,12 +61,9 @@ export default function ListRecord() {
         }
 
 
-        getRecordsFromServer()
+        props.getRecordsFromServer()
         getCurrentDateTime()
     }, [])
-
-    const today = Date.now();
-
 
     return (
         <Container maxWidth="lg" className={classes.container}>
@@ -119,10 +105,9 @@ export default function ListRecord() {
                 <Grid item xs={12}>
                     <Paper className={classes.paper}>
                         <List className={classes.root}>
-
                             {
-                                records === undefined ? "No data" :
-                                    records.map((record) => (
+                                props.records === undefined || props.records.length === 0 ? "No data" :
+                                    props.records.map((record) => (
                                         <Record record={record} />
                                     ))
                             }

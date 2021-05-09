@@ -10,42 +10,6 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import { makeStyles } from '@material-ui/core/styles';
-// function LoginBody(props) {
-
-//     return (
-//         <div>
-//             <Container maxWidth="sm">
-//                 <Typography variant="h2" align="center" color="textPrimary" gutterBottom>
-//                     Login Page
-//               </Typography>
-//                 <form className="w3-container w3-card-4" onSubmit={submitLogin}>
-//                     <p>
-//                         <input
-//                             type="text"
-//                             className="w3-input"
-//                             placeholder="User name"
-//                             value={state.user_name}
-//                             onChange={onChangeUsername} required />
-//                     </p>
-//                     <p>
-//                         <input
-//                             type="text"
-//                             className="w3-input"
-//                             placeholder="Password"
-//                             value={state.password}
-//                             onChange={onChangePassword} required />
-//                     </p>
-
-//                     <input
-//                         className="w3-right w3-button w3-section w3-teal w3-ripple"
-//                         type="submit"
-//                         value="Login" />
-//                 </form>
-//             </Container>
-//         </div>
-//     )
-// }
-
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -149,7 +113,7 @@ export default function LoginBody(props) {
                         onChange={onChangePassword}
                     />
                     <FormControlLabel
-                        control={<Checkbox value={state.remember_me} color="primary" onChange={onChangeRememberMe}/>}
+                        control={<Checkbox value={state.remember_me} color="primary" onChange={onChangeRememberMe} />}
                         label="Remember me"
                     />
                     <Button

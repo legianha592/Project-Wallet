@@ -10,9 +10,7 @@ export async function getUser() {
 
 export function setUser(user) {
     console.log("setUser", user)
-    cookie.set(USER_INFO, user, {
-        maxAge: 60 * 30
-    })
+    cookie.set(USER_INFO, user)
 }
 
 export function removeUser() {
