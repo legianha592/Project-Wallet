@@ -13,6 +13,8 @@ import FormCreateWallet from './Form/FormCreateWallet';
 import FormCreateRecord from './Form/FormCreateRecord';
 import { getCurrentWalletId } from '../utils/WalletManager';
 import { getRecords } from '../services/RecordService';
+import { getWallets } from '../services/WalletService';
+import ListWallets from './Wallet/ListWallets';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,7 +31,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Dashboard() {
   const classes = useStyles();
   const [records, setRecords] = React.useState([])
-
+  const [wallets, setWallets] = React.useState([])
+  const [indexWallet, setIndexWallet] = React.useState([])
+  const [listWallet, setListWallet] = React.useState([])
   useEffect(() => {
     const checkLogin = async () => {
       let isLogin = await isLoggedIn()
@@ -50,7 +54,22 @@ export default function Dashboard() {
     console.log(recordsFromServer)
   }
 
+  const getWalletsFromServer = async () => {
+
+    let walletsFromServer = await getWallets()
+    console.log("walletsFromServer", walletsFromServer)
+    if (walletsFromServer !== undefined) {
+      setWallets(walletsFromServer)
+      setListWallet(walletsFromServer)
+      let id = await getCurrentWalletId()
+      setIndexWallet(walletsFromServer.find(e => e.id == id))
+    }
+  }
+
+
+
   const onPickNewWallet = async (wallet_id) => {
+    setIndexWallet(listWallet.find(e => e.id == wallet_id))
     if (myHistory.location.pathname.includes("/dashboard/records")) {
       console.log(myHistory.location.pathname, wallet_id)
       getRecordsFromServer()
@@ -61,7 +80,10 @@ export default function Dashboard() {
     <div className={classes.root}>
       <CssBaseline />
       <MainAppBar
+        indexWallet={indexWallet}
+        wallets={wallets}
         onPickNewWallet={onPickNewWallet}
+        getWalletsFromServer={getWalletsFromServer}
       />
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
@@ -73,6 +95,11 @@ export default function Dashboard() {
           <ListRecord
             records={records}
             getRecordsFromServer={getRecordsFromServer} />
+        </Route>
+        <Route path="/dashboard/wallets">
+          <ListWallets
+            wallets={wallets}
+            getWalletsFromServer={getWalletsFromServer} />
         </Route>
       </main>
     </div>

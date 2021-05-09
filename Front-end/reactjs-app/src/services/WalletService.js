@@ -37,4 +37,21 @@ export async function addWallet(walletName) {
 }
 
 
+export async function deleteWallet(wallet_id) {
+    console.log(wallet_id)
+    let response = await axios.delete(`${WALLET_ROOT_URL}/delete`, {
+        data: {
+            wallet_id: wallet_id
+        }
+    })
+    if (response.data.result != null) {
+        return true
+    } else {
+        window.alert(response.data.message)
+        return false
+    }
+}
+
+
+
 

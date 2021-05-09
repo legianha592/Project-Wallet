@@ -13,7 +13,7 @@ import { removeUser } from '../../utils/UserManager';
 import { removeCurrentWalletId } from '../../utils/WalletManager';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ReceiptIcon from '@material-ui/icons/Receipt';
-
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 
 export default function MainSideMenu() {
     const logout = () => {
@@ -41,6 +41,14 @@ export default function MainSideMenu() {
                             <ReceiptIcon />
                         </ListItemIcon>
                         <ListItemText primary="Records" />
+                    </ListItem>
+                </Link>
+                <Link to="/dashboard/wallets" style={{ textDecoration: 'none', color: "black" }}>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <AccountBalanceWalletIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Wallets" />
                     </ListItem>
                 </Link>
                 {/* <Link to="/dashboard/report" style={{ textDecoration: 'none', color: "black" }}>

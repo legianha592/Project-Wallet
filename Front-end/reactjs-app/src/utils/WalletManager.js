@@ -15,5 +15,6 @@ export function removeCurrentWalletId() {
     cookie.remove(CURRENT_WALLET_ID)
 }
 
+
 export default function WalletManager() {
 }
