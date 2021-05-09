@@ -37,6 +37,21 @@ export async function addWallet(walletName) {
 }
 
 
+export async function updateWallet(wallet) {
+
+    console.log(wallet)
+    let response = await axios.put(WALLET_ROOT_URL + "/update", wallet)
+    console.log(response.data)
+    if (response.data.result != null) {
+        return wallet
+    } else if (response.data.message != null) {
+        window.alert(response.data.message)
+    }
+    return null
+}
+
+
+
 export async function deleteWallet(wallet_id) {
     console.log(wallet_id)
     let response = await axios.delete(`${WALLET_ROOT_URL}/delete`, {

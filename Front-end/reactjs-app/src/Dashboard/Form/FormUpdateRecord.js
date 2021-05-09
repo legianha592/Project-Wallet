@@ -12,6 +12,7 @@ import axios from "axios"
 import { myHistory } from '../../App';
 import { RECORD_ROOT_URL } from '../../utils/constants';
 import { useEffect } from 'react';
+import { updateRecord } from '../../services/RecordService';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -49,46 +50,47 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function FormCreateRecord() {
+export default function FormUpdateRecord(props) {
     const classes = useStyles();
     const [title, setTitle] = React.useState('')
     const [amount, setAmount] = React.useState('')
     const [note, setNote] = React.useState('')
     const [date, setDate] = React.useState('')
-    const handleAddRecord = async () => {
+    const handleUpdateRecord = async () => {
         if (!amount || !note || !date || !title) {
             console.log(date)
             alert('please fill out all required fields')
             return
         }
-        onAdd({ title, amount, note, date })
+        onUpdate({ title, amount, note, date })
+
     };
 
-    const onAdd = async (record) => {
+    const onUpdate = async (record) => {
         record.amount = parseInt(record.amount)
         let walletId = await getCurrentWalletId()
         if (!walletId) {
             window.alert("Please pick wallet")
             return
         }
+        record.record_id = props.record.id
         record.wallet_id = parseInt(walletId)
         record.typeRecord_id = 1;
         let d = new Date(date)
         record.date = d.toLocaleDateString();
-        //record.note = "test";
-        console.log(record);
-        axios.post(RECORD_ROOT_URL + "/create", record).then((response) => {
-            console.log(response.data);
-            if (response.data.result != null) {
-                myHistory.push("/dashboard/records")
-            } else if (response.data.message != null) {
-                window.alert(response.data.message)
-            }
-        });
+        let result = await updateRecord(record)
+        console.log("result", result)
+        if (result != null) {
+            myHistory.push("/dashboard/records")
+        }
     }
 
     useEffect(() => {
         document.getElementById('date').valueAsDate = new Date();
+        setTitle(props.record.title)
+        setAmount(props.record.amount)
+        setNote(props.record.note)
+        setDate(props.record.date)
     }, [])
 
 
@@ -98,7 +100,7 @@ export default function FormCreateRecord() {
             <main className={classes.layout}>
                 <Paper className={classes.paper}>
                     <Typography component="h1" variant="h4" align="center">
-                        Create Record
+                        Update Record
                     </Typography>
                     <React.Fragment>
                         <Grid container spacing={3}>
@@ -159,10 +161,10 @@ export default function FormCreateRecord() {
                             <Button
                                 variant="contained"
                                 color="primary"
-                                onClick={handleAddRecord}
+                                onClick={handleUpdateRecord}
                                 className={classes.button}
                             >
-                                Create
+                                Update
                             </Button>
                         </div>
                     </React.Fragment>

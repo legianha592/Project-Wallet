@@ -15,6 +15,8 @@ import { getCurrentWalletId } from '../utils/WalletManager';
 import { getRecords } from '../services/RecordService';
 import { getWallets } from '../services/WalletService';
 import ListWallets from './Wallet/ListWallets';
+import FormUpdateWallet from './Form/FormUpdateWallet';
+import FormUpdateRecord from './Form/FormUpdateRecord';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,6 +36,9 @@ export default function Dashboard() {
   const [wallets, setWallets] = React.useState([])
   const [indexWallet, setIndexWallet] = React.useState([])
   const [listWallet, setListWallet] = React.useState([])
+  const [walletForUpdate, setWalletForUpdate] = React.useState([])
+  const [recordForUpdate, setRecordForUpdate] = React.useState([])
+
   useEffect(() => {
     const checkLogin = async () => {
       let isLogin = await isLoggedIn()
@@ -76,6 +81,18 @@ export default function Dashboard() {
     }
   }
 
+  const onPickWalletForUpdate = (wallet) => {
+    setWalletForUpdate(wallet)
+    myHistory.push("/dashboard/updateWallet")
+  }
+
+  const onPickRecordForUpdate = (record) => {
+    setRecordForUpdate(record)
+    myHistory.push("/dashboard/updateRecord")
+  }
+
+
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -91,13 +108,17 @@ export default function Dashboard() {
         <Route path="/dashboard/report"><Report /></Route>
         <Route path="/dashboard/createWallet"><FormCreateWallet /></Route>
         <Route path="/dashboard/createRecord"><FormCreateRecord /></Route>
+        <Route path="/dashboard/updateWallet"><FormUpdateWallet wallet={walletForUpdate} /></Route>
+        <Route path="/dashboard/updateRecord"><FormUpdateRecord record={recordForUpdate} /></Route>
         <Route path="/dashboard/records">
           <ListRecord
+            onPickRecordForUpdate={onPickRecordForUpdate}
             records={records}
             getRecordsFromServer={getRecordsFromServer} />
         </Route>
         <Route path="/dashboard/wallets">
           <ListWallets
+            onPickWalletForUpdate={onPickWalletForUpdate}
             indexWallet={indexWallet}
             wallets={wallets}
             getWalletsFromServer={getWalletsFromServer} />

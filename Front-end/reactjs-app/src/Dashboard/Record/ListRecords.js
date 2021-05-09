@@ -82,7 +82,7 @@ export default function ListRecord(props) {
     }
 
     const onUpdateRecord = (record) => {
-        console.log("UPDATE")
+        props.onPickRecordForUpdate(record)
     }
 
     return (

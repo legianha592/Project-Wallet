@@ -39,6 +39,20 @@ export async function addRecord(record) {
     return null
 }
 
+export async function updateRecord(record) {
+    console.log(record)
+    let response = await axios.put(RECORD_ROOT_URL + "/update", record)
+    console.log(response.data)
+    if (response.data.result != null) {
+        return record
+    } else if (response.data.message != null) {
+        window.alert(response.data.message)
+    }
+    return null
+}
+
+
+
 export async function deleteRecord(record_id) {
     console.log(record_id)
     let response = await axios.delete(`${RECORD_ROOT_URL}/delete`, {

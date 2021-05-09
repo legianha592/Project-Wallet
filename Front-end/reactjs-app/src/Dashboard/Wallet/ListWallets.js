@@ -67,7 +67,7 @@ export default function ListWallets(props) {
     }
 
     const onUpdateWallet = (wallet) => {
-        console.log("UPDATE")
+        props.onPickWalletForUpdate(wallet)
     }
 
     return (
