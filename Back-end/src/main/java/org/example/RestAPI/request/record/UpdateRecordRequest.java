@@ -14,15 +14,4 @@ public class UpdateRecordRequest {
     private double amount;
     private long typeRecord_id;
     private String result;
-    private void checkValidRequest(){
-        if (title.length() > MAX_LENGTH){
-            result = FinalMessage.INVALID_TITLE_RECORD_LENGTH;
-            return;
-        }
-        if (note.length() > MAX_LENGTH){
-            result = FinalMessage.INVALID_NOTE_RECORD_LENGTH;
-            return;
-        }
-        result = new String("OK");
-    }
 }
