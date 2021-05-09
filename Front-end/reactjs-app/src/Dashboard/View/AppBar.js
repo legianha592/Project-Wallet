@@ -227,12 +227,12 @@ export default function MainAppBar(props) {
                                 onClick={() => { opTapWallet(wallet.id) }}>
                                 <ListItemIcon>
                                     <AccountBalanceWalletIcon
-                                        color={indexWallet.id === wallet.id ? "secondary" : "default"}
+                                        color={indexWallet != null && indexWallet.id === wallet.id ? "secondary" : "default"}
                                         fontSize="small" />
                                 </ListItemIcon>
                                 <Typography
                                     variant="inherit"
-                                    color={indexWallet.id === wallet.id ? "secondary" : "default"}>
+                                    color={indexWallet != null && indexWallet.id === wallet.id ? "secondary" : "default"}>
                                     {wallet.wallet_name}
                                 </Typography>
                             </MenuItem>

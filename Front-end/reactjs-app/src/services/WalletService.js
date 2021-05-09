@@ -12,7 +12,10 @@ export async function getWallets() {
     } else {
         const res = await fetch(`${WALLET_ROOT_URL}/list?userId=${user.id}`)
         const data = await res.json()
-        return data.result.list_wallet
+        if (data.result != null) {
+            return data.result.list_wallet
+        }
+        return
     }
 }
 

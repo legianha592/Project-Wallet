@@ -1,4 +1,5 @@
 import Cookies from 'universal-cookie'
+import { setCurrentWalletId } from './WalletManager'
 
 const cookie = new Cookies()
 const USER_INFO = 'current_user'

@@ -13,6 +13,7 @@ import { makeStyles } from "@material-ui/core";
 import Cookie from 'universal-cookie'
 import { isLoggedIn, setUser } from "../utils/UserManager";
 import { myHistory } from '../App';
+import { setCurrentWalletId } from "../utils/WalletManager";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,11 +43,17 @@ const Authentication = () => {
   const submitLogin = (data) => {
     axios.post(USER_ROOT_URL + "/login", data).then(function (response) {
       console.log(response.data)
-      if (response.data.result != null) {
+      let user = response.data.result
+      if (user != null) {
         // if (response.data.result.remember_me){
         //   setUser(response.data.result)
         // }
-        setUser(response.data.result)
+        setUser(user)
+        console.log(user.list_wallet)
+        if (user.list_wallet[0].id != null) {
+
+          setCurrentWalletId(user.list_wallet[0].id)
+        }
         myHistory.push("/dashboard/records")
       }
       else {
