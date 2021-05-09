@@ -25,13 +25,13 @@ export function removeUser() {
 
 export async function isLoggedIn() {
     let user = await getUser()
-    if (user === undefined) {
+    if (user === undefined || user === null || user === "undefined") {
         setUser(NOT_LOGIN)
     }
 
     let isLoggedIn = user !== NOT_LOGIN
 
-    console.log("isLoggedIn: ", isLoggedIn, user)
+    console.log("isLoggedIn: ", isLoggedIn, typeof user)
     return isLoggedIn
 }
 
