@@ -1,9 +1,9 @@
 package org.example.RestAPI.controller;
 
-import org.apache.poi.ss.formula.functions.T;
 import org.example.RestAPI.finalstring.FinalMessage;
 import org.example.RestAPI.model.Message;
 import org.example.RestAPI.model.TypeRecord;
+import org.example.RestAPI.request.typerecord.CheckValidTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.CreateTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.DeleteTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.UpdateTypeRecordRequest;
@@ -30,6 +30,7 @@ public class TypeRecordController {
 
     @PostMapping("/create")
     public ResponseEntity createTypeRecord(@RequestBody CreateTypeRecordRequest request){
+        CheckValidTypeRecordRequest.checkCreateTypeRecordRequest(request);
         Optional<TypeRecord> findTypeRecord = typeRecordService.findByTypeRecord_name(request.getTypeRecord_name());
         Message<CreateTypeRecordResponse> message;
 
@@ -56,6 +57,7 @@ public class TypeRecordController {
 
     @PutMapping("/update")
     public ResponseEntity updateTypeRecord(@RequestBody UpdateTypeRecordRequest request){
+        CheckValidTypeRecordRequest.checkUpdateTypeRecordRequest(request);
         Optional<TypeRecord> findTypeRecord = typeRecordService.findById(request.getTypeRecord_id());
         Message<UpdateTypeRecordResponse> message;
 

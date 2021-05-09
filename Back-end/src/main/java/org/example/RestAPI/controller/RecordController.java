@@ -5,6 +5,7 @@ import org.example.RestAPI.model.Message;
 import org.example.RestAPI.model.Record;
 import org.example.RestAPI.model.TypeRecord;
 import org.example.RestAPI.model.Wallet;
+import org.example.RestAPI.request.record.CheckValidRecordRequest;
 import org.example.RestAPI.request.record.CreateRecordRequest;
 import org.example.RestAPI.request.record.DeleteRecordRequest;
 import org.example.RestAPI.request.record.UpdateRecordRequest;
@@ -37,6 +38,7 @@ public class RecordController {
 
     @PostMapping("/create")
     public ResponseEntity createRecord(@RequestBody CreateRecordRequest request){
+        CheckValidRecordRequest.checkCreateRecordRequest(request);
         Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
         Optional<TypeRecord> findTypeRecord = typeRecordService.findById(request.getTypeRecord_id());
         Message<CreateRecordResponse> message;
@@ -83,6 +85,7 @@ public class RecordController {
 
     @PutMapping("/update")
     public ResponseEntity updateRecord(@RequestBody UpdateRecordRequest request){
+        CheckValidRecordRequest.checkUpdateRecordRequest(request);
         Optional<Record> findRecord = recordService.findById(request.getRecord_id());
         Optional<TypeRecord> findTypeRecord = typeRecordService.findById(request.getTypeRecord_id());
         Message<UpdateRecordResponse> message;
