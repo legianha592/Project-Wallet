@@ -15,10 +15,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function Record({ record }) {
-    const classes = useStyles();
-    const today = Date.now();
-    console.log(record)
+function Record(props) {
+    const classes = useStyles()
+    const today = Date.now()
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
@@ -29,9 +28,15 @@ function Record({ record }) {
         setAnchorEl(null);
     };
 
-    const onTapRecord = () => {
+    const onTapUpdateRecord = () => {
+        props.onUpdateRecord(props.record)
+        handleClose()
         // console.log(new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(today));
+    }
 
+    const onTapDeleteRecord = () => {
+        props.onDeleteRecord(props.record)
+        handleClose()
     }
     return (
         <>
@@ -41,11 +46,11 @@ function Record({ record }) {
                 aria-controls="simple-menu"
                 aria-haspopup="true">
                 <ListItemAvatar>
-                    <Avatar alt={record.title} src="/static/images/avatar/1.jpg" />
+                    <Avatar alt={props.record.title} src="/static/images/avatar/1.jpg" />
                 </ListItemAvatar>
                 <ListItemText
-                    primary={record.title}
-                    secondary={record.note}
+                    primary={props.record.title}
+                    secondary={props.record.note}
                 />
                 <ListItemSecondaryAction>
                     <Typography
@@ -54,7 +59,7 @@ function Record({ record }) {
                         className={classes.inline}
                         color="textPrimary"
                     >
-                        ${Intl.NumberFormat().format(record.amount)}
+                        ${Intl.NumberFormat().format(props.record.amount)}
                     </Typography>
                 </ListItemSecondaryAction>
             </ListItem >
@@ -66,7 +71,7 @@ function Record({ record }) {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={onTapUpdateRecord}>
                     <ListItemIcon>
                         <EditIcon
                             fontSize="small" />
@@ -76,7 +81,7 @@ function Record({ record }) {
                         Update
                     </Typography>
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem onClick={onTapDeleteRecord}>
                     <ListItemIcon>
                         <DeleteIcon
                             fontSize="small" />

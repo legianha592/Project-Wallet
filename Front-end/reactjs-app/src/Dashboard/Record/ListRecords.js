@@ -3,13 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { getRecords } from '../../services/RecordService';
+import { deleteRecord, getRecords } from '../../services/RecordService';
 import { getCurrentWalletId } from '../../utils/WalletManager';
 import { Box } from '@material-ui/core';
 import { Button } from '@material-ui/core';
 import { List } from '@material-ui/core';
 import Record from './Record';
-
+import axios from 'axios';
+import { RECORD_ROOT_URL } from '../../utils/constants';
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
@@ -65,6 +66,25 @@ export default function ListRecord(props) {
         getCurrentDateTime()
     }, [])
 
+    const onDeleteRecord = async (record) => {
+        let success = await deleteRecord(record.id)
+        if (success) {
+            props.getRecordsFromServer()
+        }
+        // axios.delete(`${RECORD_ROOT_URL}/delete?record_id=${record.id}`).then(response => {
+        //     console.log(response.data)
+        //     if (response.data.result != null) {
+        //         props.getRecordsFromServer()
+        //     } else if (response.data.message != null) {
+        //         window.alert(response.data.message)
+        //     }
+        // })
+    }
+
+    const onUpdateRecord = (record) => {
+        console.log("UPDATE")
+    }
+
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container >
@@ -108,7 +128,10 @@ export default function ListRecord(props) {
                             {
                                 props.records === undefined || props.records.length === 0 ? "No data" :
                                     props.records.map((record) => (
-                                        <Record record={record} />
+                                        <Record
+                                            record={record}
+                                            onDeleteRecord={onDeleteRecord}
+                                            onUpdateRecord={onUpdateRecord} />
                                     ))
                             }
                         </List>

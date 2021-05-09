@@ -1,5 +1,5 @@
 import { RECORD_ROOT_URL } from "../utils/constants";
-import { axios } from 'axios';
+import axios from 'axios';
 import { getCurrentWalletId } from '../utils/WalletManager';
 
 
@@ -38,3 +38,19 @@ export async function addRecord(record) {
     })
     return null
 }
+
+export async function deleteRecord(record_id) {
+    console.log(record_id)
+    let response = await axios.delete(`${RECORD_ROOT_URL}/delete`, {
+        data: {
+            record_id: record_id
+        }
+    })
+    if (response.data.result != null) {
+        return true
+    } else {
+        window.alert(response.data.message)
+        return false
+    }
+}
+
