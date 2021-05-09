@@ -55,10 +55,15 @@ export default function ListWallets(props) {
     }, [])
 
     const onDeleteWallet = async (wallet) => {
-        let success = await deleteWallet(wallet.id)
-        if (success) {
-            props.getWalletsFromServer()
+        if (props.indexWallet.id == wallet.id) {
+            window.alert("cannot delete current wallet")
+        } else {
+            let success = await deleteWallet(wallet.id)
+            if (success) {
+                props.getWalletsFromServer()
+            }
         }
+
     }
 
     const onUpdateWallet = (wallet) => {

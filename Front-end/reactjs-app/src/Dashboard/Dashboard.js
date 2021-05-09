@@ -98,6 +98,7 @@ export default function Dashboard() {
         </Route>
         <Route path="/dashboard/wallets">
           <ListWallets
+            indexWallet={indexWallet}
             wallets={wallets}
             getWalletsFromServer={getWalletsFromServer} />
         </Route>
