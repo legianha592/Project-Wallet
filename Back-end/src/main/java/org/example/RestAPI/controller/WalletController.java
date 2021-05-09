@@ -6,6 +6,7 @@ import org.example.RestAPI.importer.WalletExcelImporter;
 import org.example.RestAPI.model.Message;
 import org.example.RestAPI.model.User;
 import org.example.RestAPI.model.Wallet;
+import org.example.RestAPI.request.wallet.CheckValidWalletRequest;
 import org.example.RestAPI.request.wallet.CreateWalletRequest;
 import org.example.RestAPI.request.wallet.DeleteWalletRequest;
 import org.example.RestAPI.request.wallet.UpdateWalletRequest;
@@ -42,6 +43,7 @@ public class WalletController {
 
     @PostMapping("/create")
     public ResponseEntity createWallet(@RequestBody CreateWalletRequest request){
+        CheckValidWalletRequest.checkCreateWalletRequest(request);
         Optional<User> findUser = userService.findById(request.getUser_id());
         Message<CreateWalletResponse> message;
         if (findUser.isEmpty()){
@@ -68,6 +70,7 @@ public class WalletController {
 
     @PutMapping("/update")
     public ResponseEntity updateWallet(@RequestBody UpdateWalletRequest request){
+        CheckValidWalletRequest.checkUpdateWalletRequest(request);
         Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
         Message<UpdateWalletResponse> message;
 
