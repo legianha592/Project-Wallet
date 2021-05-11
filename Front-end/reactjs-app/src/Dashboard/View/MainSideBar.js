@@ -92,22 +92,41 @@ export default function MainSideBar(props) {
                         <Divider />
                         <Link
                             to="/dashboard/records"
-                            style={{ textDecoration: 'none', color: indexItem === 1 ? "blue" : "black" }}
+                            style={
+                                {
+                                    textDecoration: 'none',
+                                    color: indexItem === 1 ? "blue" : "black"
+                                }
+                            }
                             onClick={() => setIndexItem(1)}>
                             <ListItem button>
                                 <ListItemIcon>
-                                    <ReceiptIcon />
+                                    <ReceiptIcon style={
+                                        {
+                                            color: indexItem === 1 ? "blue" : "black"
+                                        }
+                                    } />
                                 </ListItemIcon>
                                 <ListItemText primary="Records" />
                             </ListItem>
                         </Link>
                         <Link
                             to="/dashboard/wallets"
-                            style={{ textDecoration: 'none', color: indexItem === 2 ? "blue" : "black" }}
+                            style={
+                                {
+                                    textDecoration: 'none',
+                                    color: indexItem === 2 ? "blue" : "black"
+                                }
+                            }
                             onClick={() => setIndexItem(2)}>
                             <ListItem button>
                                 <ListItemIcon>
-                                    <AccountBalanceWalletIcon />
+                                    <AccountBalanceWalletIcon style={
+                                        {
+                                            textDecoration: 'none',
+                                            color: indexItem === 2 ? "blue" : "black"
+                                        }
+                                    } />
                                 </ListItemIcon>
                                 <ListItemText primary="Wallets" />
                             </ListItem>
