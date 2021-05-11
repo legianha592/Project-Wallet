@@ -51,8 +51,10 @@ const Authentication = () => {
         setUser(user)
         console.log("user", user);
         console.log("wallet", user.list_wallet)
-        if (user.list_wallet[0].id != null) {
-          setCurrentWalletId(user.list_wallet[0].id)
+        if (user.list_wallet[0] !== undefined) {
+          if (user.list_wallet[0].id !== undefined){
+            setCurrentWalletId(user.list_wallet[0].id)
+          }
         }
         myHistory.push("/dashboard/records")
       }
@@ -65,12 +67,24 @@ const Authentication = () => {
   const submitSignUp = (data) => {
     axios.post(USER_ROOT_URL + "/signup", data).then((response) => {
       console.log(response.data);
-      setState({
-        header: state.header,
-        footer: response.data.message,
-      });
+      let user = response.data.result;
+      if (user != null){
+        setUser(user)
+        console.log("user", user);
+        console.log("wallet", user.list_wallet)
+        if (user.list_wallet[0] !== undefined) {
+          if (user.list_wallet[0].id !== undefined){
+            setCurrentWalletId(user.list_wallet[0].id)
+          }
+        }
+        myHistory.push("/dashboard/records")
+      }
+      else{
+        window.alert(response.data.message)
+      }
     });
   };
+
   useEffect(() => {
     const checkLogin = async () => {
       let islogin = await isLoggedIn()

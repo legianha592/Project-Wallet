@@ -8,14 +8,22 @@ const USER_INFO = 'current_user'
 const NOT_LOGIN = 'NOT_LOGIN'
 
 export async function getUser() {
-    if (cookie.get(USER_INFO) == NOT_LOGIN && JSON.parse(session.getItem(USER_INFO)) == NOT_LOGIN){
+    let sessionUser = JSON.parse(session.getItem(USER_INFO));
+    let cookieUser = cookie.get(USER_INFO)
+    console.log("get user", sessionUser, cookieUser)
+    if (cookie.get(USER_INFO) === NOT_LOGIN && JSON.parse(session.getItem(USER_INFO)) === NOT_LOGIN){
+        console.log("case 1")
         return await NOT_LOGIN
     }
     else{
-        if (cookie.get(USER_INFO) == null){
+        if (cookie.get(USER_INFO) === NOT_LOGIN){
+            console.log("case 2")
             return await JSON.parse(session.getItem(USER_INFO))
         }
-        return await cookie.get(USER_INFO)
+        else{
+            console.log("case 3")
+            return await cookie.get(USER_INFO)
+        }
     }
        
  }
@@ -28,12 +36,12 @@ export async function getUser() {
      }
      else{
          if (user.remember_me){
-             session.setItem(USER_INFO, null)
+             session.setItem(USER_INFO, NOT_LOGIN)
              cookie.set(USER_INFO, user)
          }
          else{
              session.setItem(USER_INFO, JSON.stringify(user))
-             cookie.set(USER_INFO, null)
+             cookie.set(USER_INFO, NOT_LOGIN)
          }
      }
  }
