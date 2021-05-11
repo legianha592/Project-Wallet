@@ -14,14 +14,28 @@ import { removeCurrentWalletId } from '../../utils/WalletManager';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import { useEffect } from 'react';
 
 export default function MainSideMenu() {
+    const [indexItem, setIndexItem] = React.useState([])
+
+    useEffect(() => {
+        const initIndexItem = () => {
+            let location = myHistory.location.pathname
+            if (location.includes("/records")) {
+                setIndexItem(1)
+            } else if (location.includes("/wallets")) {
+                setIndexItem(2)
+            }
+        }
+        initIndexItem()
+    }, [])
+
     const logout = () => {
         removeUser()
         removeCurrentWalletId()
         myHistory.push("/user/login")
     }
-
 
     return (
         <div>
@@ -35,7 +49,7 @@ export default function MainSideMenu() {
                         <ListItemText primary="Dashboard" />
                     </ListItem>
                 </Link> */}
-                <Link to="/dashboard/records" style={{ textDecoration: 'none', color: "black" }}>
+                <Link to="/dashboard/records" style={{ textDecoration: 'none', color: indexItem === 1 ? "blue" : "black" }} onClick={() => setIndexItem(1)}>
                     <ListItem button>
                         <ListItemIcon>
                             <ReceiptIcon />
@@ -43,7 +57,7 @@ export default function MainSideMenu() {
                         <ListItemText primary="Records" />
                     </ListItem>
                 </Link>
-                <Link to="/dashboard/wallets" style={{ textDecoration: 'none', color: "black" }}>
+                <Link to="/dashboard/wallets" style={{ textDecoration: 'none', color: indexItem === 2 ? "blue" : "black" }} onClick={() => setIndexItem(2)}>
                     <ListItem button>
                         <ListItemIcon>
                             <AccountBalanceWalletIcon />

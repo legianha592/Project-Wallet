@@ -49,7 +49,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ListWallets(props) {
 
     const classes = useStyles();
+    const [indexItem, setIndexItem] = React.useState([])
+
     React.useEffect(() => {
+        setIndexItem(1)
         props.getWalletsFromServer()
 
     }, [])
