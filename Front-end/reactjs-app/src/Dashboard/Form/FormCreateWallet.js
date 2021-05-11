@@ -7,6 +7,13 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { addWallet } from '../../services/WalletService';
+import { myHistory } from '../../App';
+import { toastSuccess } from '../../utils/ToastManager';
+
+
+
+
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -54,6 +61,10 @@ export default function FormCreateWallet() {
         }
 
         let result = await addWallet(walletName)
+        if (result != null) {
+
+            myHistory.push("/dashboard/wallets")
+        }
         console.log(result)
     };
 

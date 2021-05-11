@@ -12,6 +12,7 @@ import axios from "axios"
 import { myHistory } from '../../App';
 import { RECORD_ROOT_URL } from '../../utils/constants';
 import { useEffect } from 'react';
+import { addRecord } from '../../services/RecordService';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -77,14 +78,11 @@ export default function FormCreateRecord() {
         record.date = d.toLocaleDateString();
         //record.note = "test";
         console.log(record);
-        axios.post(RECORD_ROOT_URL + "/create", record).then((response) => {
-            console.log(response.data);
-            if (response.data.result != null) {
-                myHistory.push("/dashboard/records")
-            } else if (response.data.message != null) {
-                window.alert(response.data.message)
-            }
-        });
+        let result = await addRecord(record)
+        if (result != null) {
+            myHistory.push("/dashboard/records")
+        }
+        console.log(result)
     }
 
     useEffect(() => {

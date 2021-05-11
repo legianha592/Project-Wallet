@@ -1,6 +1,7 @@
 import { RECORD_ROOT_URL } from "../utils/constants";
 import axios from 'axios';
 import { getCurrentWalletId } from '../utils/WalletManager';
+import { toastError, toastSuccess } from "../utils/ToastManager";
 
 
 export default function RecordService() { }
@@ -19,23 +20,16 @@ export async function getRecords(walletId) {
 }
 
 export async function addRecord(record) {
-    //record.amount = 1123
-    //record.title = "ahaha";
-
-    record.wallet_id = await getCurrentWalletId()
-    record.typeRecord_id = 1
-    //record.date =  "01/01/2021";
-    //record.note = "test";
     console.log(record)
-    axios.post(RECORD_ROOT_URL + "/create", record).then((response) => {
-        console.log(response.data)
-        if (response.data.result != null) {
-            record.id = response.data.result.record_id
-            return record
-        } else if (response.data.message != null) {
-            window.alert(response.data.message)
-        }
-    })
+    let response = await axios.post(RECORD_ROOT_URL + "/create", record)
+    console.log(response.data)
+    if (response.data.result != null) {
+        record.id = response.data.result.record_id
+        toastSuccess("Create record success!")
+        return record
+    } else if (response.data.message != null) {
+        toastError(response.data.message)
+    }
     return null
 }
 
@@ -44,9 +38,10 @@ export async function updateRecord(record) {
     let response = await axios.put(RECORD_ROOT_URL + "/update", record)
     console.log(response.data)
     if (response.data.result != null) {
+        toastSuccess("Update record success!")
         return record
     } else if (response.data.message != null) {
-        window.alert(response.data.message)
+        toastError(response.data.message)
     }
     return null
 }
@@ -61,9 +56,10 @@ export async function deleteRecord(record_id) {
         }
     })
     if (response.data.result != null) {
+        toastSuccess("Delete record success!")
         return true
     } else {
-        window.alert(response.data.message)
+        toastError(response.data.message)
         return false
     }
 }

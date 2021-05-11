@@ -17,6 +17,8 @@ import { getWallets } from '../services/WalletService';
 import ListWallets from './Wallet/ListWallets';
 import FormUpdateWallet from './Form/FormUpdateWallet';
 import FormUpdateRecord from './Form/FormUpdateRecord';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -123,6 +125,7 @@ export default function Dashboard() {
             wallets={wallets}
             getWalletsFromServer={getWalletsFromServer} />
         </Route>
+        <ToastContainer />
       </main>
     </div>
   );

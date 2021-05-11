@@ -1,6 +1,7 @@
 import { WALLET_ROOT_URL } from '../utils/constants';
 import { getUser, isLoggedIn } from '../utils/UserManager';
 import axios from 'axios';
+import { toastError, toastSuccess } from "../utils/ToastManager";
 
 export default function WalletService() { }
 
@@ -30,9 +31,10 @@ export async function addWallet(walletName) {
     console.log(response.data)
     if (response.data.result != null) {
         wallet.id = response.data.result.wallet_id
+        toastSuccess("Success create wallet")
         return wallet
     } else if (response.data.message != null) {
-        window.alert(response.data.message)
+        toastError(response.data.message)
     }
     return null
 }
@@ -44,9 +46,10 @@ export async function updateWallet(wallet) {
     let response = await axios.put(WALLET_ROOT_URL + "/update", wallet)
     console.log(response.data)
     if (response.data.result != null) {
+        toastSuccess("Success update wallet")
         return wallet
     } else if (response.data.message != null) {
-        window.alert(response.data.message)
+        toastError(response.data.message)
     }
     return null
 }
@@ -61,9 +64,10 @@ export async function deleteWallet(wallet_id) {
         }
     })
     if (response.data.result != null) {
+        toastSuccess("Success delete wallet")
         return true
     } else {
-        window.alert(response.data.message)
+        toastError(response.data.message)
         return false
     }
 }
