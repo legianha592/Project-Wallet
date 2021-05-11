@@ -92,7 +92,13 @@ export default function MainSideBar(props) {
                                 }
                             }
                             onClick={() => props.onChangeTab(TAB_RECORDS)}>
-                            <ListItem button>
+                            <ListItem button
+                                style={
+                                    {
+                                        backgroundColor: props.indexTab === TAB_RECORDS ? "#e6f9ff" : "white"
+                                    }
+                                }
+                            >
                                 <ListItemIcon>
                                     <ReceiptIcon style={
                                         {
@@ -112,7 +118,13 @@ export default function MainSideBar(props) {
                                 }
                             }
                             onClick={() => props.onChangeTab(TAB_WALLETS)}>
-                            <ListItem button>
+                            <ListItem button
+                                style={
+                                    {
+                                        backgroundColor: props.indexTab === TAB_WALLETS ? "#e6f9ff" : "white"
+                                    }
+                                }
+                            >
                                 <ListItemIcon>
                                     <AccountBalanceWalletIcon style={
                                         {

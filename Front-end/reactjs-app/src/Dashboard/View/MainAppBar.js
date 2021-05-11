@@ -166,11 +166,14 @@ export default function MainAppBar(props) {
                                 {props.wallets == null ? "No data" : props.wallets.map((wallet) => (
                                     <MenuItem
                                         key={wallet.id}
+                                        style={
+                                            { backgroundColor: props.indexWallet != null && props.indexWallet.id === wallet.id ? "blue" : "white" }
+                                        }
                                         onClick={() => { opTapWallet(wallet.id) }}>
                                         <ListItemIcon>
                                             <AccountBalanceWalletIcon
                                                 style={
-                                                    { color: props.indexWallet != null && props.indexWallet.id === wallet.id ? "blue" : "black" }
+                                                    { color: props.indexWallet != null && props.indexWallet.id === wallet.id ? "white" : "black" }
                                                 }
 
                                                 fontSize="small" />
@@ -178,7 +181,7 @@ export default function MainAppBar(props) {
                                         <Typography
                                             variant="inherit"
                                             style={
-                                                { color: props.indexWallet != null && props.indexWallet.id === wallet.id ? "blue" : "black" }
+                                                { color: props.indexWallet != null && props.indexWallet.id === wallet.id ? "white" : "black" }
                                             }
                                         >
                                             {wallet.wallet_name}
