@@ -16,6 +16,7 @@ import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { IconButton } from '@material-ui/core';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
+import { TAB_RECORDS, TAB_WALLETS } from '../../utils/constants';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -52,18 +53,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function MainSideBar(props) {
-    const [indexItem, setIndexItem] = React.useState([])
+
 
     useEffect(() => {
-        const initIndexItem = () => {
-            let location = myHistory.location.pathname
-            if (location.includes("/records")) {
-                setIndexItem(1)
-            } else if (location.includes("/wallets")) {
-                setIndexItem(2)
-            }
-        }
-        initIndexItem()
+
     }, [])
 
     const logout = () => {
@@ -95,15 +88,15 @@ export default function MainSideBar(props) {
                             style={
                                 {
                                     textDecoration: 'none',
-                                    color: indexItem === 1 ? "blue" : "black"
+                                    color: props.indexTab === TAB_RECORDS ? "blue" : "black"
                                 }
                             }
-                            onClick={() => setIndexItem(1)}>
+                            onClick={() => props.onChangeTab(TAB_RECORDS)}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <ReceiptIcon style={
                                         {
-                                            color: indexItem === 1 ? "blue" : "black"
+                                            color: props.indexTab === TAB_RECORDS ? "blue" : "black"
                                         }
                                     } />
                                 </ListItemIcon>
@@ -115,16 +108,16 @@ export default function MainSideBar(props) {
                             style={
                                 {
                                     textDecoration: 'none',
-                                    color: indexItem === 2 ? "blue" : "black"
+                                    color: props.indexTab === TAB_WALLETS ? "blue" : "black"
                                 }
                             }
-                            onClick={() => setIndexItem(2)}>
+                            onClick={() => props.onChangeTab(TAB_WALLETS)}>
                             <ListItem button>
                                 <ListItemIcon>
                                     <AccountBalanceWalletIcon style={
                                         {
                                             textDecoration: 'none',
-                                            color: indexItem === 2 ? "blue" : "black"
+                                            color: props.indexTab === TAB_WALLETS ? "blue" : "black"
                                         }
                                     } />
                                 </ListItemIcon>

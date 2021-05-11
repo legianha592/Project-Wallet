@@ -18,6 +18,7 @@ import ListWallets from './Wallet/ListWallets';
 import FormUpdateWallet from './Form/FormUpdateWallet';
 import FormUpdateRecord from './Form/FormUpdateRecord';
 import MainSideBar from './View/MainSideBar';
+import { TAB_RECORDS, TAB_WALLETS } from '../utils/constants';
 
 
 
@@ -41,7 +42,7 @@ export default function Dashboard() {
   const [listWallet, setListWallet] = React.useState([])
   const [walletForUpdate, setWalletForUpdate] = React.useState([])
   const [recordForUpdate, setRecordForUpdate] = React.useState([])
-
+  const [indexTab, setIndexTab] = React.useState([])
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -51,7 +52,17 @@ export default function Dashboard() {
       }
     }
 
+    const initIndexItem = () => {
+      let location = myHistory.location.pathname
+      if (location.includes("/records")) {
+        setIndexTab(TAB_RECORDS)
+      } else if (location.includes("/wallets")) {
+        setIndexTab(TAB_WALLETS)
+      }
+    }
+
     checkLogin()
+    initIndexItem()
   }, [])
 
   const getRecordsFromServer = async () => {
@@ -104,6 +115,9 @@ export default function Dashboard() {
     setOpen(false);
   }
 
+  const onChangeTab = (indexTab) => {
+    setIndexTab(indexTab)
+  }
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -113,11 +127,14 @@ export default function Dashboard() {
         wallets={wallets}
         onPickNewWallet={onPickNewWallet}
         getWalletsFromServer={getWalletsFromServer}
+        indexTab={indexTab}
         handleDrawerOpen={handleDrawerOpen}
       />
 
       <MainSideBar
         open={open}
+        indexTab={indexTab}
+        onChangeTab={onChangeTab}
         handleDrawerClose={handleDrawerClose}
       />
 

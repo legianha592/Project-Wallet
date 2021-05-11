@@ -16,6 +16,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
+import { TAB_RECORDS, TAB_WALLETS } from '../../utils/constants';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -117,67 +118,76 @@ export default function MainAppBar(props) {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Link to="/dashboard/createWallet" style={{ textDecoration: 'none', color: "black" }}>
-                        <Button
-                            component="h1"
-                            variant="contained"
-                            className={classes.walletButton}>
-                            <AddIcon />
-                    Create Wallet
-                </Button>
-                    </Link>
+                    {
+                        props.indexTab == TAB_WALLETS &&
+                        <Link to="/dashboard/createWallet" style={{ textDecoration: 'none', color: "black" }}>
+                            <Button
+                                component="h1"
+                                variant="contained"
+                                className={classes.walletButton}>
+                                <AddIcon />
+                                Create Wallet
+                            </Button>
+                        </Link>
+                    }
 
-                    <Link to="/dashboard/createRecord" style={{ textDecoration: 'none', color: "black" }}>
-                        <Button
-                            component="h1"
-                            variant="contained"
-                            className={classes.walletButton}>
-                            <AddIcon />
-                    Create Record
-                </Button>
-                    </Link>
+                    {
+                        props.indexTab == TAB_RECORDS &&
+                        <>
+                            <Link to="/dashboard/createRecord" style={{ textDecoration: 'none', color: "black" }}>
+                                <Button
+                                    component="h1"
+                                    variant="contained"
+                                    className={classes.walletButton}>
+                                    <AddIcon />
+                                Create Record
+                            </Button>
+                            </Link>
+                            <Divider orientation="vertical" flexItem className={classes.appBarDivider} />
 
-                    <Divider orientation="vertical" flexItem className={classes.appBarDivider} />
-                    {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                Open Menu
-            </Button> */}
-                    <Button
-                        aria-controls="simple-menu"
-                        aria-haspopup="true"
-                        onClick={handleClick}
-                        component="h1"
-                        variant="contained"
-                        color="default"
-                        className={classes.walletButton}>
-                        <AccountBalanceWalletIcon />
-                        {props.indexWallet == null ? "" : props.indexWallet.wallet_name}
-                    </Button>
-                    <Menu
-                        id="simple-menu"
-                        anchorEl={anchorEl}
-                        keepMounted
-                        open={Boolean(anchorEl)}
-                        onClose={handleClose}
-                    >
-                        {props.wallets == null ? "No data" : props.wallets.map((wallet) => (
-                            <MenuItem
-                                key={wallet.id}
-                                onClick={() => { opTapWallet(wallet.id) }}>
-                                <ListItemIcon>
-                                    <AccountBalanceWalletIcon
-                                        color={props.indexWallet != null && props.indexWallet.id === wallet.id ? "secondary" : "default"}
-                                        fontSize="small" />
-                                </ListItemIcon>
-                                <Typography
-                                    variant="inherit"
-                                    color={props.indexWallet != null && props.indexWallet.id === wallet.id ? "secondary" : "default"}>
-                                    {wallet.wallet_name}
-                                </Typography>
-                            </MenuItem>
+                            <Button
+                                aria-controls="simple-menu"
+                                aria-haspopup="true"
+                                onClick={handleClick}
+                                component="h1"
+                                variant="contained"
+                                color="default"
+                                className={classes.walletButton}>
+                                <AccountBalanceWalletIcon />
+                                {props.indexWallet == null ? "" : props.indexWallet.wallet_name}
+                            </Button>
+                            <Menu
+                                id="simple-menu"
+                                anchorEl={anchorEl}
+                                keepMounted
+                                open={Boolean(anchorEl)}
+                                onClose={handleClose}
+                            >
+                                {props.wallets == null ? "No data" : props.wallets.map((wallet) => (
+                                    <MenuItem
+                                        key={wallet.id}
+                                        onClick={() => { opTapWallet(wallet.id) }}>
+                                        <ListItemIcon>
+                                            <AccountBalanceWalletIcon
+                                                color={props.indexWallet != null && props.indexWallet.id === wallet.id ? "secondary" : "default"}
+                                                fontSize="small" />
+                                        </ListItemIcon>
+                                        <Typography
+                                            variant="inherit"
+                                            color={props.indexWallet != null && props.indexWallet.id === wallet.id ? "secondary" : "default"}>
+                                            {wallet.wallet_name}
+                                        </Typography>
+                                    </MenuItem>
 
-                        ))}
-                    </Menu>
-                    <Icon className={classes.title}></Icon>
+                                ))}
+                            </Menu>
+
+                            <Icon className={classes.title}></Icon>
+                        </>
+
+                    }
+
+
 
                 </Toolbar>
             </AppBar>
