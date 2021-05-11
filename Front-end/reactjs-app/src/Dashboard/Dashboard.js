@@ -5,7 +5,7 @@ import { Route } from 'react-router';
 import ListRecord from './Record/ListRecords';
 import Home from './HomePage/Home'
 import Report from './HomePage/Report';
-import MainAppBar from './View/AppBar';
+import MainAppBar from './View/MainAppBar';
 import { useEffect } from 'react';
 import { myHistory } from '../App';
 import { isLoggedIn } from '../utils/UserManager';
@@ -17,8 +17,9 @@ import { getWallets } from '../services/WalletService';
 import ListWallets from './Wallet/ListWallets';
 import FormUpdateWallet from './Form/FormUpdateWallet';
 import FormUpdateRecord from './Form/FormUpdateRecord';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import MainSideBar from './View/MainSideBar';
+
+
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -40,6 +41,7 @@ export default function Dashboard() {
   const [listWallet, setListWallet] = React.useState([])
   const [walletForUpdate, setWalletForUpdate] = React.useState([])
   const [recordForUpdate, setRecordForUpdate] = React.useState([])
+
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -93,17 +95,32 @@ export default function Dashboard() {
     myHistory.push("/dashboard/updateRecord")
   }
 
+  const [open, setOpen] = React.useState(true)
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  }
 
+  const handleDrawerClose = () => {
+    setOpen(false);
+  }
 
   return (
     <div className={classes.root}>
       <CssBaseline />
       <MainAppBar
+        open={open}
         indexWallet={indexWallet}
         wallets={wallets}
         onPickNewWallet={onPickNewWallet}
         getWalletsFromServer={getWalletsFromServer}
+        handleDrawerOpen={handleDrawerOpen}
       />
+
+      <MainSideBar
+        open={open}
+        handleDrawerClose={handleDrawerClose}
+      />
+
       <main className={classes.content}>
         <div className={classes.appBarSpacer} />
         <Route path="/dashboard/home"><Home /></Route>
@@ -125,7 +142,6 @@ export default function Dashboard() {
             wallets={wallets}
             getWalletsFromServer={getWalletsFromServer} />
         </Route>
-        <ToastContainer />
       </main>
     </div>
   );

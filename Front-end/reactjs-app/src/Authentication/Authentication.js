@@ -14,6 +14,7 @@ import Cookie from 'universal-cookie'
 import { isLoggedIn, setUser } from "../utils/UserManager";
 import { myHistory } from '../App';
 import { setCurrentWalletId } from "../utils/WalletManager";
+import { toastError, toastSuccess } from '../utils/ToastManager';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -52,14 +53,14 @@ const Authentication = () => {
         console.log("user", user);
         console.log("wallet", user.list_wallet)
         if (user.list_wallet[0] !== undefined) {
-          if (user.list_wallet[0].id !== undefined){
+          if (user.list_wallet[0].id !== undefined) {
             setCurrentWalletId(user.list_wallet[0].id)
           }
         }
         myHistory.push("/dashboard/records")
       }
       else {
-        window.alert(response.data.message)
+        toastError(response.data.message)
       }
     });
   };
@@ -68,19 +69,19 @@ const Authentication = () => {
     axios.post(USER_ROOT_URL + "/signup", data).then((response) => {
       console.log(response.data);
       let user = response.data.result;
-      if (user != null){
+      if (user != null) {
         setUser(user)
         console.log("user", user);
         console.log("wallet", user.list_wallet)
         if (user.list_wallet[0] !== undefined) {
-          if (user.list_wallet[0].id !== undefined){
+          if (user.list_wallet[0].id !== undefined) {
             setCurrentWalletId(user.list_wallet[0].id)
           }
         }
         myHistory.push("/dashboard/records")
       }
-      else{
-        window.alert(response.data.message)
+      else {
+        toastError(response.data.message)
       }
     });
   };

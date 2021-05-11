@@ -11,6 +11,7 @@ import { List } from '@material-ui/core';
 import Wallet from './Wallet';
 import axios from 'axios';
 import { RECORD_ROOT_URL } from '../../utils/constants';
+import { toastError } from '../../utils/ToastManager';
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
@@ -49,17 +50,16 @@ const useStyles = makeStyles((theme) => ({
 export default function ListWallets(props) {
 
     const classes = useStyles();
-    const [indexItem, setIndexItem] = React.useState([])
+
 
     React.useEffect(() => {
-        setIndexItem(1)
         props.getWalletsFromServer()
 
     }, [])
 
     const onDeleteWallet = async (wallet) => {
         if (props.indexWallet.id == wallet.id) {
-            window.alert("cannot delete current wallet")
+            toastError("cannot delete current wallet")
         } else {
             let success = await deleteWallet(wallet.id)
             if (success) {

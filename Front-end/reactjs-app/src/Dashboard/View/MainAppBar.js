@@ -1,14 +1,11 @@
 import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import MainSideMenu from './MainListItems'
 import { useEffect } from 'react';
 import { Icon, Divider } from '@material-ui/core';
 import { setCurrentWalletId } from '../../utils/WalletManager';
@@ -25,13 +22,6 @@ const useStyles = makeStyles((theme) => ({
     toolbar: {
         paddingRight: 24, // keep right padding when drawer closed
         spacing: 8,
-    },
-    toolbarIcon: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        padding: '0 8px',
-        ...theme.mixins.toolbar,
     },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -60,26 +50,6 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
-    drawerPaper: {
-        position: 'relative',
-        whiteSpace: 'nowrap',
-        width: drawerWidth,
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.enteringScreen,
-        }),
-    },
-    drawerPaperClose: {
-        overflowX: 'hidden',
-        transition: theme.transitions.create('width', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-        }),
-        width: theme.spacing(7),
-        [theme.breakpoints.up('sm')]: {
-            width: theme.spacing(9),
-        },
-    },
     paper: {
         padding: theme.spacing(2),
         display: 'flex',
@@ -102,14 +72,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function MainAppBar(props) {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true)
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    }
 
-    const handleDrawerClose = () => {
-        setOpen(false);
-    }
 
     useEffect(() => {
         const getWalletsFromServer = async () => {
@@ -143,14 +106,14 @@ export default function MainAppBar(props) {
 
     return (
         <>
-            <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+            <AppBar position="absolute" className={clsx(classes.appBar, props.open && classes.appBarShift)}>
                 <Toolbar className={classes.toolbar}>
                     <IconButton
                         edge="start"
                         color="inherit"
                         aria-label="open drawer"
-                        onClick={handleDrawerOpen}
-                        className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+                        onClick={props.handleDrawerOpen}
+                        className={clsx(classes.menuButton, props.open && classes.menuButtonHidden)}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -160,8 +123,8 @@ export default function MainAppBar(props) {
                             variant="contained"
                             className={classes.walletButton}>
                             <AddIcon />
-                            Create Wallet
-                        </Button>
+                    Create Wallet
+                </Button>
                     </Link>
 
                     <Link to="/dashboard/createRecord" style={{ textDecoration: 'none', color: "black" }}>
@@ -170,14 +133,14 @@ export default function MainAppBar(props) {
                             variant="contained"
                             className={classes.walletButton}>
                             <AddIcon />
-                            Create Record
-                        </Button>
+                    Create Record
+                </Button>
                     </Link>
 
                     <Divider orientation="vertical" flexItem className={classes.appBarDivider} />
                     {/* <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                        Open Menu
-                    </Button> */}
+                Open Menu
+            </Button> */}
                     <Button
                         aria-controls="simple-menu"
                         aria-haspopup="true"
@@ -218,20 +181,7 @@ export default function MainAppBar(props) {
 
                 </Toolbar>
             </AppBar>
-            <Drawer
-                variant="permanent"
-                classes={{
-                    paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
-                }}
-                open={open}
-            >
-                <div className={classes.toolbarIcon}>
-                    <IconButton onClick={handleDrawerClose}>
-                        <ChevronLeftIcon />
-                    </IconButton>
-                </div>
-                <MainSideMenu />
-            </Drawer>
         </>
+
     );
 }

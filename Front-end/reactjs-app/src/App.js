@@ -2,7 +2,8 @@ import { Redirect, Route, Router, Switch } from "react-router";
 import { createBrowserHistory } from 'history'
 import Authentication from "./Authentication/Authentication";
 import Dashboard from "./Dashboard/Dashboard";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const myHistory = createBrowserHistory()
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
         <Route path="/user" > <Authentication /></Route>
         <Route path="/dashboard" > <Dashboard /></Route>
       </Switch>
+      <ToastContainer />
     </Router>
   );
 }

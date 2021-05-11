@@ -13,6 +13,8 @@ import { myHistory } from '../../App';
 import { RECORD_ROOT_URL } from '../../utils/constants';
 import { useEffect } from 'react';
 import { addRecord } from '../../services/RecordService';
+import { toastError } from '../../utils/ToastManager';
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -69,7 +71,7 @@ export default function FormCreateRecord() {
         record.amount = parseInt(record.amount)
         let walletId = await getCurrentWalletId()
         if (!walletId) {
-            window.alert("Please pick wallet")
+            toastError("Please pick wallet")
             return
         }
         record.wallet_id = parseInt(walletId)

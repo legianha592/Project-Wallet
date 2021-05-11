@@ -13,6 +13,7 @@ import { myHistory } from '../../App';
 import { RECORD_ROOT_URL } from '../../utils/constants';
 import { useEffect } from 'react';
 import { updateRecord } from '../../services/RecordService';
+import { toastError } from '../../utils/ToastManager';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -70,7 +71,7 @@ export default function FormUpdateRecord(props) {
         record.amount = parseInt(record.amount)
         let walletId = await getCurrentWalletId()
         if (!walletId) {
-            window.alert("Please pick wallet")
+            toastError("Please pick wallet")
             return
         }
         record.record_id = props.record.id
