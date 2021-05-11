@@ -1,17 +1,27 @@
+import { useState } from 'react'
 import Cookies from 'universal-cookie'
 import { setCurrentWalletId } from './WalletManager'
 
 const cookie = new Cookies()
+const session = window.sessionStorage;
 const USER_INFO = 'current_user'
 const NOT_LOGIN = 'NOT_LOGIN'
 
 export async function getUser() {
-    return await cookie.get(USER_INFO)
+    if (cookie.get(USER_INFO) != null){
+        return await cookie.get(USER_INFO)
+    }
+    return await session.getItem(USER_INFO)
 }
 
 export function setUser(user) {
     console.log("setUser", user)
-    cookie.set(USER_INFO, user)
+    if (user.remember_me){
+        cookie.set(USER_INFO, user)
+    }
+    else{
+        session.setItem(USER_INFO, user)
+    }
 }
 
 export function removeUser() {
@@ -35,4 +45,7 @@ export async function isLoggedIn() {
 }
 
 export default function User() {
+    const [state, setState] = useState({
+        current_user: null
+    })
 }
