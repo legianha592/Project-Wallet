@@ -8,6 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItemIcon } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
+import { moneyStr } from '../../utils/CommonHelper';
 const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
@@ -59,7 +60,7 @@ function Record(props) {
                         className={classes.inline}
                         color="textPrimary"
                     >
-                        ${Intl.NumberFormat().format(props.record.amount)}
+                        ${moneyStr(props.record.amount)}
                     </Typography>
                 </ListItemSecondaryAction>
             </ListItem >

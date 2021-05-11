@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItemIcon } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
+import { moneyStr } from '../../utils/CommonHelper';
 const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
@@ -53,7 +54,7 @@ function Wallet(props) {
                 </ListItemAvatar>
                 <ListItemText
                     primary={props.wallet.wallet_name}
-                    secondary={`total Amount: ${props.wallet.total_amount}`}
+                    secondary={`Total amount: $${moneyStr(props.wallet.total_amount)}`}
                 />
             </ListItem >
             <Divider variant="inset" component="li" />
