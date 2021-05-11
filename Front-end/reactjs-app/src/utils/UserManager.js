@@ -8,35 +8,35 @@ const USER_INFO = 'current_user'
 const NOT_LOGIN = 'NOT_LOGIN'
 
 export async function getUser() {
-    if (cookie.get(USER_INFO) != null || cookie.get(USER_INFO) != undefined){
-        console.log("getuser", cookie.get(USER_INFO))
+    if (cookie.get(USER_INFO) == NOT_LOGIN && JSON.parse(session.getItem(USER_INFO)) == NOT_LOGIN){
+        return await NOT_LOGIN
+    }
+    else{
+        if (cookie.get(USER_INFO) == null){
+            return await JSON.parse(session.getItem(USER_INFO))
+        }
         return await cookie.get(USER_INFO)
     }
-    else{
-        let user = session.getItem(USER_INFO);
-        if (user !== NOT_LOGIN){
-            console.log("getuser2", JSON.parse(user))
-            return await JSON.parse(user)
-        }
-        console.log("getuser3", user)
-        return await user
-    }
-}
-
-export function setUser(user) {
-    console.log("setUser", user)
-    if (user.remember_me){
-        cookie.set(USER_INFO, user)
-    }
-    else{
-        if (user !== NOT_LOGIN){
-            session.setItem(USER_INFO, JSON.stringify(user))
-        }
-        else{
-            session.setItem(USER_INFO, user)
-        }  
-    }
-}
+       
+ }
+ 
+ export function setUser(user) {
+     console.log("setUser", user)
+     if (user == NOT_LOGIN){
+         session.setItem(USER_INFO, user)
+         cookie.set(USER_INFO, user)
+     }
+     else{
+         if (user.remember_me){
+             session.setItem(USER_INFO, null)
+             cookie.set(USER_INFO, user)
+         }
+         else{
+             session.setItem(USER_INFO, JSON.stringify(user))
+             cookie.set(USER_INFO, null)
+         }
+     }
+ }
 
 export function removeUser() {
     console.log("remove User")
