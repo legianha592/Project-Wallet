@@ -6,6 +6,7 @@ export default function WalletService() { }
 
 export async function getWallets() {
     const user = await getUser()
+    console.log("user in wallet service", user)
     const isLogin = await isLoggedIn()
     if (!isLogin) {
         return

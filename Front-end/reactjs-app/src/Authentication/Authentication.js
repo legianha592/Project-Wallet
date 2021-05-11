@@ -49,9 +49,9 @@ const Authentication = () => {
         //   setUser(response.data.result)
         // }
         setUser(user)
-        console.log(user.list_wallet)
+        console.log("user", user);
+        console.log("wallet", user.list_wallet)
         if (user.list_wallet[0].id != null) {
-
           setCurrentWalletId(user.list_wallet[0].id)
         }
         myHistory.push("/dashboard/records")
