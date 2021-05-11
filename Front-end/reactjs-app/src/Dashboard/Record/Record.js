@@ -13,6 +13,16 @@ const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
     },
+    greenTextColor: {
+        display: 'inline',
+        color: "green"
+    },
+    redTextColor: {
+        display: 'inline',
+        color: "red"
+    },
+
+
 }));
 
 
@@ -57,8 +67,8 @@ function Record(props) {
                     <Typography
                         component="span"
                         variant="body2"
-                        className={classes.inline}
-                        color="textPrimary"
+                        className={props.record.amount > 0 ? classes.greenTextColor : classes.redTextColor}
+                        color={props.record.amount > 0 ? "green" : "red"}
                     >
                         ${moneyStr(props.record.amount)}
                     </Typography>
