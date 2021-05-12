@@ -52,7 +52,7 @@ const Authentication = () => {
         setUser(user)
         console.log("user", user);
         console.log("wallet", user.list_wallet)
-        if (user.list_wallet[0] !== undefined) {
+        if (user.list_wallet !== undefined && user.list_wallet[0] != undefined) {
           if (user.list_wallet[0].id !== undefined) {
             setCurrentWalletId(user.list_wallet[0].id)
           }
@@ -73,7 +73,7 @@ const Authentication = () => {
         setUser(user)
         console.log("user", user);
         console.log("wallet", user.list_wallet)
-        if (user.list_wallet[0] !== undefined) {
+        if (user.list_wallet !== undefined && user.list_wallet[0] != undefined) {
           if (user.list_wallet[0].id !== undefined) {
             setCurrentWalletId(user.list_wallet[0].id)
           }
