@@ -8,43 +8,40 @@ const USER_INFO = 'current_user'
 const NOT_LOGIN = 'NOT_LOGIN'
 
 export async function getUser() {
-    let sessionUser = JSON.parse(session.getItem(USER_INFO));
-    let cookieUser = cookie.get(USER_INFO)
-    console.log("get user", sessionUser, cookieUser)
-    if (cookie.get(USER_INFO) === NOT_LOGIN && JSON.parse(session.getItem(USER_INFO)) === NOT_LOGIN){
-        console.log("case 1")
-        return await NOT_LOGIN
+
+    let cookieUser = await cookie.get(USER_INFO)
+    console.log("get user case 1", cookieUser)
+    if (cookieUser !== NOT_LOGIN) {
+        return cookieUser
     }
-    else{
-        if (cookie.get(USER_INFO) === NOT_LOGIN){
-            console.log("case 2")
-            return await JSON.parse(session.getItem(USER_INFO))
+
+    let sessionUser = session.getItem(USER_INFO)
+    console.log("get user case 2", sessionUser)
+    if (sessionUser !== NOT_LOGIN) {
+        return await JSON.parse(sessionUser)
+    }
+
+    console.log("case 3", NOT_LOGIN)
+    return NOT_LOGIN
+}
+
+export function setUser(user) {
+    session.setItem(USER_INFO, NOT_LOGIN)
+    cookie.set(USER_INFO, NOT_LOGIN)
+    console.log("setUser", user)
+    if (user === NOT_LOGIN) {
+        session.setItem(USER_INFO, user)
+        cookie.set(USER_INFO, user)
+    }
+    else {
+        if (user.remember_me) {
+            cookie.set(USER_INFO, user)
         }
-        else{
-            console.log("case 3")
-            return await cookie.get(USER_INFO)
+        else {
+            session.setItem(USER_INFO, JSON.stringify(user))
         }
     }
-       
- }
- 
- export function setUser(user) {
-     console.log("setUser", user)
-     if (user == NOT_LOGIN){
-         session.setItem(USER_INFO, user)
-         cookie.set(USER_INFO, user)
-     }
-     else{
-         if (user.remember_me){
-             session.setItem(USER_INFO, NOT_LOGIN)
-             cookie.set(USER_INFO, user)
-         }
-         else{
-             session.setItem(USER_INFO, JSON.stringify(user))
-             cookie.set(USER_INFO, NOT_LOGIN)
-         }
-     }
- }
+}
 
 export function removeUser() {
     console.log("remove User")

@@ -8,7 +8,7 @@ export async function getCurrentWalletId() {
 }
 
 export function setCurrentWalletId(walletId) {
-    cookie.set(CURRENT_WALLET_ID, walletId, { path: '/' })
+    cookie.set(CURRENT_WALLET_ID, walletId)
 }
 
 export function removeCurrentWalletId() {
