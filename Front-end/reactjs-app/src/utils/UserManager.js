@@ -29,11 +29,7 @@ export function setUser(user) {
     session.setItem(USER_INFO, NOT_LOGIN)
     cookie.set(USER_INFO, NOT_LOGIN)
     console.log("setUser", user)
-    if (user === NOT_LOGIN) {
-        session.setItem(USER_INFO, user)
-        cookie.set(USER_INFO, user)
-    }
-    else {
+    if (user !== NOT_LOGIN) {
         if (user.remember_me) {
             cookie.set(USER_INFO, user)
         }
