@@ -54,7 +54,7 @@ export default function Dashboard() {
 
     const initIndexItem = () => {
       let location = myHistory.location.pathname
-      if (location.includes("/records")) {
+      if (location.includes("/records") || location.includes("/createRecord")) {
         setIndexTab(TAB_RECORDS)
       } else if (location.includes("/wallets")) {
         setIndexTab(TAB_WALLETS)
@@ -82,6 +82,7 @@ export default function Dashboard() {
       setWallets(walletsFromServer)
       setListWallet(walletsFromServer)
       let id = await getCurrentWalletId()
+      // eslint-disable-next-line eqeqeq
       setIndexWallet(walletsFromServer.find(e => e.id == id))
     }
   }
@@ -89,6 +90,7 @@ export default function Dashboard() {
 
 
   const onPickNewWallet = async (wallet_id) => {
+    // eslint-disable-next-line eqeqeq
     setIndexWallet(listWallet.find(e => e.id == wallet_id))
     if (myHistory.location.pathname.includes("/dashboard/records")) {
       console.log(myHistory.location.pathname, wallet_id)

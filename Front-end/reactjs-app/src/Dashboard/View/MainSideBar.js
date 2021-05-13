@@ -10,7 +10,6 @@ import { removeCurrentWalletId } from '../../utils/WalletManager';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
-import { useEffect } from 'react';
 import { Drawer } from '@material-ui/core';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
@@ -53,11 +52,6 @@ const useStyles = makeStyles((theme) => ({
 
 
 export default function MainSideBar(props) {
-
-
-    useEffect(() => {
-
-    }, [])
 
     const logout = () => {
         removeUser()

@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { addWallet } from '../../services/WalletService';
 import { myHistory } from '../../App';
+// eslint-disable-next-line no-unused-vars
 import { toastSuccess } from '../../utils/ToastManager';
 
 

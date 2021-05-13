@@ -3,14 +3,9 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { deleteWallet, getWallets } from '../../services/WalletService';
-import { getCurrentWalletId } from '../../utils/WalletManager';
-import { Box } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { deleteWallet } from '../../services/WalletService';
 import { List } from '@material-ui/core';
 import Wallet from './Wallet';
-import axios from 'axios';
-import { RECORD_ROOT_URL } from '../../utils/constants';
 import { toastError } from '../../utils/ToastManager';
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -58,6 +53,7 @@ export default function ListWallets(props) {
     }, [])
 
     const onDeleteWallet = async (wallet) => {
+        // eslint-disable-next-line eqeqeq
         if (props.indexWallet.id == wallet.id) {
             toastError("cannot delete current wallet")
         } else {
@@ -83,6 +79,7 @@ export default function ListWallets(props) {
                                 props.wallets === undefined || props.wallets.length === 0 ? "No data" :
                                     props.wallets.map((wallet) => (
                                         <Wallet
+                                            key={wallet.id}
                                             wallet={wallet}
                                             onDeleteWallet={onDeleteWallet}
                                             onUpdateWallet={onUpdateWallet} />

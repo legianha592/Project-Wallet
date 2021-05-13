@@ -3,14 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { deleteRecord, getRecords } from '../../services/RecordService';
-import { getCurrentWalletId } from '../../utils/WalletManager';
-import { Box } from '@material-ui/core';
-import { Button } from '@material-ui/core';
+import { deleteRecord } from '../../services/RecordService';
 import { List } from '@material-ui/core';
 import Record from './Record';
-import axios from 'axios';
-import { RECORD_ROOT_URL } from '../../utils/constants';
+import { useEffect } from 'react';
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
@@ -49,21 +45,22 @@ const useStyles = makeStyles((theme) => ({
 export default function ListRecord(props) {
 
     const classes = useStyles();
-    const [currentMonth, setCurrentMonth] = React.useState([])
-    const [currentYear, setCurrentYear] = React.useState([])
-    React.useEffect(() => {
+    // const [currentMonth, setCurrentMonth] = React.useState([])
+    // const [currentYear, setCurrentYear] = React.useState([])
+    useEffect(() => {
         const getCurrentDateTime = () => {
             let today = new Date()
             let year = today.getFullYear()
             let month = today.getMonth()
             console.log(year, month)
-            setCurrentMonth(month)
-            setCurrentYear(year)
+            // setCurrentMonth(month)
+            // setCurrentYear(year)
         }
 
 
         props.getRecordsFromServer()
         getCurrentDateTime()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onDeleteRecord = async (record) => {
@@ -129,6 +126,7 @@ export default function ListRecord(props) {
                                 props.records === undefined || props.records.length === 0 ? "No data" :
                                     props.records.map((record) => (
                                         <Record
+                                            key={record.id}
                                             record={record}
                                             onDeleteRecord={onDeleteRecord}
                                             onUpdateRecord={onUpdateRecord} />

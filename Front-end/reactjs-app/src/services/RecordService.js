@@ -1,6 +1,5 @@
 import { RECORD_ROOT_URL } from "../utils/constants";
 import axios from 'axios';
-import { getCurrentWalletId } from '../utils/WalletManager';
 import { toastError, toastSuccess } from "../utils/ToastManager";
 
 

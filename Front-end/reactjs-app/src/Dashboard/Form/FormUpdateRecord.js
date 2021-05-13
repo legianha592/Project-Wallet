@@ -6,14 +6,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { addWallet } from '../../services/WalletService';
-import { getCurrentWalletId } from '../../utils/WalletManager';
-import axios from "axios"
-import { myHistory } from '../../App';
-import { RECORD_ROOT_URL } from '../../utils/constants';
 import { useEffect } from 'react';
-import { updateRecord } from '../../services/RecordService';
-import { toastError } from '../../utils/ToastManager';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -68,22 +61,23 @@ export default function FormUpdateRecord(props) {
     };
 
     const onUpdate = async (record) => {
-        record.amount = parseInt(record.amount)
-        let walletId = await getCurrentWalletId()
-        if (!walletId) {
-            toastError("Please pick wallet")
-            return
-        }
-        record.record_id = props.record.id
-        record.wallet_id = parseInt(walletId)
-        record.typeRecord_id = 1;
-        let d = new Date(date)
-        record.date = d.toLocaleDateString();
-        let result = await updateRecord(record)
-        console.log("result", result)
-        if (result != null) {
-            myHistory.push("/dashboard/records")
-        }
+        console.log(date)
+        // record.amount = parseInt(record.amount)
+        // let walletId = await getCurrentWalletId()
+        // if (!walletId) {
+        //     toastError("Please pick wallet")
+        //     return
+        // }
+        // record.record_id = props.record.id
+        // record.wallet_id = parseInt(walletId)
+        // record.typeRecord_id = 1;
+        // let d = new Date(date)
+        // record.date = d.toLocaleDateString();
+        // let result = await updateRecord(record)
+        // console.log("result", result)
+        // if (result != null) {
+        //     myHistory.push("/dashboard/records")
+        // }
     }
 
     useEffect(() => {
@@ -91,8 +85,17 @@ export default function FormUpdateRecord(props) {
         setTitle(props.record.title)
         setAmount(props.record.amount)
         setNote(props.record.note)
-        setDate(props.record.date)
-    }, [])
+
+        let date = props.record.created_date
+        let dateStr = `${date[0]}/${date[1]}/${date[2]}`
+
+        var curr = new Date(dateStr)
+        curr.setDate(curr.getDate())
+        var newDate = curr.toISOString().substr(0, 10)
+        console.log("props.record.date", curr)
+        console.log("props.record.date", newDate)
+        setDate(newDate)
+    }, [props])
 
 
     return (

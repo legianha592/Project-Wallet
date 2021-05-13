@@ -85,6 +85,7 @@ export default function MainAppBar(props) {
         }
 
         getWalletsFromServer()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const opTapWallet = async (wallet_id) => {
@@ -119,7 +120,7 @@ export default function MainAppBar(props) {
                         <MenuIcon />
                     </IconButton>
                     {
-                        props.indexTab == TAB_WALLETS &&
+                        props.indexTab === TAB_WALLETS &&
                         <Link to="/dashboard/createWallet" style={{ textDecoration: 'none', color: "black" }}>
                             <Button
                                 component="h1"
@@ -132,7 +133,7 @@ export default function MainAppBar(props) {
                     }
 
                     {
-                        props.indexTab == TAB_RECORDS &&
+                        props.indexTab === TAB_RECORDS &&
                         <>
                             <Link to="/dashboard/createRecord" style={{ textDecoration: 'none', color: "black" }}>
                                 <Button

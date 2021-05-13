@@ -6,11 +6,8 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-import { addWallet } from '../../services/WalletService';
 import { getCurrentWalletId } from '../../utils/WalletManager';
-import axios from "axios"
 import { myHistory } from '../../App';
-import { RECORD_ROOT_URL } from '../../utils/constants';
 import { useEffect } from 'react';
 import { addRecord } from '../../services/RecordService';
 import { toastError } from '../../utils/ToastManager';
@@ -61,7 +58,7 @@ export default function FormCreateRecord() {
     const handleAddRecord = async () => {
         if (!amount || !note || !date || !title) {
             console.log(date)
-            alert('please fill out all required fields')
+            toastError('please fill out all required fields')
             return
         }
         onAdd({ title, amount, note, date })
@@ -88,7 +85,10 @@ export default function FormCreateRecord() {
     }
 
     useEffect(() => {
-        document.getElementById('date').valueAsDate = new Date();
+        var curr = new Date();
+        curr.setDate(curr.getDate());
+        var date = curr.toISOString().substr(0, 10);
+        setDate(date)
     }, [])
 
 

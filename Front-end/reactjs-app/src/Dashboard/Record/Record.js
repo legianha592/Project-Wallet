@@ -2,7 +2,6 @@
 import React from 'react';
 import { ListItem, ListItemAvatar, Avatar, Typography, Divider, ListItemText, ListItemSecondaryAction } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core";
-import { Button } from "@material-ui/core"
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -28,7 +27,6 @@ const useStyles = makeStyles((theme) => ({
 
 function Record(props) {
     const classes = useStyles()
-    const today = Date.now()
     const [anchorEl, setAnchorEl] = React.useState(null);
 
     const handleClick = (event) => {
@@ -68,7 +66,6 @@ function Record(props) {
                         component="span"
                         variant="body2"
                         className={props.record.amount > 0 ? classes.greenTextColor : classes.redTextColor}
-                        color={props.record.amount > 0 ? "green" : "red"}
                     >
                         ${moneyStr(props.record.amount)}
                     </Typography>

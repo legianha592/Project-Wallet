@@ -1,6 +1,4 @@
-import { useState } from 'react'
 import Cookies from 'universal-cookie'
-import { setCurrentWalletId } from './WalletManager'
 
 const cookie = new Cookies()
 const session = window.sessionStorage;
@@ -10,14 +8,14 @@ const NOT_LOGIN = 'NOT_LOGIN'
 export async function getUser() {
 
     let cookieUser = await cookie.get(USER_INFO)
-    console.log("get user case 1", cookieUser)
     if (cookieUser !== NOT_LOGIN) {
+        console.log("get user case 1", cookieUser)
         return cookieUser
     }
 
     let sessionUser = session.getItem(USER_INFO)
-    console.log("get user case 2", sessionUser)
     if (sessionUser !== NOT_LOGIN) {
+        console.log("get user case 2", sessionUser)
         return await JSON.parse(sessionUser)
     }
 

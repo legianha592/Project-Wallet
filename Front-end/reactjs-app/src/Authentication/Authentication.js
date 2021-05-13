@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 import LoginBody from "./Login/LoginBody";
 import SignUpBody from "./SignUp/SignUpBody";
@@ -10,11 +10,10 @@ import {
 } from "react-router-dom";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core";
-import Cookie from 'universal-cookie'
 import { isLoggedIn, setUser } from "../utils/UserManager";
 import { myHistory } from '../App';
 import { setCurrentWalletId } from "../utils/WalletManager";
-import { toastError, toastSuccess } from '../utils/ToastManager';
+import { toastError } from '../utils/ToastManager';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -36,10 +35,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 const Authentication = () => {
   const classes = useStyles()
-  const [state, setState] = useState({
-    header: "",
-    footer: "",
-  });
 
   const submitLogin = (data) => {
     axios.post(USER_ROOT_URL + "/login", data).then(function (response) {
@@ -52,7 +47,7 @@ const Authentication = () => {
         setUser(user)
         console.log("user", user);
         console.log("wallet", user.list_wallet)
-        if (user.list_wallet !== undefined && user.list_wallet[0] != undefined) {
+        if (user.list_wallet !== undefined && user.list_wallet[0] !== undefined) {
           if (user.list_wallet[0].id !== undefined) {
             setCurrentWalletId(user.list_wallet[0].id)
           }
@@ -73,7 +68,7 @@ const Authentication = () => {
         setUser(user)
         console.log("user", user);
         console.log("wallet", user.list_wallet)
-        if (user.list_wallet !== undefined && user.list_wallet[0] != undefined) {
+        if (user.list_wallet !== undefined && user.list_wallet[0] !== undefined) {
           if (user.list_wallet[0].id !== undefined) {
             setCurrentWalletId(user.list_wallet[0].id)
           }
@@ -88,9 +83,9 @@ const Authentication = () => {
 
   useEffect(() => {
     const checkLogin = async () => {
-      let islogin = await isLoggedIn()
-      if (islogin) {
-        console.log(islogin)
+      let isLogin = await isLoggedIn()
+      if (isLogin) {
+        console.log(isLogin)
         myHistory.push("/dashboard/records")
       }
     }
@@ -100,7 +95,7 @@ const Authentication = () => {
   return (
     <>
       <div className={classes.root}>
-        <Header header={state.header} />
+        <Header />
         <main className={classes.main}>
           <Route exact path="/user/login">
             <LoginBody submitLogin={submitLogin} />
@@ -109,7 +104,7 @@ const Authentication = () => {
             <SignUpBody submitSignUp={submitSignUp} />
           </Route>
         </main>
-        <Footer footer={state.footer} />
+        <Footer />
       </div>
     </>
   );
