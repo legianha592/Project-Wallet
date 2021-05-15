@@ -7,6 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import { useEffect } from 'react';
+import { getCurrentWalletId } from '../../utils/WalletManager';
+import { toastError } from '../../utils/ToastManager';
+import { myHistory } from '../../App';
+import { updateRecord } from '../../services/RecordService';
 const useStyles = makeStyles((theme) => ({
     appBar: {
         position: 'relative',
@@ -61,23 +65,23 @@ export default function FormUpdateRecord(props) {
     };
 
     const onUpdate = async (record) => {
-        console.log(date)
-        // record.amount = parseInt(record.amount)
-        // let walletId = await getCurrentWalletId()
-        // if (!walletId) {
-        //     toastError("Please pick wallet")
-        //     return
-        // }
-        // record.record_id = props.record.id
-        // record.wallet_id = parseInt(walletId)
-        // record.typeRecord_id = 1;
-        // let d = new Date(date)
-        // record.date = d.toLocaleDateString();
-        // let result = await updateRecord(record)
-        // console.log("result", result)
-        // if (result != null) {
-        //     myHistory.push("/dashboard/records")
-        // }
+
+        record.amount = parseInt(record.amount)
+        let walletId = await getCurrentWalletId()
+        if (!walletId) {
+            toastError("Please pick wallet")
+            return
+        }
+        record.record_id = props.record.id
+        record.wallet_id = parseInt(walletId)
+        record.typeRecord_id = 1;
+        let d = date.split("-")
+        record.date = `${d[0]}/${1}/${2}` // yyyy/mm/dd
+        let result = await updateRecord(record)
+        console.log("result", result)
+        if (result != null) {
+            myHistory.push("/dashboard/records")
+        }
     }
 
     useEffect(() => {
