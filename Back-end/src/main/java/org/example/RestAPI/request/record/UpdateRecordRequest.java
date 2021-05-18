@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.example.RestAPI.finalstring.FinalMessage;
 
+import java.time.LocalDateTime;
+
 @Data
 @RequiredArgsConstructor
 public class UpdateRecordRequest {
@@ -12,6 +14,7 @@ public class UpdateRecordRequest {
     private String title;
     private String note;
     private double amount;
+    private LocalDateTime record_date;
     private long typeRecord_id;
     private String result;
 }

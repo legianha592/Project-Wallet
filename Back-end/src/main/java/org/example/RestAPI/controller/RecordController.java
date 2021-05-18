@@ -112,6 +112,7 @@ public class RecordController {
                 record.setTitle(request.getTitle());
                 record.setNote(request.getNote());
                 record.setAmount(request.getAmount());
+                record.setRecord_date(request.getRecord_date());
                 record.setTypeRecord(findTypeRecord.get());
 
                 //setup phía type record: 1 type record gồm nhiều record, nhiều wallet
@@ -127,7 +128,8 @@ public class RecordController {
 
 
                 message = new Message<>(FinalMessage.UPDATE_RECORD_SUCCESS, new UpdateRecordResponse(
-                        record.getId(), record.getTitle(), record.getNote(), record.getAmount(), wallet.getId(), request.getTypeRecord_id()
+                        record.getId(), record.getTitle(), record.getNote(), record.getAmount(), record.getRecord_date(),
+                        wallet.getId(), request.getTypeRecord_id()
                 ));
             }
         }
