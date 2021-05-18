@@ -8,6 +8,12 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItemIcon } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { moneyStr } from '../../utils/CommonHelper';
+import red from '@material-ui/core/colors/red';
+import purple from '@material-ui/core/colors/purple';
+import blue from '@material-ui/core/colors/blue';
+
+
+
 const useStyles = makeStyles((theme) => ({
     inline: {
         display: 'inline',
@@ -21,9 +27,21 @@ const useStyles = makeStyles((theme) => ({
         color: "red"
     },
 
-
+    avatar: {
+        color: '#fff',
+        backgroundColor: red[200]
+    },
+    orangeAvatar: {
+        color: '#fff',
+        backgroundColor: red[500]
+    },
+    purpleAvatar: {
+        color: '#fff',
+        backgroundColor: red[200]
+    },
 }));
 
+let classNameHolder = ["avatar", "orangeAvatar", "purpleAvatar"];
 
 function Record(props) {
     const classes = useStyles()
@@ -54,8 +72,21 @@ function Record(props) {
                 onClick={handleClick}
                 aria-controls="simple-menu"
                 aria-haspopup="true">
-                <ListItemAvatar>
-                    <Avatar alt={props.record.title} src="/static/images/avatar/1.jpg" />
+                <ListItemAvatar
+                    colorDefault="primary"
+                    backgroundColor="primary"
+                    color="primary"
+                >
+                    <Avatar
+                        //className={classes[Math.floor(Math.random() * 3)]}
+                        style={{
+                            backgroundColor: randomColor()
+                        }}
+                    >
+                        <Typography>
+                            {props.record.created_date[3]}
+                        </Typography>
+                    </Avatar>
                 </ListItemAvatar>
                 <ListItemText
                     primary={props.record.title}
@@ -103,5 +134,10 @@ function Record(props) {
         </>
     )
 }
+function randomColor() {
+    let hex = Math.floor(Math.random() * 0xFFFFFF);
+    let color = "#" + hex.toString(16);
 
+    return color;
+}
 export default Record;
