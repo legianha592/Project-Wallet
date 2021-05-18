@@ -62,6 +62,7 @@ public class RecordController {
                 record.setTitle(request.getTitle());
                 record.setNote(request.getNote());
                 record.setAmount(request.getAmount());
+                record.setRecord_date(request.getRecord_date());
                 record.setTypeRecord(typeRecord);
 
                 //setup phía type record: 1 type record gồm nhiều record, nhiều wallet

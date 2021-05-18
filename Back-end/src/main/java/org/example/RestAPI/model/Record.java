@@ -22,6 +22,7 @@ public class Record {
     private double amount;
     private String title;
     private String note;
+    private LocalDateTime record_date;
     private LocalDateTime created_date;
     @PrePersist
     public void prePersist(){
