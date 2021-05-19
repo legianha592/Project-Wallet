@@ -76,7 +76,8 @@ export default function FormUpdateRecord(props) {
         record.wallet_id = parseInt(walletId)
         record.typeRecord_id = 1;
         let d = date.split("-")
-        record.date = `${d[0]}/${1}/${2}` // yyyy/mm/dd
+        record.record_date = `${date}T00:00:00.000` // yyyy/mm/dd // 2018-11-21T11:13:13.274
+
         let result = await updateRecord(record)
         console.log("result", result)
         if (result != null) {
@@ -90,15 +91,17 @@ export default function FormUpdateRecord(props) {
         setAmount(props.record.amount)
         setNote(props.record.note)
 
-        let date = props.record.created_date
-        let dateStr = `${date[0]}/${date[1]}/${date[2]}`
-
-        var curr = new Date(dateStr)
-        curr.setDate(curr.getDate())
-        var newDate = curr.toISOString().substr(0, 10)
-        console.log("props.record.date", curr)
-        console.log("props.record.date", newDate)
-        setDate(newDate)
+        let date = props.record.record_date
+        if (date != null) {
+            let dateStr = `${date[0]}/${date[1]}/${date[2]}`
+            var curr = new Date(dateStr)
+            var intlDate = Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit' }).format(curr)
+            var splitDate = intlDate.split("/") //04/27/2021
+            var newDate = `${splitDate[2]}-${splitDate[0]}-${splitDate[1]}`
+            console.log("props.record.date", curr)
+            console.log("props.record.date", newDate)
+            setDate(newDate)
+        }
     }, [props])
 
 

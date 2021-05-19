@@ -8,9 +8,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import { ListItemIcon } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import { moneyStr } from '../../utils/CommonHelper';
-import red from '@material-ui/core/colors/red';
-import purple from '@material-ui/core/colors/purple';
-import blue from '@material-ui/core/colors/blue';
 
 
 
@@ -26,22 +23,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'inline',
         color: "red"
     },
-
-    avatar: {
-        color: '#fff',
-        backgroundColor: red[200]
-    },
-    orangeAvatar: {
-        color: '#fff',
-        backgroundColor: red[500]
-    },
-    purpleAvatar: {
-        color: '#fff',
-        backgroundColor: red[200]
-    },
 }));
-
-let classNameHolder = ["avatar", "orangeAvatar", "purpleAvatar"];
 
 function Record(props) {
     const classes = useStyles()
@@ -78,9 +60,8 @@ function Record(props) {
                     color="primary"
                 >
                     <Avatar
-                        //className={classes[Math.floor(Math.random() * 3)]}
                         style={{
-                            backgroundColor: randomColor()
+                            backgroundColor: stringToColour(props.record.title)
                         }}
                     >
                         <Typography>
@@ -134,10 +115,17 @@ function Record(props) {
         </>
     )
 }
-function randomColor() {
-    let hex = Math.floor(Math.random() * 0xFFFFFF);
-    let color = "#" + hex.toString(16);
-
-    return color;
+var stringToColour = function (str) {
+    var hash = 0;
+    for (var i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    var colour = '#';
+    for (var i = 0; i < 3; i++) {
+        var value = (hash >> (i * 8)) & 0xFF;
+        colour += ('00' + value.toString(16)).substr(-2);
+    }
+    return colour;
 }
+
 export default Record;
