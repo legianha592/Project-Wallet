@@ -57,7 +57,7 @@ export default function FormUpdateRecord(props) {
     const handleUpdateRecord = async () => {
         if (!amount || !note || !date || !title) {
             console.log(date)
-            alert('please fill out all required fields')
+            toastError('please fill out all required fields')
             return
         }
         onUpdate({ title, amount, note, date })
