@@ -60,6 +60,7 @@ export default function ListRecord(props) {
 
         props.getRecordsFromServer()
         getCurrentDateTime()
+        console.log("list record props: ", props)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

@@ -69,6 +69,14 @@ export default function Dashboard() {
     const walletID = await getCurrentWalletId()
     const recordsFromServer = await getRecords(walletID)
     if (recordsFromServer != null) {
+      recordsFromServer.sort((record1, record2) => {
+          for (let i=0; i<3; i++){
+            if (record1.record_date[i] != record2.record_date[i]){
+              return record1.record_date[i] - record2.record_date[i];
+            }
+          }
+          return -1;
+      })
       setRecords(recordsFromServer)
     }
     console.log(recordsFromServer)

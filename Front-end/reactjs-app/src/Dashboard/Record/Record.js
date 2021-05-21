@@ -65,7 +65,7 @@ function Record(props) {
                         }}
                     >
                         <Typography>
-                            {props.record.created_date[3]}
+                            {props.record.record_date[2]}
                         </Typography>
                     </Avatar>
                 </ListItemAvatar>
