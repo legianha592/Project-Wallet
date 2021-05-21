@@ -91,10 +91,10 @@ export default function LoginBody(props) {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="username"
+                        label="User name"
+                        name="username"
+                        autoComplete="username"
                         value={state.user_name}
                         onChange={onChangeUsername}
                         autoFocus
