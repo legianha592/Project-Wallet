@@ -72,7 +72,7 @@ export default function Dashboard() {
       recordsFromServer.sort((record1, record2) => {
           for (let i=0; i<3; i++){
             if (record1.record_date[i] != record2.record_date[i]){
-              return record1.record_date[i] - record2.record_date[i];
+              return record2.record_date[i] - record1.record_date[i];
             }
           }
           return -1;
