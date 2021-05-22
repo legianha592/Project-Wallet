@@ -3,6 +3,7 @@ package org.example.RestAPI.response.record;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.RestAPI.model.Record;
+import org.example.RestAPI.model.User;
 import org.example.RestAPI.model.Wallet;
 
 import java.time.LocalDateTime;
@@ -28,6 +29,12 @@ public class GetListRecordResponse {
         this.addList_record(wallet);
         this.total_amount = wallet.getTotal_amount();
     }
+
+    public GetListRecordResponse(User user){
+        this.addList_record(user);
+    }
+
+
     private double total_amount;
     private List<MyRecord> list_record = new ArrayList<>();
 
@@ -40,6 +47,13 @@ public class GetListRecordResponse {
                     record.getCreated_date(), record.getModified_date(), record.getRecord_date(),
                     record.getAmount(), record.getTypeRecord().getId());
             this.list_record.add(myRecord);
+        }
+    }
+
+    private void addList_record(User user){
+        for (Wallet wallet : user.getListWallet()) {
+            addList_record(wallet);
+            this.total_amount += wallet.getTotal_amount();
         }
     }
 }

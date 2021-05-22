@@ -1,10 +1,8 @@
 package org.example.RestAPI.controller;
 
 import org.example.RestAPI.finalstring.FinalMessage;
-import org.example.RestAPI.model.Message;
+import org.example.RestAPI.model.*;
 import org.example.RestAPI.model.Record;
-import org.example.RestAPI.model.TypeRecord;
-import org.example.RestAPI.model.Wallet;
 import org.example.RestAPI.request.record.CheckValidRecordRequest;
 import org.example.RestAPI.request.record.CreateRecordRequest;
 import org.example.RestAPI.request.record.DeleteRecordRequest;
@@ -15,6 +13,7 @@ import org.example.RestAPI.response.record.GetListRecordResponse;
 import org.example.RestAPI.response.record.UpdateRecordResponse;
 import org.example.RestAPI.service.IRecordService;
 import org.example.RestAPI.service.ITypeRecordService;
+import org.example.RestAPI.service.IUserService;
 import org.example.RestAPI.service.IWalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +28,9 @@ import java.util.Optional;
 public class RecordController {
     @Autowired
     IWalletService walletService;
+
+    @Autowired
+    IUserService userService;
 
     @Autowired
     IRecordService recordService;
@@ -146,6 +148,22 @@ public class RecordController {
         }
         else{
             GetListRecordResponse response = new GetListRecordResponse(findWallet.get());
+            message = new Message<>(FinalMessage.GET_LIST_RECORD_SUCCESS, response);
+        }
+
+        return new ResponseEntity<Message<GetListRecordResponse>>(message, HttpStatus.OK);
+    }
+
+    @GetMapping("/listByUserId")
+    public ResponseEntity getListRecordByUserId(@RequestParam(name = "userId") long user_id){
+        Optional<User> findUser = userService.findById(user_id);
+        Message<GetListRecordResponse> message;
+
+        if (findUser.isEmpty()){
+            message = new Message<>(FinalMessage.NO_USER, null);
+        }
+        else{
+            GetListRecordResponse response = new GetListRecordResponse(findUser.get());
             message = new Message<>(FinalMessage.GET_LIST_RECORD_SUCCESS, response);
         }
 
