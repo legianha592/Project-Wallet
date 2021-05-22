@@ -2,24 +2,14 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Paper from '@material-ui/core/Paper';
 import { deleteRecord } from '../../services/RecordService';
-import { List } from '@material-ui/core';
-import Record from './Record';
 import { useEffect } from 'react';
+import RecordTabbar from './tabbar';
 const useStyles = makeStyles((theme) => ({
     container: {
         paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(4),
     },
-    paper: {
-        padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-        position: 'center'
-    },
-
     topPaper: {
         //padding: theme.spacing(2),
         display: 'flex',
@@ -45,23 +35,18 @@ const useStyles = makeStyles((theme) => ({
 export default function ListRecord(props) {
 
     const classes = useStyles();
-    // const [currentMonth, setCurrentMonth] = React.useState([])
-    // const [currentYear, setCurrentYear] = React.useState([])
     useEffect(() => {
         const getCurrentDateTime = () => {
             let today = new Date()
             let year = today.getFullYear()
             let month = today.getMonth()
             console.log(year, month)
-            // setCurrentMonth(month)
-            // setCurrentYear(year)
         }
 
 
         props.getRecordsFromServer()
         getCurrentDateTime()
         console.log("list record props: ", props)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const onDeleteRecord = async (record) => {
@@ -69,14 +54,6 @@ export default function ListRecord(props) {
         if (success) {
             props.getRecordsFromServer()
         }
-        // axios.delete(`${RECORD_ROOT_URL}/delete?record_id=${record.id}`).then(response => {
-        //     console.log(response.data)
-        //     if (response.data.result != null) {
-        //         props.getRecordsFromServer()
-        //     } else if (response.data.message != null) {
-        //         window.alert(response.data.message)
-        //     }
-        // })
     }
 
     const onUpdateRecord = (record) => {
@@ -86,56 +63,11 @@ export default function ListRecord(props) {
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container >
-                {/* <Grid item xs={12}>
-                    <Paper className={classes.topPaper} bgcolor="grey.300">
-                        <Box display="flex" justifyContent="center" p={1}>
-                            <Box just p={1} flexGrow={1} >
-                                <Button
-                                    fullWidth={true}
-                                    component="h1"
-                                    variant="text"
-                                    className={classes.walletButton}>
-                                    Previous Month
-                                </Button>
-                            </Box>
-                            <Box just p={1} flexGrow={1}>
-                                <Button
-                                    fullWidth={true}
-                                    component="h1"
-                                    variant="text"
-                                    className={classes.walletButton}>
-                                    {currentMonth}/{currentYear}
-                                </Button>
-                            </Box>
-                            <Box just p={1} flexGrow={1} >
-                                <Button
-                                    fullWidth={true}
-                                    component="h1"
-                                    variant="text"
-                                    className={classes.walletButton}>
-                                    Next Month
-                                </Button>
-                            </Box>
-                        </Box>
-                    </Paper>
-                </Grid> */}
-                {/* Recent Orders */}
-                <Grid item xs={12}>
-                    <Paper className={classes.paper}>
-                        <List className={classes.root}>
-                            {
-                                props.records === undefined || props.records.length === 0 ? "No data" :
-                                    props.records.map((record) => (
-                                        <Record
-                                            key={record.id}
-                                            record={record}
-                                            onDeleteRecord={onDeleteRecord}
-                                            onUpdateRecord={onUpdateRecord} />
-                                    ))
-                            }
-                        </List>
-                    </Paper>
-                </Grid>
+                <RecordTabbar
+                    records={props.records}
+                    onDeleteRecord={onDeleteRecord}
+                    onUpdateRecord={onUpdateRecord}
+                />
             </Grid>
         </Container>
     );
