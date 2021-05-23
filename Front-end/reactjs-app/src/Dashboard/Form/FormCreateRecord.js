@@ -11,6 +11,14 @@ import { myHistory } from '../../App';
 import { useEffect } from 'react';
 import { addRecord } from '../../services/RecordService';
 import { toastError } from '../../utils/ToastManager';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { addTypeRecord } from '../../services/TypeRecordService';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -55,6 +63,7 @@ export default function FormCreateRecord() {
     const [amount, setAmount] = React.useState('')
     const [note, setNote] = React.useState('')
     const [date, setDate] = React.useState('')
+    const [createTypeRecordText, setCreateTypeRecordText] = React.useState('')
     const handleAddRecord = async () => {
         if (!amount || !note || !date || !title) {
             console.log(date)
@@ -90,6 +99,43 @@ export default function FormCreateRecord() {
         var date = curr.toISOString().substr(0, 10);
         setDate(date)
     }, [])
+
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleTapAddTypeRecord = () => {
+        handleClose()
+        handleClickOpenDialogTypeRecord()
+    };
+
+    const [openTypeRecord, setOpenTypeRecord] = React.useState(false);
+
+    const handleClickOpenDialogTypeRecord = () => {
+        setOpenTypeRecord(true);
+    };
+
+    const handleCloseDialogTypeRecord = () => {
+        setOpenTypeRecord(false);
+    };
+
+    const handleTapCreateTypeRecord = async ()  => {
+        
+        let result = await addTypeRecord(createTypeRecordText)
+        if (result !== null) {
+            handleCloseDialogTypeRecord()
+            setCreateTypeRecordText("")
+        }
+
+        
+    };
+
 
 
     return (
@@ -149,13 +195,71 @@ export default function FormCreateRecord() {
                                     onChange={(e) => setAmount(e.target.value)}
                                 />
                             </Grid>
+                            <Grid item xs={12}>
+                                <Button
+                                    variant="outlined" color="primary" 
+                                    aria-controls="simple-menu"
+                                    aria-haspopup="true"
+                                    onClick={handleClick}
+                                    component="h1">
+                                    pick type record
+                                </Button>
+                                <Menu
+                                    id="simple-menu"
+                                    anchorEl={anchorEl}
+                                    keepMounted
+                                    open={Boolean(anchorEl)}
+                                    onClose={handleClose}
+                                >
+                                    <MenuItem>
+                                        <Typography variant="inherit">
+                                            test
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Typography variant="inherit">
+                                            test
+                                        </Typography>
+                                    </MenuItem>
+                                    <MenuItem onClick={handleTapAddTypeRecord}>
+                                        <Typography variant="inherit">
+                                            Add new Type Record
+                                        </Typography>
+                                    </MenuItem>
+                                </Menu>
+                                <Dialog 
+                                open={openTypeRecord}
+                                onClose={handleCloseDialogTypeRecord} 
+                                aria-labelledby="form-dialog-title">
+                                    <DialogTitle id="form-dialog-title">Create Type Record</DialogTitle>
+                                    <DialogContent>
+                                    {/* <DialogContentText>
+                                        To subscribe to this website, please enter your email address here. We will send updates
+                                        occasionally.
+                                    </DialogContentText> */}
+                                    <TextField
+                                        autoFocus
+                                        margin="dense"
+                                        id="name"
+                                        label="Email Address"
+                                        type="email"
+                                        fullWidth
+                                        value={createTypeRecordText}
+                                        onChange={(e) => setCreateTypeRecordText(e.target.value)}
+                                    />
+                                    </DialogContent>
+                                    <DialogActions>
+                                    <Button onClick={handleCloseDialogTypeRecord} color="primary">
+                                        Cancel
+                                    </Button>
+                                    <Button onClick={handleTapCreateTypeRecord} color="primary">
+                                        Create
+                                    </Button>
+                                    </DialogActions>
+                                </Dialog>
+                            </Grid>
                         </Grid>
                         <div className={classes.buttons}>
-                            {/* {activeStep !== 0 && (
-                                <Button onClick={handleBack} className={classes.button}>
-                                    Back
-                                </Button>
-                            )} */}
                             <Button
                                 variant="contained"
                                 color="primary"
@@ -165,6 +269,7 @@ export default function FormCreateRecord() {
                                 Create
                             </Button>
                         </div>
+                        
                     </React.Fragment>
                 </Paper>
             </main>
