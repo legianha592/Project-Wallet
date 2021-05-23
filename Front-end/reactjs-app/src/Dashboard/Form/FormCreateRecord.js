@@ -18,7 +18,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
-import { addTypeRecord } from '../../services/TypeRecordService';
+import { addTypeRecord,getTypeRecords } from '../../services/TypeRecordService';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -64,10 +64,37 @@ export default function FormCreateRecord() {
     const [note, setNote] = React.useState('')
     const [date, setDate] = React.useState('')
     const [createTypeRecordText, setCreateTypeRecordText] = React.useState('')
+    const [listTypeRecord, setListTypeCreate] = React.useState([])
+    const [currentTypeRecord, setCurrentTypeCreate] = React.useState(null)
+
+    useEffect(() => {
+        const initSetupDate = () => {
+            var curr = new Date();
+            curr.setDate(curr.getDate());
+            var date = curr.toISOString().substr(0, 10);
+            setDate(date)    
+        }
+        
+        const getListTypeRecordFromServer = async () => {
+            let listTypeRecordFromServer = await getTypeRecords()
+            setListTypeCreate(listTypeRecordFromServer)
+        }
+
+        initSetupDate()
+        getListTypeRecordFromServer()
+    }, [])
+
+
+
     const handleAddRecord = async () => {
         if (!amount || !note || !date || !title) {
             console.log(date)
             toastError('please fill out all required fields')
+            return
+        }
+
+        if (!currentTypeRecord) {
+            toastError('please pick type record')
             return
         }
         onAdd({ title, amount, note, date })
@@ -81,7 +108,7 @@ export default function FormCreateRecord() {
             return
         }
         record.wallet_id = parseInt(walletId)
-        record.typeRecord_id = 1;
+        record.typeRecord_id = currentTypeRecord.id;
         let d = new Date(date)
         record.record_date = `${date}T23:59:59.000`
         //record.note = "test";
@@ -93,12 +120,7 @@ export default function FormCreateRecord() {
         console.log(result)
     }
 
-    useEffect(() => {
-        var curr = new Date();
-        curr.setDate(curr.getDate());
-        var date = curr.toISOString().substr(0, 10);
-        setDate(date)
-    }, [])
+    
 
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -126,16 +148,16 @@ export default function FormCreateRecord() {
     };
 
     const handleTapCreateTypeRecord = async ()  => {
-        
         let result = await addTypeRecord(createTypeRecordText)
         if (result !== null) {
             handleCloseDialogTypeRecord()
             setCreateTypeRecordText("")
         }
-
-        
     };
-
+    const onPickTypeRecord = (typeRecord) => {
+        handleClose()
+        setCurrentTypeCreate(typeRecord)
+    }
 
 
     return (
@@ -197,12 +219,13 @@ export default function FormCreateRecord() {
                             </Grid>
                             <Grid item xs={12}>
                                 <Button
-                                    variant="outlined" color="primary" 
+                                    variant={currentTypeRecord == null ? "outlined" : "contained"}
+                                    color="dafault" 
                                     aria-controls="simple-menu"
                                     aria-haspopup="true"
                                     onClick={handleClick}
                                     component="h1">
-                                    pick type record
+                                    pick type record {currentTypeRecord != null && `: ${currentTypeRecord.typeRecord_name}`}
                                 </Button>
                                 <Menu
                                     id="simple-menu"
@@ -211,16 +234,17 @@ export default function FormCreateRecord() {
                                     open={Boolean(anchorEl)}
                                     onClose={handleClose}
                                 >
-                                    <MenuItem>
-                                        <Typography variant="inherit">
-                                            test
-                                        </Typography>
-                                    </MenuItem>
-                                    <MenuItem>
-                                        <Typography variant="inherit">
-                                            test
-                                        </Typography>
-                                    </MenuItem>
+                                    {
+                                        listTypeRecord != null && listTypeRecord.map((typeRecord) =>  (
+                                            <MenuItem 
+                                            key={typeRecord.id}
+                                            onClick={() => {onPickTypeRecord(typeRecord)}}>
+                                                <Typography variant="inherit">
+                                                    {typeRecord.typeRecord_name}
+                                                </Typography>
+                                            </MenuItem>
+                                        ))
+                                    }
                                     <MenuItem onClick={handleTapAddTypeRecord}>
                                         <Typography variant="inherit">
                                             Add new Type Record
@@ -241,8 +265,8 @@ export default function FormCreateRecord() {
                                         autoFocus
                                         margin="dense"
                                         id="name"
-                                        label="Email Address"
-                                        type="email"
+                                        label="Type record name"
+                                        type="text"
                                         fullWidth
                                         value={createTypeRecordText}
                                         onChange={(e) => setCreateTypeRecordText(e.target.value)}

@@ -47,7 +47,8 @@ public class FinalMessage {
     public static final String DELETE_RECORD_SUCCESS = "Xóa bản ghi thành công";
 
 
-
+    //lấy danh sách type_record theo wallet id
+    public static final String GET_LIST_TYPERECORD_SUCCESS = "Lấy danh sách loại bản ghi thành công";
     //Tạo type record
     public static final String INVALID_TYPERECORD_NAME_LENGTH = "Độ dài của phân loại bản ghi không hợp lệ";
     public static final String TYPERECORD_EXISTED = "Phân loại bản ghi đã tồn tại";

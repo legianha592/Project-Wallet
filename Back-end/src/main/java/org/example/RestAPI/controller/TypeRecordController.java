@@ -3,12 +3,15 @@ package org.example.RestAPI.controller;
 import org.example.RestAPI.finalstring.FinalMessage;
 import org.example.RestAPI.model.Message;
 import org.example.RestAPI.model.TypeRecord;
+import org.example.RestAPI.model.Wallet;
 import org.example.RestAPI.request.typerecord.CheckValidTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.CreateTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.DeleteTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.UpdateTypeRecordRequest;
+import org.example.RestAPI.response.record.GetListRecordResponse;
 import org.example.RestAPI.response.typerecord.CreateTypeRecordResponse;
 import org.example.RestAPI.response.typerecord.DeleteTypeRecordResponse;
+import org.example.RestAPI.response.typerecord.GetListTypeRecordResponse;
 import org.example.RestAPI.response.typerecord.UpdateTypeRecordResponse;
 import org.example.RestAPI.service.ITypeRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,6 +31,23 @@ import java.util.Optional;
 public class TypeRecordController {
     @Autowired
     ITypeRecordService typeRecordService;
+
+
+    @GetMapping("/list")
+    public ResponseEntity getListRecord(){
+        Message<GetListTypeRecordResponse> message;
+        List<TypeRecord> listTypeRecord = typeRecordService.getAll();
+        if (listTypeRecord.isEmpty()){
+            message = new Message<>(FinalMessage.NO_TYPERECORD, null);
+        }
+        else{
+            GetListTypeRecordResponse response = new GetListTypeRecordResponse(listTypeRecord);
+            message = new Message<>(FinalMessage.GET_LIST_TYPERECORD_SUCCESS, response);
+        }
+
+        return new ResponseEntity<Message<GetListTypeRecordResponse>>(message, HttpStatus.OK);
+    }
+
 
     @PostMapping("/create")
     public ResponseEntity createTypeRecord(@RequestBody CreateTypeRecordRequest request){

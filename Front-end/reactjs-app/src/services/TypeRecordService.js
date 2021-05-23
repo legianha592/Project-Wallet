@@ -6,11 +6,11 @@ import { toastError, toastSuccess } from "../utils/ToastManager";
 export default function TypeRecordService() { }
 const baseURL = TYPE_RECORD_ROOT_URL
 
-export async function getTypeRecords(walletId) {
-    if (walletId == null) { return null }
-    const res = await fetch(`${baseURL}/list?walletId=${walletId}`)
+export async function getTypeRecords() {
+    const res = await fetch(`${baseURL}/list`)
+    console.log("getTypeRecords",res)
     const data = await res.json()
-    console.log(walletId, data.result)
+    console.log("getTypeRecords",data)
     if (data.result != null) {
         return data.result.list_typeRecord
     } else {

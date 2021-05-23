@@ -27,6 +27,11 @@ public class TypeRecordService implements ITypeRecordService{
     }
 
     @Override
+    public List<TypeRecord> getAll() {
+        return typeRecordRepository.findAll();
+    }
+
+    @Override
     public Optional<TypeRecord> findByTypeRecord_name(String typeRecord_name){
         return typeRecordRepository.findByTypeRecord_name(typeRecord_name);
     }
