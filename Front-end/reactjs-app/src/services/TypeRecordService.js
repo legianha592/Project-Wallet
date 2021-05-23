@@ -28,7 +28,10 @@ export async function addTypeRecord(typeRecord_name) {
     console.log(response.data)
     if (response.data.result != null) {
         toastSuccess("Create typeRecord success!")
-        return typeRecord_name
+        var newTypeRecord = {}
+        newTypeRecord.typeRecord_name = typeRecord_name
+        newTypeRecord.id = response.data.result.typeRecord_id
+        return newTypeRecord
     } else if (response.data.message != null) {
         toastError(response.data.message)
     }

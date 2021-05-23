@@ -152,6 +152,9 @@ export default function FormCreateRecord() {
         if (result !== null) {
             handleCloseDialogTypeRecord()
             setCreateTypeRecordText("")
+            var newListTypeRecord = listTypeRecord
+            newListTypeRecord.push(result)
+            setListTypeCreate(newListTypeRecord)
         }
     };
     const onPickTypeRecord = (typeRecord) => {
