@@ -5,31 +5,25 @@ import Grid from '@material-ui/core/Grid';
 import { deleteRecord } from '../../services/RecordService';
 import { useEffect } from 'react';
 import RecordTabbar from './tabbar';
+import {Paper,Typography,Divider} from '@material-ui/core';
+
+
 const useStyles = makeStyles((theme) => ({
     container: {
-        paddingTop: theme.spacing(4),
-        paddingBottom: theme.spacing(4),
+        width: 'auto',
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+        [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
+            width: 600,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+        },
     },
-    topPaper: {
-        //padding: theme.spacing(2),
-        display: 'flex',
-        overflow: 'auto',
-        flexDirection: 'column',
-        position: 'center',
-
-    },
-    seeMore: {
-        marginTop: theme.spacing(3),
-    },
-    root: {
-        width: '100%',
-        //maxWidth: '36ch',
-        backgroundColor: theme.palette.background.paper,
-    },
-    inline: {
-        display: 'inline',
-    },
+    
+ 
 }));
+
+
 
 
 export default function ListRecord(props) {
@@ -63,11 +57,14 @@ export default function ListRecord(props) {
     return (
         <Container maxWidth="lg" className={classes.container}>
             <Grid container >
-                <RecordTabbar
-                    records={props.records}
-                    onDeleteRecord={onDeleteRecord}
-                    onUpdateRecord={onUpdateRecord}
-                />
+                
+                <Grid item xs={12}>
+                    <RecordTabbar
+                        records={props.records}
+                        onDeleteRecord={onDeleteRecord}
+                        onUpdateRecord={onUpdateRecord}
+                    />    
+                </Grid>
             </Grid>
         </Container>
     );

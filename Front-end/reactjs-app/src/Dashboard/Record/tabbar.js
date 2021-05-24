@@ -9,7 +9,9 @@ import Box from '@material-ui/core/Box';
 import { List } from '@material-ui/core';
 import Record from './Record';
 import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
+import {Grid,Divider} from '@material-ui/core';
+import { withStyles } from "@material-ui/core/styles";
+import { moneyStr } from '../../utils/CommonHelper';
 
 
 function TabPanel(props) {
@@ -38,6 +40,20 @@ TabPanel.propTypes = {
     value: PropTypes.any.isRequired,
 };
 
+const BlueTypography = withStyles({
+    root: {
+      color: "#03c2fc"
+    }
+  })(Typography);
+const RedTypography = withStyles({
+    root: {
+      color: "#fc0303"
+    }
+  })(Typography);
+
+  
+
+
 function a11yProps(index) {
     return {
         id: `scrollable-auto-tab-${index}`,
@@ -52,13 +68,27 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: theme.palette.background.paper,
     },
     paper: {
-        padding: theme.spacing(2),
+        //padding: theme.spacing(2),
+        marginTop: theme.spacing(3),
         margin: 0,
         display: 'flex',
         overflow: 'auto',
         flexDirection: 'column',
         position: 'center'
     },
+    reportPaper: {
+        padding: theme.spacing(3),
+        display: 'flex',
+        overflow: 'auto',
+        flexDirection: 'column',
+        position: 'center'
+    },
+    textLeft: {
+        textAlign: 'left',
+    },
+    textRight: {
+        textAlign: 'right',
+    }
 }));
 
 export default function RecordTabbar(props) {
@@ -87,47 +117,78 @@ export default function RecordTabbar(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" color="default">
-                <Tabs
-                    value={value}
-                    onChange={handleChange}
-                    indicatorColor="primary"
-                    textColor="primary"
-                    variant="scrollable"
-                    scrollButtons="auto"
-                    aria-label="scrollable auto tabs example"
-                >
-                    {
-                        listDate.map((date, index) => (
-                            <Tab key={dateToInt(date)} label={`${date.getMonth() + 1}-${date.getFullYear()}`} {...a11yProps(index)} />
-                        ))
-                    }
-                </Tabs>
-            </AppBar>
-            {
-                listDate.map((date, index) => (
-                    <TabPanel value={value} index={index}>
-                        <Grid item xs={12}>
-                            <Paper className={classes.paper}>
-                                <List className={classes.root}>
-                                    {
-                                        props.records === undefined || getRecordByMonth(props.records, date).length === 0 //props.records.length === 0
-                                            ? "No data"
-                                            :
-                                            getRecordByMonth(props.records, date).map((record) => (
-                                                <Record
-                                                    key={record.id}
-                                                    record={record}
-                                                    onDeleteRecord={props.onDeleteRecord}
-                                                    onUpdateRecord={props.onUpdateRecord} />
-                                            ))
-                                    }
-                                </List>
-                            </Paper>
-                        </Grid>
-                    </TabPanel>
-                ))
-            }
+            <Paper className={classes.paper}>
+                <AppBar elevation={0} position="static" color="default">
+                    <Tabs
+                        value={value}
+                        onChange={handleChange}
+                        indicatorColor="primary"
+                        textColor="primary"
+                        variant="scrollable"
+                        scrollButtons="auto"
+                        aria-label="scrollable auto tabs example"
+                    >
+                        {
+                            listDate.map((date, index) => (
+                                <Tab key={dateToInt(date)} label={`${date.getMonth() + 1}-${date.getFullYear()}`} {...a11yProps(index)} />
+                            ))
+                        }
+                    </Tabs>
+                </AppBar>
+                
+                {
+                    listDate.map((date, index) => (
+                        <TabPanel value={value} index={index}>
+                            {
+                                !(props.records === undefined || getRecordByMonth(props.records, date).length === 0) &&
+                                <Grid item xs={12}>
+                                    <Paper elevation={0} className={classes.reportPaper}>
+                                        <Grid container>
+                                            <Grid item xs={6}><Typography className={classes.textLeft}> Income</Typography></Grid>
+                                            <Grid item xs={6}><BlueTypography className={classes.textRight}> ${getInComeOfListRecord(props.records, date)}</BlueTypography></Grid>
+                                        </Grid>
+                                        <Grid container>
+                                            <Grid item xs={6}><Typography className={classes.textLeft}> Outcome</Typography></Grid>
+                                            <Grid item xs={6}><RedTypography className={classes.textRight}> ${getOutComeOfListRecord(props.records, date)}</RedTypography></Grid>
+                                        </Grid>
+                                        <Grid container>
+                                            <Grid item xs={6}></Grid>
+                                            <Grid item xs={6}><Divider /></Grid>
+                                        </Grid>
+                                        <Grid container>
+                                            <Grid item xs={6}></Grid>
+                                            <Grid item xs={6}><Typography className={classes.textRight}> ${getSumOfListRecord(props.records, date)}</Typography></Grid>
+                                        </Grid>
+                                    </Paper>
+                                </Grid>
+                            }
+                            
+                            <Grid item xs={12}>
+                                
+                                    <List className={classes.root}>
+                                        {
+                                            props.records === undefined || getRecordByMonth(props.records, date).length === 0 //props.records.length === 0
+                                                ? 
+                                                <Paper elevation={0} className={classes.reportPaper}>
+                                                    No data
+                                                </Paper>
+                                                
+                                                :
+                                                getRecordByMonth(props.records, date).map((record) => (
+                                                    <Record
+                                                        key={record.id}
+                                                        record={record}
+                                                        onDeleteRecord={props.onDeleteRecord}
+                                                        onUpdateRecord={props.onUpdateRecord} />
+                                                ))
+                                        }
+                                    </List>
+                            
+                            </Grid>
+                        </TabPanel>
+                    ))
+                }
+             </Paper>
         </div>
     );
 }
@@ -138,4 +199,19 @@ var dateToInt = function (date) {
 
 var getRecordByMonth = function (records, date) {
     return records.filter(record => record.record_date[1] === date.getMonth() + 1 && record.record_date[0] === date.getFullYear())
+}
+
+var getInComeOfListRecord = function(records, date) {
+    let list = records.filter(record => record.record_date[1] === date.getMonth() + 1 && record.record_date[0] === date.getFullYear() && record.amount > 0)
+    return moneyStr(list.reduce((sum,record) =>  sum = sum + record.amount , 0 ))
+}
+
+var getOutComeOfListRecord = function(records, date) {
+    let list = records.filter(record => record.record_date[1] === date.getMonth() + 1 && record.record_date[0] === date.getFullYear() && record.amount < 0)
+    return moneyStr(list.reduce((sum,record) =>  sum = sum + record.amount , 0 ))
+}
+
+var getSumOfListRecord = function(records, date) {
+    let list = records.filter(record => record.record_date[1] === date.getMonth() + 1 && record.record_date[0] === date.getFullYear())
+    return moneyStr(list.reduce((sum,record) =>  sum = sum + record.amount , 0 ))
 }
