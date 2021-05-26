@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 @RequiredArgsConstructor
 public class UpdateRecordRequest {
-    private final int MAX_LENGTH = 50;
     private long record_id;
     private String title;
     private String note;
