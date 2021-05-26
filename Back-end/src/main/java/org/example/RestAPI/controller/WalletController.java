@@ -43,112 +43,136 @@ public class WalletController {
 
     @PostMapping("/create")
     public ResponseEntity createWallet(@RequestBody CreateWalletRequest request){
-        CheckValidWalletRequest.checkCreateWalletRequest(request);
-        Optional<User> findUser = userService.findById(request.getUser_id());
-        Message<CreateWalletResponse> message;
-        if (findUser.isEmpty()){
-            message = new Message<>(FinalMessage.NO_USER, null);
-        }
-        else{
-            if (!request.getResult().equals("OK")){
-                message = new Message<>(request.getResult(), null);
+        try{
+            CheckValidWalletRequest.checkCreateWalletRequest(request);
+            Optional<User> findUser = userService.findById(request.getUser_id());
+            Message<CreateWalletResponse> message;
+            if (findUser.isEmpty()){
+                message = new Message<>(FinalMessage.NO_USER, null);
             }
             else{
-                Wallet wallet = new Wallet();
-                wallet.setWallet_name(request.getWallet_name());
+                if (!request.getResult().equals("OK")){
+                    message = new Message<>(request.getResult(), null);
+                    return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+                }
+                else{
+                    Wallet wallet = new Wallet();
+                    wallet.setWallet_name(request.getWallet_name());
 
-                findUser.get().addWallet(wallet);
+                    findUser.get().addWallet(wallet);
 
-                walletService.addWallet(wallet);
+                    walletService.addWallet(wallet);
 
-                message = new Message<>(FinalMessage.CREATE_WALLET_SUCCESS,
-                        new CreateWalletResponse(wallet.getId()));
+                    message = new Message<>(FinalMessage.CREATE_WALLET_SUCCESS,
+                            new CreateWalletResponse(wallet.getId()));
+                }
             }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Message<CreateWalletResponse>>(message, HttpStatus.OK);
     }
 
     @PutMapping("/update")
     public ResponseEntity updateWallet(@RequestBody UpdateWalletRequest request){
-        CheckValidWalletRequest.checkUpdateWalletRequest(request);
-        Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
-        Message<UpdateWalletResponse> message;
+        try{
+            CheckValidWalletRequest.checkUpdateWalletRequest(request);
+            Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
+            Message<UpdateWalletResponse> message;
 
-        if (findWallet.isEmpty()){
-            message = new Message<>(FinalMessage.NO_WALLET, null);
-        }
-        else{
-            if (!request.getResult().equals("OK")){
-                message = new Message<>(request.getResult(), null);
+            if (findWallet.isEmpty()){
+                message = new Message<>(FinalMessage.NO_WALLET, null);
             }
             else{
-                Wallet wallet = findWallet.get();
-                wallet.setWallet_name(request.getWallet_name());
-                walletService.addWallet(wallet);
+                if (!request.getResult().equals("OK")){
+                    message = new Message<>(request.getResult(), null);
+                    return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+                }
+                else{
+                    Wallet wallet = findWallet.get();
+                    wallet.setWallet_name(request.getWallet_name());
+                    walletService.addWallet(wallet);
 
-                message = new Message<>(FinalMessage.CHANGE_WALLET_NAME_SUCCESS,
-                        new UpdateWalletResponse(wallet.getId(), wallet.getWallet_name(),
-                                wallet.getCreated_date(), wallet.getModified_date(), wallet.getTotal_amount()));
+                    message = new Message<>(FinalMessage.CHANGE_WALLET_NAME_SUCCESS,
+                            new UpdateWalletResponse(wallet.getId(), wallet.getWallet_name(),
+                                    wallet.getCreated_date(), wallet.getModified_date(), wallet.getTotal_amount()));
+                }
             }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Message<UpdateWalletResponse>>(message, HttpStatus.OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity getListWallet(@RequestParam(name = "userId") long user_id){
-        Optional<User> findUser = userService.findById(user_id);
-        Message<GetListWalletResponse> message;
+        try{
+            Optional<User> findUser = userService.findById(user_id);
+            Message<GetListWalletResponse> message;
 
-        if (findUser.isEmpty()){
-            message = new Message<>(FinalMessage.NO_USER, null);
+            if (findUser.isEmpty()){
+                message = new Message<>(FinalMessage.NO_USER, null);
+            }
+            else{
+                GetListWalletResponse response = new GetListWalletResponse(findUser.get());
+                message = new Message<>(FinalMessage.GET_LIST_WALLET_SUCCESS, response);
+            }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        else{
-            GetListWalletResponse response = new GetListWalletResponse(findUser.get());
-            message = new Message<>(FinalMessage.GET_LIST_WALLET_SUCCESS, response);
-        }
-        return new ResponseEntity<Message<GetListWalletResponse>>(message, HttpStatus.OK);
     }
     
     @DeleteMapping("/delete")
     public ResponseEntity deleteWallet(@RequestBody DeleteWalletRequest request){
-        Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
-        Message<DeleteWalletResponse> message;
+        try{
+            Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
+            Message<DeleteWalletResponse> message;
 
-        if(findWallet.isEmpty()){
-            message = new Message<>(FinalMessage.NO_WALLET, null);
-        }
-        else{
-            walletService.deleteWallet(request.getWallet_id());
+            if(findWallet.isEmpty()){
+                message = new Message<>(FinalMessage.NO_WALLET, null);
+            }
+            else{
+                walletService.deleteWallet(request.getWallet_id());
 
-            message = new Message<>(FinalMessage.DELETE_WALLET_SUCCESS, new DeleteWalletResponse(
-                    request.getWallet_id()));
+                message = new Message<>(FinalMessage.DELETE_WALLET_SUCCESS, new DeleteWalletResponse(
+                        request.getWallet_id()));
+            }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Message<DeleteWalletResponse>>(message, HttpStatus.OK);
     }
 
     @GetMapping("/export/excel")
-    public ResponseEntity<Resource> getFile(){
-        String filename = "wallet.xlsx";
-        InputStreamResource file = new InputStreamResource(walletService.load());
+    public ResponseEntity getFile(){
+        try{
+            String filename = "wallet.xlsx";
+            InputStreamResource file = new InputStreamResource(walletService.load());
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
-                .body(file);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                    .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                    .body(file);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/import/excel")
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
-        if (WalletExcelImporter.hasExcelFormat(file)) {
-            try {
-                walletService.save(file);
-                return ResponseEntity.status(HttpStatus.OK).body(new WalletExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_SUCCESS));
-
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new WalletExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_FAIL));
+        try{
+            if (WalletExcelImporter.hasExcelFormat(file)) {
+                try {
+                    walletService.save(file);
+                    return ResponseEntity.status(HttpStatus.OK).body(new WalletExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_SUCCESS));
+                } catch (Exception e) {
+                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new WalletExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_FAIL));
+                }
             }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new WalletExcelImporterResponse(FinalMessage.NOT_EXCEL_FILE));
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new WalletExcelImporterResponse(FinalMessage.NOT_EXCEL_FILE));
     }
 }
