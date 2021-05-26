@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 @Data
 @RequiredArgsConstructor
 public class CreateRecordRequest {
-    private final int MAX_LENGTH = 50;
     private String title;
     private String note;
     private double amount;

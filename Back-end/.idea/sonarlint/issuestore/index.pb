@@ -7,5 +7,3 @@ Ksrc/main/java/org/example/RestAPI/response/record/UpdateRecordResponse.java,a\
 Lsrc/main/java/org/example/RestAPI/response/record/GetListRecordResponse.java,e\f\ef6fb625bcb8c905766439c9b436a2bcff78a27f
 g
 7src/main/java/org/example/RestAPI/model/TypeRecord.java,0\8\08b7fdba81e4393e8e5271d0ff8a13d16cd1e986
-q
-Asrc/main/java/org/example/RestAPI/request/user/SignupRequest.java,9\d\9d35d32b9a63c8c5bf23b28df2dd73e937acbe4a
