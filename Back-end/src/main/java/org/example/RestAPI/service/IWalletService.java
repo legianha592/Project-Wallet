@@ -1,8 +1,5 @@
 package org.example.RestAPI.service;
 
-import org.example.RestAPI.model.Record;
-import org.example.RestAPI.model.TypeRecord;
-import org.example.RestAPI.model.User;
 import org.example.RestAPI.model.Wallet;
 import org.springframework.web.multipart.MultipartFile;
 

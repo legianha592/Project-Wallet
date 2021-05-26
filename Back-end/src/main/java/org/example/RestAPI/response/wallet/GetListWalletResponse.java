@@ -4,9 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.RestAPI.model.User;
 import org.example.RestAPI.model.Wallet;
-import org.example.RestAPI.response.user.LoginResponse;
-import org.example.RestAPI.service.IWalletService;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

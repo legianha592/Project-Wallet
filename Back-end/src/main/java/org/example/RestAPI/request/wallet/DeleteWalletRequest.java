@@ -1,6 +1,5 @@
 package org.example.RestAPI.request.wallet;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 
 @Data

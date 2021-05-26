@@ -1,15 +1,11 @@
 package org.example.RestAPI.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.lang.reflect.Type;
 import java.time.LocalDateTime;
-import java.util.*;
 
 @Entity
 @Table(name = "record")

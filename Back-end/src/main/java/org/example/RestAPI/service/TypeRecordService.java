@@ -5,7 +5,6 @@ import org.example.RestAPI.model.Wallet;
 import org.example.RestAPI.repository.TypeRecordRepository;
 import org.example.RestAPI.repository.WalletRepository;
 import org.example.RestAPI.response.exporter.TypeRecordExporterResponse;
-import org.example.RestAPI.response.exporter.WalletExcelExporterResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

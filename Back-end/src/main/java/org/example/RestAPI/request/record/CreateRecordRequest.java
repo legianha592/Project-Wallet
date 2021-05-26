@@ -2,7 +2,6 @@ package org.example.RestAPI.request.record;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import org.example.RestAPI.finalstring.FinalMessage;
 
 import java.time.LocalDateTime;
 

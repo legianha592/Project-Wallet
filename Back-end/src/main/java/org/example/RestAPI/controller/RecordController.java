@@ -1,8 +1,8 @@
 package org.example.RestAPI.controller;
 
 import org.example.RestAPI.finalstring.FinalMessage;
-import org.example.RestAPI.model.*;
 import org.example.RestAPI.model.Record;
+import org.example.RestAPI.model.*;
 import org.example.RestAPI.request.record.CheckValidRecordRequest;
 import org.example.RestAPI.request.record.CreateRecordRequest;
 import org.example.RestAPI.request.record.DeleteRecordRequest;
@@ -18,7 +18,6 @@ import org.example.RestAPI.service.IWalletService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;

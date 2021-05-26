@@ -1,6 +1,6 @@
 package org.example.RestAPI.request.user;
 
-import lombok.*;
+import lombok.Data;
 
 @Data
 public class LoginRequest {

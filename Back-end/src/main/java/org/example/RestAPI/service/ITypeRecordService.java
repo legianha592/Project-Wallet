@@ -3,7 +3,6 @@ package org.example.RestAPI.service;
 import org.example.RestAPI.model.TypeRecord;
 
 import java.io.ByteArrayInputStream;
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 

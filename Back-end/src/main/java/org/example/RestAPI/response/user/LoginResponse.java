@@ -5,7 +5,6 @@ import lombok.Data;
 import org.example.RestAPI.model.User;
 import org.example.RestAPI.model.Wallet;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

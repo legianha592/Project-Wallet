@@ -3,9 +3,7 @@ package org.example.RestAPI.response.typerecord;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.example.RestAPI.model.TypeRecord;
-import org.example.RestAPI.response.record.GetListRecordResponse;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

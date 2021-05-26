@@ -1,8 +1,6 @@
 package org.example.RestAPI.request.typerecord;
 
 import org.example.RestAPI.finalstring.FinalMessage;
-import org.example.RestAPI.request.typerecord.CreateTypeRecordRequest;
-import org.example.RestAPI.request.typerecord.UpdateTypeRecordRequest;
 
 public class CheckValidTypeRecordRequest {
     public static void checkCreateTypeRecordRequest(CreateTypeRecordRequest request){
