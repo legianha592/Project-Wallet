@@ -50,7 +50,7 @@ public class RecordController {
                 message = new Message<>(FinalMessage.NO_WALLET, null);
             }
             else if(findTypeRecord.isEmpty()){
-                message = new Message<>(FinalMessage.NO_TYPERECORD, null);
+                message = new Message<>(FinalMessage.NO_TYPE_RECORD, null);
             }
             else{
                 if (!request.getResult().equals("OK")){
@@ -103,7 +103,7 @@ public class RecordController {
                 message = new Message<>(FinalMessage.NO_RECORD, null);
             }
             else if (findTypeRecord.isEmpty()){
-                message = new Message<>(FinalMessage.NO_TYPERECORD, null);
+                message = new Message<>(FinalMessage.NO_TYPE_RECORD, null);
             }
             else{
                 if (!request.getResult().equals("OK")) {

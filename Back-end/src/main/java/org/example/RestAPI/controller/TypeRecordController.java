@@ -39,11 +39,11 @@ public class TypeRecordController {
             Message<GetListTypeRecordResponse> message;
             List<TypeRecord> listTypeRecord = typeRecordService.getAll();
             if (listTypeRecord.isEmpty()){
-                message = new Message<>(FinalMessage.NO_TYPERECORD, null);
+                message = new Message<>(FinalMessage.NO_TYPE_RECORD, null);
             }
             else{
                 GetListTypeRecordResponse response = new GetListTypeRecordResponse(listTypeRecord);
-                message = new Message<>(FinalMessage.GET_LIST_TYPERECORD_SUCCESS, response);
+                message = new Message<>(FinalMessage.GET_LIST_TYPE_RECORD_SUCCESS, response);
             }
 
             return new ResponseEntity(message, HttpStatus.OK);
@@ -72,12 +72,12 @@ public class TypeRecordController {
 
                     typeRecordService.addTypeRecord(typeRecord);
 
-                    message = new Message<>(FinalMessage.CREATE_TYPERECORD_SUCCESS, new CreateTypeRecordResponse(
+                    message = new Message<>(FinalMessage.CREATE_TYPE_RECORD_SUCCESS, new CreateTypeRecordResponse(
                             typeRecord.getId()));
                 }
             }
             else{
-                message = new Message<>(FinalMessage.TYPERECORD_EXISTED, null);
+                message = new Message<>(FinalMessage.TYPE_RECORD_EXISTED, null);
             }
             return new ResponseEntity(message, HttpStatus.OK);
         }catch(Exception e){
@@ -93,7 +93,7 @@ public class TypeRecordController {
             Message<UpdateTypeRecordResponse> message;
 
             if (findTypeRecord.isEmpty()){
-                message = new Message<>(FinalMessage.NO_TYPERECORD, null);
+                message = new Message<>(FinalMessage.NO_TYPE_RECORD, null);
             }
             else{
                 if (!request.getResult().equals("OK")){
@@ -107,7 +107,7 @@ public class TypeRecordController {
 
                     typeRecordService.addTypeRecord(typeRecord);
 
-                    message = new Message<>(FinalMessage.UPDATE_TYPERECORD_SUCCESS, new UpdateTypeRecordResponse(
+                    message = new Message<>(FinalMessage.UPDATE_TYPE_RECORD_SUCCESS, new UpdateTypeRecordResponse(
                             typeRecord.getId(), typeRecord.getTypeRecord_name(), typeRecord.getImage_url()
                     ));
                 }
@@ -126,17 +126,17 @@ public class TypeRecordController {
             Message<DeleteTypeRecordResponse> message;
 
             if (findTypeRecord.isEmpty()){
-                message = new Message<>(FinalMessage.NO_TYPERECORD, null);
+                message = new Message<>(FinalMessage.NO_TYPE_RECORD, null);
             }
             else{
                 TypeRecord typeRecord = findTypeRecord.get();
                 if (typeRecord.getListRecord().size() != 0 || typeRecord.getListWallet().size() != 0){
-                    message = new Message<>(FinalMessage.UNABLE_TO_DELETE_TYPERECORD, null);
+                    message = new Message<>(FinalMessage.UNABLE_TO_DELETE_TYPE_RECORD, null);
                 }
                 else{
                     typeRecordService.deleteTypeRecord(typeRecord);
 
-                    message = new Message<>(FinalMessage.DELETE_TYPERECORD_SUCCESS, new DeleteTypeRecordResponse(
+                    message = new Message<>(FinalMessage.DELETE_TYPE_RECORD_SUCCESS, new DeleteTypeRecordResponse(
                             request.getTypeRecord_id()
                     ));
                 }

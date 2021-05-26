@@ -15,7 +15,7 @@ public class CheckValidTypeRecordRequest {
             return;
         }
         if (typeRecord_name.length() > MAX_LENGTH){
-            request.setResult(FinalMessage.INVALID_TYPERECORD_NAME_LENGTH);
+            request.setResult(FinalMessage.INVALID_TYPE_RECORD_NAME_LENGTH);
             return;
         }
         request.setResult("OK");
@@ -32,7 +32,7 @@ public class CheckValidTypeRecordRequest {
             return;
         }
         if (typeRecord_name.length() > MAX_LENGTH){
-            request.setResult(FinalMessage.INVALID_TYPERECORD_NAME_LENGTH);
+            request.setResult(FinalMessage.INVALID_TYPE_RECORD_NAME_LENGTH);
             return;
         }
         request.setResult("OK");
