@@ -45,59 +45,66 @@ public class UserController {
 
     @PostMapping("/signup")
     public ResponseEntity addUser(@RequestBody SignupRequest request){
-        CheckValidUserRequest.checkSignupRequest(request);
-        Optional<User> findUser = userService.findByUser_name(request.getUser_name());
-        Message<SignupResponse> message;
-        if (findUser.isEmpty()){
-            if (request.getResult().equals("OK")){
-                User user = new User(request.getUser_name(), request.getPassword());
-                userService.addUser(user);
-                message = new Message<>(FinalMessage.SIGNUP_SUCCESS, new SignupResponse(user.getId()));
+        try{
+            CheckValidUserRequest.checkSignupRequest(request);
+            Optional<User> findUser = userService.findByUser_name(request.getUser_name());
+            Message<SignupResponse> message;
+            if (findUser.isEmpty()){
+                if (request.getResult().equals("OK")){
+                    User user = new User(request.getUser_name(), request.getPassword());
+                    userService.addUser(user);
+                    message = new Message<>(FinalMessage.SIGNUP_SUCCESS, new SignupResponse(user.getId()));
+                }
+                else{
+                    message = new Message<>(request.getResult(), null);
+                    return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+                }
             }
             else{
-                message = new Message<>(request.getResult(), null);
+                message = new Message<>(FinalMessage.USERNAME_EXISTED, null);
             }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        else{
-            message = new Message<>(FinalMessage.USERNAME_EXISTED, null);
-        }
-        return new ResponseEntity<Message<SignupResponse>>(message, HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody LoginRequest request, HttpServletResponse response){
-        Optional<User> findUser = userService.findByUser_name(request.getUser_name());
-        Message<LoginResponse> message;
-        if (findUser.isEmpty()){
-            message = new Message<>(FinalMessage.NO_USER, null);
-        }
-        else{
-            if (!request.getPassword().equals(findUser.get().getPassword())){
-                message = new Message<>(FinalMessage.WRONG_PASSWORD, null);
+    public ResponseEntity login(@RequestBody LoginRequest request){
+        try{
+            Optional<User> findUser = userService.findByUser_name(request.getUser_name());
+            Message<LoginResponse> message;
+            if (findUser.isEmpty()){
+                message = new Message<>(FinalMessage.NO_USER, null);
             }
             else{
-                message = new Message<>(FinalMessage.LOGIN_SUCCESS,
-                        new LoginResponse(findUser.get(), request.isRemember_me()));
+                if (!request.getPassword().equals(findUser.get().getPassword())){
+                    message = new Message<>(FinalMessage.WRONG_PASSWORD, null);
+                }
+                else{
+                    message = new Message<>(FinalMessage.LOGIN_SUCCESS,
+                            new LoginResponse(findUser.get(), request.isRemember_me()));
+                }
             }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Message<LoginResponse>>(message, HttpStatus.OK);
     }
 
     @PutMapping("/changepassword")
     public ResponseEntity changePassword(@RequestBody ChangePasswordRequest request){
-        CheckValidUserRequest.checkChangePasswordRequest(request);
-        Optional<User> findUser = userService.findById(request.getId());
-        Message<ChangePasswordResponse> message;
-        if (findUser.isEmpty()){
-            message = new Message<>(FinalMessage.NO_USER, null);
-        }
-        else{
-            if (!request.getOld_password().equals(findUser.get().getPassword())){
-                message = new Message<>(FinalMessage.WRONG_PASSWORD, null);
+        try{
+            Optional<User> findUser = userService.findById(request.getId());
+            CheckValidUserRequest.checkChangePasswordRequest(request, findUser.get());
+            Message<ChangePasswordResponse> message;
+            if (findUser.isEmpty()){
+                message = new Message<>(FinalMessage.NO_USER, null);
             }
             else{
                 if (!request.getResult().equals("OK")){
                     message = new Message<>(request.getResult(), null);
+                    return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
                 }
                 else{
                     User user = findUser.get();
@@ -107,35 +114,41 @@ public class UserController {
                             new ChangePasswordResponse(request.getId()));
                 }
             }
+            return new ResponseEntity(message, HttpStatus.OK);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-        return new ResponseEntity<Message<ChangePasswordResponse>>(message, HttpStatus.OK);
     }
 
     @GetMapping("/export/excel")
-    public ResponseEntity<Resource> getFile(){
-        String filename = "user.xlsx";
-        InputStreamResource file = new InputStreamResource(userService.load());
+    public ResponseEntity getFile(){
+        try{
+            String filename = "user.xlsx";
+            InputStreamResource file = new InputStreamResource(userService.load());
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
-                .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
-                .body(file);
+            return ResponseEntity.ok()
+                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + filename)
+                    .contentType(MediaType.parseMediaType("application/vnd.ms-excel"))
+                    .body(file);
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 
     @PostMapping("/import/excel")
     public ResponseEntity uploadFile(@RequestParam("file") MultipartFile file) {
-
-        if (UserExcelImporter.hasExcelFormat(file)) {
-            try {
-                userService.save(file);
-                return ResponseEntity.status(HttpStatus.OK).body(new UserExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_SUCCESS));
-
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new UserExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_FAIL));
+        try{
+            if (UserExcelImporter.hasExcelFormat(file)) {
+                try {
+                    userService.save(file);
+                    return ResponseEntity.status(HttpStatus.OK).body(new UserExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_SUCCESS));
+                } catch (Exception e) {
+                    return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new UserExcelImporterResponse(FinalMessage.IMPORT_EXCEL_FILE_FAIL));
+                }
             }
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserExcelImporterResponse(FinalMessage.NOT_EXCEL_FILE));
+        }catch (Exception e){
+            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new UserExcelImporterResponse(FinalMessage.NOT_EXCEL_FILE));
     }
-
 }

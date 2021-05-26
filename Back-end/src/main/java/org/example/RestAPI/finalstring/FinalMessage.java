@@ -1,8 +1,6 @@
 package org.example.RestAPI.finalstring;
 
 public class FinalMessage {
-    //Cookie
-    public static final String LOGIN_COOKIE = "logincookie";
     //Đăng kí
     public static final String SIGNUP_SUCCESS = "Đăng kí thành công";
     public static final String INVALID_USERNAME_LENGTH = "Độ dài tên không hợp lệ";
@@ -14,6 +12,7 @@ public class FinalMessage {
     public static final String CHANGE_PASSWORD_SUCCESS = "Đổi mật khẩu thành công";
     public static final String USERNAME_EXISTED = "Tên đăng kí đã tồn tại";
     public static final String CONFIRM_FAIL = "Hai chuỗi mật khẩu không giống nhau";
+    public static final String MANDATORY_FIELD_IS_EMPTY = "Thiếu trường bắt buộc";
     //Đăng nhập
     public static final String LOGIN_SUCCESS = "Đăng nhập thành công";
     public static final String NO_USER = "Không tồn tại người dùng";
