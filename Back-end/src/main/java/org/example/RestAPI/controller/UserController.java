@@ -47,19 +47,17 @@ public class UserController {
             CheckValidUserRequest.checkSignupRequest(request);
             Optional<User> findUser = userService.findByUser_name(request.getUser_name());
             Message<SignupResponse> message;
-            if (findUser.isEmpty()){
-                if (request.getResult().equals("OK")){
-                    User user = new User(request.getUser_name(), request.getPassword());
-                    userService.addUser(user);
-                    message = new Message<>(FinalMessage.SIGNUP_SUCCESS, new SignupResponse(user.getId()));
-                }
-                else{
-                    message = new Message<>(request.getResult(), null);
-                    return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
-                }
+            if (!request.getResult().equals("OK")){
+                message = new Message<>(request.getResult(), null);
+                return new ResponseEntity(message, HttpStatus.BAD_REQUEST);
+            }
+            if (!findUser.isEmpty()){
+                message = new Message<>(FinalMessage.USERNAME_EXISTED, null);
             }
             else{
-                message = new Message<>(FinalMessage.USERNAME_EXISTED, null);
+                User user = new User(request.getUser_name(), request.getPassword());
+                userService.addUser(user);
+                message = new Message<>(FinalMessage.SIGNUP_SUCCESS, new SignupResponse(user.getId()));
             }
             return new ResponseEntity(message, HttpStatus.OK);
         }catch (Exception e){

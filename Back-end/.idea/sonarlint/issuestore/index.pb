@@ -111,3 +111,11 @@ p
 @src/main/java/org/example/RestAPI/service/TypeRecordService.java,7\e\7e2479c816499cb6fc8ba9870be8aa7086cb2357
 l
 <src/main/java/org/example/RestAPI/service/WalletService.java,1\f\1f9e5d81a6511011310cec5b00ed6e63073d2c90
+p
+@src/main/java/org/example/RestAPI/repository/UserRepository.java,f\3\f3e3e219ad6b4c9fce6de16f2a312ef22a384c41
+7
+pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
+j
+:src/main/java/org/example/RestAPI/service/UserService.java,6\4\64608778149c3751c68ef6478aa968c0a74eabed
+n
+>src/test/java/org/example/RestAPI/RestAPIApplicationTests.java,9\3\938acef3714ad7407ff62cfd50434d8ec53c4b72
