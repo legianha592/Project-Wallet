@@ -1,0 +1,7 @@
+
+f	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÉÝÙÚ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨®»úÿÿÿÿÿ
+i	java:S116"TRename this field "user_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªÚªÇ
+l	java:S116"WRename this field "created_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µñ·ù
+m	java:S116!"XRename this field "modified_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š¯Óâ
+Q	java:S125+"<This block of commented-out lines of code should be removed.(•ÉÍŠ

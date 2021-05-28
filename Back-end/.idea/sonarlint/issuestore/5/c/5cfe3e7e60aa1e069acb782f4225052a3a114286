@@ -1,0 +1,62 @@
+
+@
+java:S1444"*Make this "public static TYPE" field final(Şî¯…
+
+java:S1192C"dDefine a constant instead of duplicating this literal "fail to import data to Excel file: " 3 times.(¯¾Øôùÿÿÿÿ
+`	java:S112C"FDefine and throw a dedicated exception instead of using a generic one.(¯¾Øôùÿÿÿÿ
+`	java:S112a"FDefine and throw a dedicated exception instead of using a generic one.(¯¾Øôùÿÿÿÿ
+`	java:S112"FDefine and throw a dedicated exception instead of using a generic one.(¯¾Øôùÿÿÿÿ
+n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ƒ²=
+f
+java:S1104"PMake TYPE a static final constant or non-public and provide accessors if needed.(Şî¯…
+e
+java:S3008"ORename this field "TYPE" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Şî¯…
+o
+java:S3008"TRename this field "HEADERs_1" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ŸÑ—ˆûÿÿÿÿ
+o
+java:S3008"TRename this field "HEADERs_2" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¸ÜÕşÿÿÿÿ
+o
+java:S3008"TRename this field "HEADERs_3" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÃûÈ÷ûÿÿÿÿ
+k
+java:S3008"PRename this field "SHEET" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬ªŒƒûÿÿÿÿ
+P
+java:S1118":Add a private constructor to hide the implicit public one.(ìİ…
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‡á˜Æøÿÿÿÿ
+J
+java:S6212%"/Declare this local variable with "var" instead.(ÿ°ıÿúÿÿÿÿ
+E
+java:S6212("/Declare this local variable with "var" instead.(İ÷Ò
+J
+java:S6212*"/Declare this local variable with "var" instead.(ßÖÑìøÿÿÿÿ
+J
+java:S6212+"/Declare this local variable with "var" instead.(¨°…¨ûÿÿÿÿ
+E
+java:S6212/"/Declare this local variable with "var" instead.(ÆÁ£Õ
+J
+java:S62121"/Declare this local variable with "var" instead.(œ©æÌıÿÿÿÿ
+c	java:S100G"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã¿£ª
+E
+java:S6212I"/Declare this local variable with "var" instead.(Æ±Ãì
+E
+java:S6212L"/Declare this local variable with "var" instead.(İ÷Ò
+J
+java:S6212N"/Declare this local variable with "var" instead.(àûü«üÿÿÿÿ
+J
+java:S6212O"/Declare this local variable with "var" instead.(¨°…¨ûÿÿÿÿ
+E
+java:S6212S"/Declare this local variable with "var" instead.(ÆÁ£Õ
+J
+java:S6212U"/Declare this local variable with "var" instead.(œ©æÌıÿÿÿÿ
+h	java:S100e"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(²ÙÅ¦şÿÿÿÿ
+D
+java:S6212g"/Declare this local variable with "var" instead.(òÔ
+E
+java:S6212j"/Declare this local variable with "var" instead.(İ÷Ò
+E
+java:S6212l"/Declare this local variable with "var" instead.(ÆÑí§
+J
+java:S6212m"/Declare this local variable with "var" instead.(¨°…¨ûÿÿÿÿ
+E
+java:S6212q"/Declare this local variable with "var" instead.(ÆÁ£Õ
+J
+java:S6212u"/Declare this local variable with "var" instead.(œ©æÌıÿÿÿÿ

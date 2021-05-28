@@ -1,0 +1,8 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨®»úÿÿÿÿÿ
+,
+java:S1700"Rename field "message"(ÕÃØ·
+i
+java:S1104"SMake message a static final constant or non-public and provide accessors if needed.(ÕÃØ·
+h
+java:S1104"RMake result a static final constant or non-public and provide accessors if needed.(Û½œ«

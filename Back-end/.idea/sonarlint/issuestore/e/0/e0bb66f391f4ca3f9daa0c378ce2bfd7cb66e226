@@ -1,0 +1,9 @@
+
+k	java:S117"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ׁ®ןûÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ü¿“Ý
+t	java:S116"ZRename this field "list_typeRecord" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(זגרטשÿÿÿÿ
+o	java:S116"ZRename this field "typeRecord_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ˆ³ט”
+t
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(זגרטשÿÿÿÿ
+J
+java:S6212"/Declare this local variable with "var" instead.(¼ערÿÿÿÿ

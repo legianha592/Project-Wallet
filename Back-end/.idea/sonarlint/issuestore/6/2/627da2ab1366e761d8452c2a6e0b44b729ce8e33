@@ -1,0 +1,15 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ƒêü¸
+q	java:S116"WRename this field "total_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½˜Ëùûÿÿÿÿ
+p	java:S116"VRename this field "list_wallet" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÕØìûÿÿÿÿ
+p	java:S116"VRename this field "wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(†Ü¦†ÿÿÿÿÿ
+l	java:S116"WRename this field "created_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‘êæœ
+m	java:S116"XRename this field "modified_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÅåùÛ
+l	java:S116"WRename this field "total_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ü¾Â
+h	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(î³ğşÿÿÿÿ
+E
+java:S6212!"/Declare this local variable with "var" instead.(ãÇâ‡
+J
+java:S6212""/Declare this local variable with "var" instead.(·ÌÍÿÿÿÿÿ
+J
+java:S6212$"/Declare this local variable with "var" instead.(“äÀëşÿÿÿÿ

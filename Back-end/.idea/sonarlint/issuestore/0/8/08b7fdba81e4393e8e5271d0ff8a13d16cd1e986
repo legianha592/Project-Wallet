@@ -1,0 +1,8 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨®»úÿÿÿÿÿ
+o	java:S116"ZRename this field "typeRecord_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(˜µÚ•
+h	java:S116"TRename this field "image_url" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ê¾ål
+l	java:S116"WRename this field "created_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µñ·ù
+m	java:S116"XRename this field "modified_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š¯Óâ
+P
+java:S6213%":Rename this variable to not match a restricted identifier.(¿²ÖÜ

@@ -1,0 +1,7 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(ƒêü¸
+i	java:S116"TRename this field "wallet_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¦ý¸Å
+p	java:S116"VRename this field "wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÁìžýÿÿÿÿ
+l	java:S116"WRename this field "created_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µñ·ù
+m	java:S116"XRename this field "modified_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š¯Óâ
+q	java:S116"WRename this field "total_amount" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(½˜Ëùûÿÿÿÿ

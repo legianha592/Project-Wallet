@@ -1,0 +1,66 @@
+
+E
+java:S3740)"/Provide the parametrized type for this generic.(ÚÿÔ
+E
+java:S37409"/Provide the parametrized type for this generic.(«æ£ƒ
+E
+java:S3740W"/Provide the parametrized type for this generic.(í…Ê
+J
+java:S3740Y"/Provide the parametrized type for this generic.(ËÄÒ“ÿÿÿÿÿ
+E
+java:S3740^"/Provide the parametrized type for this generic.(ğî©
+E
+java:S3740n"/Provide the parametrized type for this generic.(«æ£ƒ
+F
+java:S3740"/Provide the parametrized type for this generic.(í…Ê
+K
+java:S3740’"/Provide the parametrized type for this generic.(ËÄÒ“ÿÿÿÿÿ
+K
+java:S3740—"/Provide the parametrized type for this generic.(•”Œİÿÿÿÿÿ
+F
+java:S3740£"/Provide the parametrized type for this generic.(í…Ê
+K
+java:S3740¥"/Provide the parametrized type for this generic.(ËÄÒ“ÿÿÿÿÿ
+F
+java:S3740ª"/Provide the parametrized type for this generic.(ó£èÅ
+M
+java:S3740·"/Provide the parametrized type for this generic.(í…Ê8±¬¿µš/
+R
+java:S3740¹"/Provide the parametrized type for this generic.(ËÄÒ“ÿÿÿÿÿ8åäÁµš/
+L
+java:S3740¾"/Provide the parametrized type for this generic.(úÎÍb8„çÂµš/
+M
+java:S3740Ò"/Provide the parametrized type for this generic.(í…Ê8›†Åµš/
+R
+java:S3740Ô"/Provide the parametrized type for this generic.(ËÄÒ“ÿÿÿÿÿ8º‹Æµš/
+l	java:S117—"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(•”Œİÿÿÿÿÿ
+g	java:S117ª"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ó£èÅ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(‘Šòœÿÿÿÿÿ
+E
+java:S6212="/Declare this local variable with "var" instead.(²˜¹ú
+P
+java:S6213=":Rename this variable to not match a restricted identifier.(²˜¹ú
+J
+java:S6212>"/Declare this local variable with "var" instead.(„Šê¸ûÿÿÿÿ
+T
+java:S1854t">Remove this useless assignment to local variable "typeRecord".(áİò
+E
+java:S6212r"/Declare this local variable with "var" instead.(¡Òé“
+P
+java:S6213r":Rename this variable to not match a restricted identifier.(¡Òé“
+J
+java:S6212s"/Declare this local variable with "var" instead.(Ÿª—•ùÿÿÿÿ
+E
+java:S6212t"/Declare this local variable with "var" instead.(áİò
+K
+java:S6212 "/Declare this local variable with "var" instead.(²±«¸øÿÿÿÿ
+R
+java:S6212³"/Declare this local variable with "var" instead.(ŒÂÖíıÿÿÿÿ8¿¤Âµš/
+M
+java:S6212Ç"/Declare this local variable with "var" instead.(¡Òé“8ŒÌÅµš/
+X
+java:S6213Ç":Rename this variable to not match a restricted identifier.(¡Òé“8ŒÌÅµš/
+R
+java:S6212È"/Declare this local variable with "var" instead.(Ÿª—•ùÿÿÿÿ8ÌÅµš/
+E
+java:S1481t"/Remove this unused "typeRecord" local variable.(áİò
