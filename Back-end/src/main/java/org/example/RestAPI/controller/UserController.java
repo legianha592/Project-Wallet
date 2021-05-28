@@ -92,12 +92,12 @@ public class UserController {
     public ResponseEntity changePassword(@RequestBody ChangePasswordRequest request){
         try{
             Optional<User> findUser = userService.findById(request.getId());
-            CheckValidUserRequest.checkChangePasswordRequest(request, findUser.get());
             Message<ChangePasswordResponse> message;
             if (findUser.isEmpty()){
                 message = new Message<>(FinalMessage.NO_USER, null);
             }
             else{
+                CheckValidUserRequest.checkChangePasswordRequest(request, findUser.get());
                 if (!request.getResult().equals("OK")){
                     message = new Message<>(request.getResult(), null);
                     return new ResponseEntity(message, HttpStatus.BAD_REQUEST);

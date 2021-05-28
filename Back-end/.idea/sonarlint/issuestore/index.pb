@@ -45,10 +45,6 @@ Qsrc/main/java/org/example/RestAPI/request/typerecord/CreateTypeRecordRequest.ja
 Qsrc/main/java/org/example/RestAPI/request/typerecord/DeleteTypeRecordRequest.java,0\4\04dfd911956c8273666eb802dee6699f87e611cc
 Å
 Qsrc/main/java/org/example/RestAPI/request/typerecord/UpdateTypeRecordRequest.java,6\c\6c08584189afdd8f84966314a78b220d2947bbe2
-y
-Isrc/main/java/org/example/RestAPI/request/user/ChangePasswordRequest.java,f\4\f45b441a7da6aee3808fa4153d3b89e3bc4609a0
-p
-@src/main/java/org/example/RestAPI/request/user/LoginRequest.java,3\a\3ad5c190abad56b3f928eb93c334a6c2c53012be
 }
 Msrc/main/java/org/example/RestAPI/request/wallet/CheckValidWalletRequest.java,f\2\f2ea8f16b88ba92b87feb8e2f718661e7cbb1390
 y

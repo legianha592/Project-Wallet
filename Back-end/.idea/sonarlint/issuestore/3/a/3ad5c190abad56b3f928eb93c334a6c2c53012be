@@ -1,4 +1,0 @@
-
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¦±ûù
-i	java:S116"TRename this field "user_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ªÚªÇ
-p	java:S116	"VRename this field "remember_me" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€‰Ï‹øÿÿÿÿ

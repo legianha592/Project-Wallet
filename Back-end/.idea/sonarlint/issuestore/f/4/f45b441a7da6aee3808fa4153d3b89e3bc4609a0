@@ -1,5 +1,0 @@
-
-o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¦±ûù
-l	java:S116
-"WRename this field "old_password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ƒî‰ý
-l	java:S116"WRename this field "new_password" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áó­¾
