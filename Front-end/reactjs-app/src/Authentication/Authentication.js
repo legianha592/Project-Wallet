@@ -5,22 +5,19 @@ import SignUpBody from "./SignUp/SignUpBody";
 import Header from "./Header-Footer/Header";
 import Footer from "./Header-Footer/Footer";
 import { USER_ROOT_URL } from "../utils/constants";
-import {
-  Route,
-} from "react-router-dom";
+import { Route } from "react-router-dom";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core";
 import { isLoggedIn, setUser } from "../utils/UserManager";
-import { myHistory } from '../App';
+import { myHistory } from "../App";
 import { setCurrentWalletId } from "../utils/WalletManager";
-import { toastError } from '../utils/ToastManager';
-
+import { toastError } from "../utils/ToastManager";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
+    display: "flex",
+    flexDirection: "column",
+    minHeight: "100vh",
   },
   main: {
     marginTop: theme.spacing(8),
@@ -28,34 +25,38 @@ const useStyles = makeStyles((theme) => ({
   },
   footer: {
     padding: theme.spacing(3, 2),
-    marginTop: 'auto',
+    marginTop: "auto",
     backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+      theme.palette.type === "light"
+        ? theme.palette.grey[200]
+        : theme.palette.grey[800],
   },
 }));
 const Authentication = () => {
-  const classes = useStyles()
+  const classes = useStyles();
 
   const submitLogin = (data) => {
     axios.post(USER_ROOT_URL + "/login", data).then(function (response) {
-      console.log(response.data)
-      let user = response.data.result
+      console.log(response.data);
+      let user = response.data.result;
       if (user != null) {
         // if (response.data.result.remember_me){
         //   setUser(response.data.result)
         // }
-        setUser(user)
+        setUser(user);
         console.log("user", user);
-        console.log("wallet", user.list_wallet)
-        if (user.list_wallet !== undefined && user.list_wallet[0] !== undefined) {
+        console.log("wallet", user.list_wallet);
+        if (
+          user.list_wallet !== undefined &&
+          user.list_wallet[0] !== undefined
+        ) {
           if (user.list_wallet[0].id !== undefined) {
-            setCurrentWalletId(user.list_wallet[0].id)
+            setCurrentWalletId(user.list_wallet[0].id);
           }
         }
-        myHistory.push("/dashboard/records")
-      }
-      else {
-        toastError(response.data.message)
+        myHistory.push("/dashboard/records");
+      } else {
+        toastError(response.data.message);
       }
     });
   };
@@ -65,33 +66,35 @@ const Authentication = () => {
       console.log(response.data);
       let user = response.data.result;
       if (user != null) {
-        setUser(user)
+        setUser(user);
         console.log("user", user);
-        console.log("wallet", user.list_wallet)
-        if (user.list_wallet !== undefined && user.list_wallet[0] !== undefined) {
+        console.log("wallet", user.list_wallet);
+        if (
+          user.list_wallet !== undefined &&
+          user.list_wallet[0] !== undefined
+        ) {
           if (user.list_wallet[0].id !== undefined) {
-            setCurrentWalletId(user.list_wallet[0].id)
+            setCurrentWalletId(user.list_wallet[0].id);
           }
         }
-        myHistory.push("/dashboard/records")
-      }
-      else {
-        toastError(response.data.message)
+        myHistory.push("/dashboard/records");
+      } else {
+        toastError(response.data.message);
       }
     });
   };
 
   useEffect(() => {
     const checkLogin = async () => {
-      let isLogin = await isLoggedIn()
+      let isLogin = await isLoggedIn();
       if (isLogin) {
-        console.log(isLogin)
-        myHistory.push("/dashboard/records")
+        console.log(isLogin);
+        myHistory.push("/dashboard/records");
       }
-    }
+    };
 
-    checkLogin()
-  }, [])
+    checkLogin();
+  }, []);
   return (
     <>
       <div className={classes.root}>
@@ -108,5 +111,5 @@ const Authentication = () => {
       </div>
     </>
   );
-}
-export default Authentication
+};
+export default Authentication;
