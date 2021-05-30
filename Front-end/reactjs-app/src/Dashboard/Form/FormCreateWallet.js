@@ -10,6 +10,7 @@ import { addWallet } from "../../services/WalletService";
 import { myHistory } from "../../App";
 // eslint-disable-next-line no-unused-vars
 import { toastSuccess } from "../../utils/ToastManager";
+import { strings } from "../../services/LocalizationService";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -70,7 +71,7 @@ export default function FormCreateWallet() {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Create Wallet
+            {strings.create_wallet}
           </Typography>
           <React.Fragment>
             <Grid container spacing={3}>
@@ -78,7 +79,7 @@ export default function FormCreateWallet() {
                 <TextField
                   id="address2"
                   name="address2"
-                  label="Wallet Name"
+                  label={strings.wallet_name}
                   fullWidth
                   autoComplete="shipping address-line2"
                   value={walletName}
@@ -87,18 +88,13 @@ export default function FormCreateWallet() {
               </Grid>
             </Grid>
             <div className={classes.buttons}>
-              {/* {activeStep !== 0 && (
-                                <Button onClick={handleBack} className={classes.button}>
-                                    Back
-                                </Button>
-                            )} */}
               <Button
                 variant="contained"
                 color="primary"
                 onClick={handleAddWallet}
                 className={classes.button}
               >
-                Create
+                {strings.create_button}
               </Button>
             </div>
           </React.Fragment>

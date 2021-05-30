@@ -11,6 +11,7 @@ import { getCurrentWalletId } from "../../utils/WalletManager";
 import { toastError } from "../../utils/ToastManager";
 import { myHistory } from "../../App";
 import { updateRecord } from "../../services/RecordService";
+import { strings } from "../../services/LocalizationService";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -112,7 +113,7 @@ export default function FormUpdateRecord(props) {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Update Record
+            {strings.update_record}
           </Typography>
           <React.Fragment>
             <Grid container spacing={3}>
@@ -121,7 +122,7 @@ export default function FormUpdateRecord(props) {
                   type="text"
                   id="title"
                   name="title"
-                  label="Title"
+                  label={strings.record_title}
                   fullWidth
                   autoComplete="title"
                   value={title}
@@ -132,7 +133,7 @@ export default function FormUpdateRecord(props) {
                 <TextField
                   id="note"
                   name="note"
-                  label="Note"
+                  label={strings.record_note}
                   fullWidth
                   autoComplete="note"
                   value={note}
@@ -144,7 +145,7 @@ export default function FormUpdateRecord(props) {
                   type="date"
                   id="date"
                   name="date"
-                  label="Date"
+                  label={strings.record_date}
                   fullWidth
                   autoComplete="shipping address-line2"
                   value={date}
@@ -156,7 +157,7 @@ export default function FormUpdateRecord(props) {
                   type="number"
                   id="amount"
                   name="amount"
-                  label="Amount"
+                  label={strings.record_amount}
                   fullWidth
                   autoComplete="amount"
                   value={amount}
@@ -176,7 +177,7 @@ export default function FormUpdateRecord(props) {
                 onClick={handleUpdateRecord}
                 className={classes.button}
               >
-                Update
+                {strings.update_button}
               </Button>
             </div>
           </React.Fragment>

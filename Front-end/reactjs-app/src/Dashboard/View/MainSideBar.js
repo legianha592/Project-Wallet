@@ -16,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import { TAB_RECORDS, TAB_WALLETS } from "../../utils/constants";
+import { strings } from "../../services/LocalizationService";
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -99,7 +100,7 @@ export default function MainSideBar(props) {
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText primary="Records" />
+                <ListItemText primary={strings.records} />
               </ListItem>
             </Link>
             <Link
@@ -125,7 +126,7 @@ export default function MainSideBar(props) {
                     }}
                   />
                 </ListItemIcon>
-                <ListItemText primary="Wallets" />
+                <ListItemText primary={strings.wallets} />
               </ListItem>
             </Link>
             <Divider />
@@ -134,7 +135,7 @@ export default function MainSideBar(props) {
                 <ListItemIcon>
                   <ExitToAppIcon />
                 </ListItemIcon>
-                <ListItemText primary="Logout" />
+                <ListItemText primary={strings.logout} />
               </ListItem>
             </List>
           </List>

@@ -17,6 +17,10 @@ import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import { TAB_RECORDS, TAB_WALLETS } from "../../utils/constants";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import MoreIcon from "@material-ui/icons/AccountCircle";
+import { strings } from "../../services/LocalizationService";
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +52,7 @@ const useStyles = makeStyles((theme) => ({
   walletButton: {
     marginRight: 8,
   },
-  title: {
+  grow: {
     flexGrow: 1,
   },
   paper: {
@@ -67,6 +71,18 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
     padding: 0,
+  },
+  sectionDesktop: {
+    display: "none",
+    [theme.breakpoints.up("md")]: {
+      display: "flex",
+    },
+  },
+  sectionMobile: {
+    display: "flex",
+    [theme.breakpoints.up("md")]: {
+      display: "none",
+    },
   },
 }));
 
@@ -92,7 +108,7 @@ export default function MainAppBar(props) {
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
-
+  const [anchorElLanguage, setAnchorElLanguage] = React.useState(null);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -100,6 +116,133 @@ export default function MainAppBar(props) {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const menuId = "primary-search-account-menu";
+  const mobileMenuId = "primary-search-account-menu-mobile";
+  const isMenuOpen = Boolean(anchorElLanguage);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
+  const handleMenuLanguageClose = () => {
+    setAnchorElLanguage(null);
+    handleMobileMenuClose();
+  };
+
+  const handleProfileMenuOpen = (event) => {
+    setAnchorElLanguage(event.currentTarget);
+  };
+
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
+
+  const renderMenu = (
+    <Menu
+      anchorEl={anchorElLanguage}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={menuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMenuOpen}
+      onClose={handleMenuLanguageClose}
+    >
+      <MenuItem
+        onClick={() => {
+          handleMenuLanguageClose();
+          props.setLanguageToVietNamese();
+        }}
+      >
+        🇻🇳 {strings.vietnamese}
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          handleMenuLanguageClose();
+          props.setLanguageToEnglish();
+        }}
+      >
+        🇺🇸 {strings.english}
+      </MenuItem>
+    </Menu>
+  );
+
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{ vertical: "top", horizontal: "right" }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Language</p>
+      </MenuItem>
+    </Menu>
+  );
+
+  const menuPickWaller = (
+    <Menu
+      id="simple-menu"
+      anchorEl={anchorEl}
+      keepMounted
+      open={Boolean(anchorEl)}
+      onClose={handleClose}
+    >
+      {props.wallets == null
+        ? "No data"
+        : props.wallets.map((wallet) => (
+            <MenuItem
+              key={wallet.id}
+              style={{
+                backgroundColor:
+                  props.indexWallet != null &&
+                  props.indexWallet.id === wallet.id
+                    ? "blue"
+                    : "white",
+              }}
+              onClick={() => {
+                opTapWallet(wallet.id);
+              }}
+            >
+              <ListItemIcon>
+                <AccountBalanceWalletIcon
+                  style={{
+                    color:
+                      props.indexWallet != null &&
+                      props.indexWallet.id === wallet.id
+                        ? "white"
+                        : "black",
+                  }}
+                  fontSize="small"
+                />
+              </ListItemIcon>
+              <Typography
+                variant="inherit"
+                style={{
+                  color:
+                    props.indexWallet != null &&
+                    props.indexWallet.id === wallet.id
+                      ? "white"
+                      : "black",
+                }}
+              >
+                {wallet.wallet_name}
+              </Typography>
+            </MenuItem>
+          ))}
+    </Menu>
+  );
 
   return (
     <>
@@ -131,7 +274,7 @@ export default function MainAppBar(props) {
                 className={classes.walletButton}
               >
                 <AddIcon />
-                Create Wallet
+                {strings.create_wallet}
               </Button>
             </Link>
           )}
@@ -148,7 +291,7 @@ export default function MainAppBar(props) {
                   className={classes.walletButton}
                 >
                   <AddIcon />
-                  Create Record
+                  {strings.create_record}
                 </Button>
               </Link>
               <Divider
@@ -156,7 +299,6 @@ export default function MainAppBar(props) {
                 flexItem
                 className={classes.appBarDivider}
               />
-
               <Button
                 aria-controls="simple-menu"
                 aria-haspopup="true"
@@ -169,62 +311,40 @@ export default function MainAppBar(props) {
                 <AccountBalanceWalletIcon />
                 {props.indexWallet == null ? "" : props.indexWallet.wallet_name}
               </Button>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                {props.wallets == null
-                  ? "No data"
-                  : props.wallets.map((wallet) => (
-                      <MenuItem
-                        key={wallet.id}
-                        style={{
-                          backgroundColor:
-                            props.indexWallet != null &&
-                            props.indexWallet.id === wallet.id
-                              ? "blue"
-                              : "white",
-                        }}
-                        onClick={() => {
-                          opTapWallet(wallet.id);
-                        }}
-                      >
-                        <ListItemIcon>
-                          <AccountBalanceWalletIcon
-                            style={{
-                              color:
-                                props.indexWallet != null &&
-                                props.indexWallet.id === wallet.id
-                                  ? "white"
-                                  : "black",
-                            }}
-                            fontSize="small"
-                          />
-                        </ListItemIcon>
-                        <Typography
-                          variant="inherit"
-                          style={{
-                            color:
-                              props.indexWallet != null &&
-                              props.indexWallet.id === wallet.id
-                                ? "white"
-                                : "black",
-                          }}
-                        >
-                          {wallet.wallet_name}
-                        </Typography>
-                      </MenuItem>
-                    ))}
-              </Menu>
-
-              <Icon className={classes.title}></Icon>
             </>
           )}
+          <div className={classes.grow}></div>
+          <div className={classes.sectionDesktop}>
+            <IconButton
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <Typography>
+                {strings.getLanguage() === "en" ? "🇺🇸" : "🇻🇳"}{" "}
+                {strings.getLanguage()}{" "}
+              </Typography>
+            </IconButton>
+          </div>
+          <div className={classes.sectionMobile}>
+            <IconButton
+              aria-label="show more"
+              aria-controls={mobileMenuId}
+              aria-haspopup="true"
+              onClick={handleMobileMenuOpen}
+              color="inherit"
+            >
+              <MoreIcon />
+            </IconButton>
+          </div>
         </Toolbar>
       </AppBar>
+      {menuPickWaller}
+      {renderMobileMenu}
+      {renderMenu}
     </>
   );
 }

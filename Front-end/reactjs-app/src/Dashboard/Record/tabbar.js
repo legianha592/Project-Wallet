@@ -12,6 +12,7 @@ import Paper from "@material-ui/core/Paper";
 import { Grid, Divider } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
 import { moneyStr } from "../../utils/CommonHelper";
+import { strings } from "../../services/LocalizationService";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -140,7 +141,7 @@ export default function RecordTabbar(props) {
                     <Grid item xs={6}>
                       <Typography className={classes.textLeft}>
                         {" "}
-                        Income
+                        {strings.income}
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>
@@ -154,7 +155,7 @@ export default function RecordTabbar(props) {
                     <Grid item xs={6}>
                       <Typography className={classes.textLeft}>
                         {" "}
-                        Outcome
+                        {strings.outcome}
                       </Typography>
                     </Grid>
                     <Grid item xs={6}>

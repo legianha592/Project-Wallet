@@ -15,6 +15,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import { ListItemIcon } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import { moneyStr } from "../../utils/CommonHelper";
+import { strings } from "../../services/LocalizationService";
 
 const useStyles = makeStyles((theme) => ({
   inline: {
@@ -103,13 +104,13 @@ function Record(props) {
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          <Typography variant="inherit">Update</Typography>
+          <Typography variant="inherit">{strings.update}</Typography>
         </MenuItem>
         <MenuItem onClick={onTapDeleteRecord}>
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
-          <Typography variant="inherit">Delete</Typography>
+          <Typography variant="inherit">{strings.delete}</Typography>
         </MenuItem>
       </Menu>
     </>

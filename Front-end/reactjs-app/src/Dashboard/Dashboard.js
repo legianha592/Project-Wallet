@@ -19,6 +19,11 @@ import FormUpdateWallet from "./Form/FormUpdateWallet";
 import FormUpdateRecord from "./Form/FormUpdateRecord";
 import MainSideBar from "./View/MainSideBar";
 import { TAB_RECORDS, TAB_WALLETS } from "../utils/constants";
+import {
+  getCurrentLanguage,
+  onSetLanguageToEnglish,
+  onSetLanguageToVietNamese,
+} from "../services/LocalizationService";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -31,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
     overflow: "auto",
   },
 }));
-
+//class Dashboard extends React.Component
 export default function Dashboard() {
   const classes = useStyles();
   const [records, setRecords] = React.useState([]);
@@ -41,6 +46,7 @@ export default function Dashboard() {
   const [walletForUpdate, setWalletForUpdate] = React.useState([]);
   const [recordForUpdate, setRecordForUpdate] = React.useState([]);
   const [indexTab, setIndexTab] = React.useState([]);
+  const [state, setState] = React.useState([]);
 
   useEffect(() => {
     const checkLogin = async () => {
@@ -61,6 +67,7 @@ export default function Dashboard() {
 
     checkLogin();
     initIndexItem();
+    getCurrentLanguage();
   }, []);
 
   const getRecordsFromServer = async () => {
@@ -123,6 +130,15 @@ export default function Dashboard() {
   const onChangeTab = (indexTab) => {
     setIndexTab(indexTab);
   };
+
+  const setLanguageToVietNamese = () => {
+    onSetLanguageToVietNamese();
+    setState({});
+  };
+  const setLanguageToEnglish = () => {
+    onSetLanguageToEnglish();
+    setState({});
+  };
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -134,6 +150,8 @@ export default function Dashboard() {
         getWalletsFromServer={getWalletsFromServer}
         indexTab={indexTab}
         handleDrawerOpen={handleDrawerOpen}
+        setLanguageToVietNamese={setLanguageToVietNamese}
+        setLanguageToEnglish={setLanguageToEnglish}
       />
 
       <MainSideBar

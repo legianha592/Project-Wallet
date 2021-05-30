@@ -22,6 +22,7 @@ import {
   addTypeRecord,
   getTypeRecords,
 } from "../../services/TypeRecordService";
+import { strings } from "../../services/LocalizationService";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -167,7 +168,7 @@ export default function FormCreateRecord() {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Create Record
+            {strings.create_record}
           </Typography>
           <React.Fragment>
             <Grid container spacing={3}>
@@ -176,7 +177,7 @@ export default function FormCreateRecord() {
                   type="text"
                   id="title"
                   name="title"
-                  label="Title"
+                  label={strings.record_title}
                   fullWidth
                   autoComplete="title"
                   value={title}
@@ -187,7 +188,7 @@ export default function FormCreateRecord() {
                 <TextField
                   id="note"
                   name="note"
-                  label="Note"
+                  label={strings.record_note}
                   fullWidth
                   autoComplete="note"
                   value={note}
@@ -199,7 +200,7 @@ export default function FormCreateRecord() {
                   type="date"
                   id="date"
                   name="date"
-                  label="Date"
+                  label={strings.record_date}
                   fullWidth
                   autoComplete="shipping address-line2"
                   value={date}
@@ -211,7 +212,7 @@ export default function FormCreateRecord() {
                   type="number"
                   id="amount"
                   name="amount"
-                  label="Amount"
+                  label={strings.record_amount}
                   fullWidth
                   autoComplete="amount"
                   value={amount}
@@ -227,7 +228,7 @@ export default function FormCreateRecord() {
                   onClick={handleClick}
                   component="h1"
                 >
-                  pick type record{" "}
+                  {strings.pick_type_record}{" "}
                   {currentTypeRecord != null &&
                     `: ${currentTypeRecord.typeRecord_name}`}
                 </Button>
@@ -253,7 +254,7 @@ export default function FormCreateRecord() {
                     ))}
                   <MenuItem onClick={handleTapAddTypeRecord}>
                     <Typography variant="inherit">
-                      Add new Type Record
+                      {strings.add_new_type_record}
                     </Typography>
                   </MenuItem>
                 </Menu>
@@ -263,7 +264,7 @@ export default function FormCreateRecord() {
                   aria-labelledby="form-dialog-title"
                 >
                   <DialogTitle id="form-dialog-title">
-                    Create Type Record
+                    {strings.title_create_type_record}
                   </DialogTitle>
                   <DialogContent>
                     {/* <DialogContentText>
@@ -274,7 +275,7 @@ export default function FormCreateRecord() {
                       autoFocus
                       margin="dense"
                       id="name"
-                      label="Type record name"
+                      label={strings.type_record_name}
                       type="text"
                       fullWidth
                       value={createTypeRecordText}
@@ -286,10 +287,10 @@ export default function FormCreateRecord() {
                       onClick={handleCloseDialogTypeRecord}
                       color="primary"
                     >
-                      Cancel
+                      {strings.cancel_button}
                     </Button>
                     <Button onClick={handleTapCreateTypeRecord} color="primary">
-                      Create
+                      {strings.create_button}
                     </Button>
                   </DialogActions>
                 </Dialog>
@@ -302,7 +303,7 @@ export default function FormCreateRecord() {
                 onClick={handleAddRecord}
                 className={classes.button}
               >
-                Create
+                {strings.create_button}
               </Button>
             </div>
           </React.Fragment>

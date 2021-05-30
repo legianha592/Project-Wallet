@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import { updateWallet } from "../../services/WalletService";
 import { useEffect } from "react";
 import { myHistory } from "../../App";
+import { strings } from "../../services/LocalizationService";
 const useStyles = makeStyles((theme) => ({
   appBar: {
     position: "relative",
@@ -75,7 +76,7 @@ export default function FormUpdateWallet(props) {
       <main className={classes.layout}>
         <Paper className={classes.paper}>
           <Typography component="h1" variant="h4" align="center">
-            Update Wallet
+            {strings.update_wallet}
           </Typography>
           <React.Fragment>
             <Grid container spacing={3}>
@@ -83,7 +84,7 @@ export default function FormUpdateWallet(props) {
                 <TextField
                   id="address2"
                   name="address2"
-                  label="Wallet Name"
+                  label={strings.wallet_name}
                   fullWidth
                   autoComplete="shipping address-line2"
                   value={walletName}
@@ -103,7 +104,7 @@ export default function FormUpdateWallet(props) {
                 onClick={handleUpdateWallet}
                 className={classes.button}
               >
-                Update
+                {strings.update_button}
               </Button>
             </div>
           </React.Fragment>

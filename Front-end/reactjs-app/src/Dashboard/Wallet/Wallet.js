@@ -14,6 +14,7 @@ import { ListItemIcon } from "@material-ui/core";
 import EditIcon from "@material-ui/icons/Edit";
 import AccountBalanceWalletIcon from "@material-ui/icons/AccountBalanceWallet";
 import { moneyStr } from "../../utils/CommonHelper";
+import { strings } from "../../services/LocalizationService";
 
 function Wallet(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -54,7 +55,10 @@ function Wallet(props) {
         </ListItemAvatar>
         <ListItemText
           primary={props.wallet.wallet_name}
-          secondary={`Total amount: $${moneyStr(props.wallet.total_amount)}`}
+          secondary={strings.formatString(
+            strings.total_amount,
+            moneyStr(props.wallet.total_amount)
+          )} //{`Total amount: $${moneyStr(props.wallet.total_amount)}`}
         />
       </ListItem>
       <Divider variant="inset" component="li" />
@@ -69,13 +73,13 @@ function Wallet(props) {
           <ListItemIcon>
             <EditIcon fontSize="small" />
           </ListItemIcon>
-          <Typography variant="inherit">Update</Typography>
+          <Typography variant="inherit">{strings.update}</Typography>
         </MenuItem>
         <MenuItem onClick={onTapDeleteWallet}>
           <ListItemIcon>
             <DeleteIcon fontSize="small" />
           </ListItemIcon>
-          <Typography variant="inherit">Delete</Typography>
+          <Typography variant="inherit">{strings.delete}</Typography>
         </MenuItem>
       </Menu>
     </>
