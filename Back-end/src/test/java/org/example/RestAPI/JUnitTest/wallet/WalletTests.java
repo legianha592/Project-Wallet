@@ -80,11 +80,7 @@ public class WalletTests {
         /*** Test 1: Check if user is existed ***/
         CreateWalletRequest request = new CreateWalletRequest();
         request.setUser_id(user_id + 1);
-        request.setWallet_name("Wallet1");
-
-//        System.out.println("REQUEST: ");
-//        System.out.println(request.getUser_id());
-//        System.out.println(request.getWallet_name());
+        request.setWallet_name("Wallet123");
 
         mvc.perform(post("/wallet/create")
                 .contentType(MediaType.APPLICATION_JSON)

@@ -19,8 +19,6 @@ r
 Bsrc/main/java/org/example/RestAPI/repository/RecordRepository.java,7\c\7c0889398afec3f351d37d30dc73d5f827656c0e
 v
 Fsrc/main/java/org/example/RestAPI/repository/TypeRecordRepository.java,7\f\7f586c0a8485093a579e3f36a338e3644d896ff0
-r
-Bsrc/main/java/org/example/RestAPI/repository/WalletRepository.java,3\b\3b40fa74cce174805e17cc110f456d682ff37c5e
 }
 Msrc/main/java/org/example/RestAPI/request/record/CheckValidRecordRequest.java,3\6\3620828a3f91e1800aaa6f4acd14d93650d1c081
 y
@@ -87,14 +85,10 @@ q
 Asrc/main/java/org/example/RestAPI/service/ITypeRecordService.java,2\3\231c3dd6afe97c2db99755ee4ec449ec733b885a
 k
 ;src/main/java/org/example/RestAPI/service/IUserService.java,b\7\b7ae40d2f0764c2e0da503cf2bb82ba581d2cf43
-m
-=src/main/java/org/example/RestAPI/service/IWalletService.java,c\5\c57f16be04cff4db50ab984b31e7c8de0c85ad33
 l
 <src/main/java/org/example/RestAPI/service/RecordService.java,8\0\80fba7debc79d248558c6ad43fc3167d0561f95d
 p
 @src/main/java/org/example/RestAPI/service/TypeRecordService.java,7\e\7e2479c816499cb6fc8ba9870be8aa7086cb2357
-l
-<src/main/java/org/example/RestAPI/service/WalletService.java,1\f\1f9e5d81a6511011310cec5b00ed6e63073d2c90
 p
 @src/main/java/org/example/RestAPI/repository/UserRepository.java,f\3\f3e3e219ad6b4c9fce6de16f2a312ef22a384c41
 7
@@ -107,3 +101,11 @@ y
 Isrc/main/java/org/example/RestAPI/request/user/CheckValidUserRequest.java,7\4\74a7943ffda5397d75e940b46288413688884dc7
 p
 @src/main/java/org/example/RestAPI/controller/UserController.java,1\6\165bbd387bcd9bbedc58d72a43440f92ffd454bf
+€
+Psrc/test/java/org/example/RestAPI/JUnitTest/converter/ConvertObjectToString.java,c\f\cf9a5ebae6977f8efd0be3522c7e8eae4a5afc6c
+c
+3src/main/java/org/example/RestAPI/model/Wallet.java,4\9\49bc65ae1497b331cec576a9a75f1cc2c5cbc388
+a
+1src/main/java/org/example/RestAPI/model/User.java,9\6\961b60ff73cbcf24bdf8986d40dd03aec1c41cfb
+o
+?src/main/java/org/example/RestAPI/finalstring/FinalMessage.java,5\8\58b93bccd120077564aecf16daba24010f91c874

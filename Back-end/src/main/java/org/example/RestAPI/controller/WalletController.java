@@ -25,6 +25,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -39,8 +41,12 @@ public class WalletController {
     @PostMapping("/create")
     public ResponseEntity createWallet(@RequestBody CreateWalletRequest request){
         try{
-            CheckValidWalletRequest.checkCreateWalletRequest(request);
             Optional<User> findUser = userService.findById(request.getUser_id());
+            List<Wallet> listWalletByUser = new ArrayList<>();
+            if (findUser.isPresent()){
+                listWalletByUser = walletService.findByUser_id(findUser.get().getId());
+            }
+            CheckValidWalletRequest.checkCreateWalletRequest(request, listWalletByUser);
             Message<CreateWalletResponse> message;
             if (findUser.isEmpty()){
                 message = new Message<>(FinalMessage.NO_USER, null);

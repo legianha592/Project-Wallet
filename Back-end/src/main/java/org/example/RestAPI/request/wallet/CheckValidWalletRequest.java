@@ -2,16 +2,11 @@ package org.example.RestAPI.request.wallet;
 
 import org.example.RestAPI.finalstring.FinalMessage;
 import org.example.RestAPI.model.Wallet;
-import org.example.RestAPI.repository.WalletRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class CheckValidWalletRequest {
-    @Autowired
-    private static WalletRepository walletRepository;
-
-    public static void checkCreateWalletRequest(CreateWalletRequest request){
+    public static void checkCreateWalletRequest(CreateWalletRequest request, List<Wallet> listWalletByUser){
         int MAX_LENGTH = 50;
         Long user_id = request.getUser_id();
         String wallet_name = request.getWallet_name();
@@ -20,8 +15,7 @@ public class CheckValidWalletRequest {
             request.setResult(FinalMessage.MANDATORY_FIELD_IS_EMPTY);
             return;
         }
-        List<Wallet> listWallet = walletRepository.findAll();
-        for (Wallet wallet : listWallet){
+        for (Wallet wallet : listWalletByUser){
             if (wallet.getWallet_name().equals(wallet_name)){
                 request.setResult(FinalMessage.WALLET_NAME_IS_EXISTED);
                 return;

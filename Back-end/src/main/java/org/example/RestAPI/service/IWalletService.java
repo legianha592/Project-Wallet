@@ -12,7 +12,6 @@ public interface IWalletService {
 
     void updateWallet(long wallet_id, double amount);
 
-
     void deleteWallet(long wallet_id);
 
     Optional<Wallet> findById(long id);
