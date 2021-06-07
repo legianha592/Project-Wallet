@@ -102,5 +102,31 @@ public class WalletTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(1, walletRepository.findAll().size());
+
+        /*** Test 3: Check wallet name is existed ***/
+        request = new CreateWalletRequest();
+        request.setUser_id(user_id);
+        request.setWallet_name("Wallet1");
+
+        mvc.perform(post("/wallet/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, walletRepository.findAll().size());
+
+        /*** Test 5: Check wallet name is longer than max length ***/
+        request = new CreateWalletRequest();
+        request.setUser_id(user_id);
+        request.setWallet_name("123456789012345678901234567890123456789012345678901234567890");
+
+        mvc.perform(post("/wallet/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, walletRepository.findAll().size());
     }
 }

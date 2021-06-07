@@ -15,12 +15,12 @@ public class CheckValidWalletRequest {
             request.setResult(FinalMessage.MANDATORY_FIELD_IS_EMPTY);
             return;
         }
-        listWalletByUser.stream().forEach(wallet -> {
+        for (Wallet wallet : listWalletByUser){
             if (wallet.getWallet_name().equals(wallet_name)){
                 request.setResult(FinalMessage.WALLET_NAME_IS_EXISTED);
                 return;
             }
-        });
+        }
         if (wallet_name.length() > MAX_LENGTH){
             request.setResult(FinalMessage.INVALID_WALLET_NAME_LENGTH);
             return;
