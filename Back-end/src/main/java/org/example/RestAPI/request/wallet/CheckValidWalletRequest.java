@@ -1,8 +1,16 @@
 package org.example.RestAPI.request.wallet;
 
 import org.example.RestAPI.finalstring.FinalMessage;
+import org.example.RestAPI.model.Wallet;
+import org.example.RestAPI.repository.WalletRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.util.List;
 
 public class CheckValidWalletRequest {
+    @Autowired
+    private static WalletRepository walletRepository;
+
     public static void checkCreateWalletRequest(CreateWalletRequest request){
         int MAX_LENGTH = 50;
         Long user_id = request.getUser_id();
@@ -11,6 +19,13 @@ public class CheckValidWalletRequest {
         if (user_id == null || wallet_name == null){
             request.setResult(FinalMessage.MANDATORY_FIELD_IS_EMPTY);
             return;
+        }
+        List<Wallet> listWallet = walletRepository.findAll();
+        for (Wallet wallet : listWallet){
+            if (wallet.getWallet_name().equals(wallet_name)){
+                request.setResult(FinalMessage.WALLET_NAME_IS_EXISTED);
+                return;
+            }
         }
         if (wallet_name.length() > MAX_LENGTH){
             request.setResult(FinalMessage.INVALID_WALLET_NAME_LENGTH);

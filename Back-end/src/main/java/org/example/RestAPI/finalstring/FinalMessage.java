@@ -23,6 +23,7 @@ public class FinalMessage {
     public static final String CREATE_WALLET_SUCCESS = "Create wallet successfully";
     public static final String NO_WALLET = "There is no wallet";
     public static final String INVALID_WALLET_NAME_LENGTH = "Invalid length of wallet (not over 50)";
+    public static final String WALLET_NAME_IS_EXISTED = "Wallet name is existed";
     public static final String INVALID_NEW_WALLET_NAME_LENGTH = "Invalid length of wallet's new name (not over 50)";
     //Update ví
     public static final String CHANGE_WALLET_NAME_SUCCESS = "Change wallet's name successfully";

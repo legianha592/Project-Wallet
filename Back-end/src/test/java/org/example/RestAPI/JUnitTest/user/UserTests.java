@@ -1,12 +1,12 @@
 package org.example.RestAPI.JUnitTest.user;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.RestAPI.controller.UserController;
 import org.example.RestAPI.model.User;
 import org.example.RestAPI.repository.UserRepository;
 import org.example.RestAPI.request.user.ChangePasswordRequest;
 import org.example.RestAPI.request.user.LoginRequest;
 import org.example.RestAPI.request.user.SignupRequest;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,6 +21,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.util.Optional;
 
+import static org.example.RestAPI.JUnitTest.converter.ConvertObjectToString.asJsonString;
 import static org.junit.Assert.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -43,14 +44,17 @@ public class UserTests {
     @Before
     public void setUp(){
         mvc = MockMvcBuilders.webAppContextSetup(wac).build();
-        userRepository.deleteAll();
 
         /*** save a default user ***/
         User user = new User();
-        user.setId(1L);
         user.setUser_name("User123456");
         user.setPassword("123456");
         userRepository.save(user);
+    }
+
+    @After
+    public void deleteAll(){
+        userRepository.deleteAll();
     }
 
     @Test
@@ -251,13 +255,5 @@ public class UserTests {
                 .content(asJsonString(request)))
                 .andExpect(status().isOk())
                 .andDo(MockMvcResultHandlers.print());
-    }
-
-    private static String asJsonString(final Object obj) {
-        try {
-            return new ObjectMapper().writeValueAsString(obj);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 }
