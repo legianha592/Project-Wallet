@@ -89,5 +89,18 @@ public class WalletTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(1, walletRepository.findAll().size());
+
+        /*** Test 2: Check mandatory field in request: wallet name ***/
+        request = new CreateWalletRequest();
+        request.setUser_id(user_id);
+        request.setWallet_name(null);
+
+        mvc.perform(post("/wallet/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, walletRepository.findAll().size());
     }
 }
