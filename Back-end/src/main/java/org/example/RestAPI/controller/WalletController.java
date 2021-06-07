@@ -77,8 +77,14 @@ public class WalletController {
     @PutMapping("/update")
     public ResponseEntity updateWallet(@RequestBody UpdateWalletRequest request){
         try{
-            CheckValidWalletRequest.checkUpdateWalletRequest(request);
             Optional<Wallet> findWallet = walletService.findById(request.getWallet_id());
+            User user = null;
+            List<Wallet> listWalletByUser = new ArrayList<>();
+            if (findWallet.isPresent()){
+                user = findWallet.get().getUser();
+                listWalletByUser = user.getListWallet();
+            }
+            CheckValidWalletRequest.checkUpdateWalletRequest(request, listWalletByUser);
             Message<UpdateWalletResponse> message;
 
             if (findWallet.isEmpty()){

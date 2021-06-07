@@ -174,5 +174,7 @@ public class WalletTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(1, walletRepository.findAll().size());
+
+
     }
 }
