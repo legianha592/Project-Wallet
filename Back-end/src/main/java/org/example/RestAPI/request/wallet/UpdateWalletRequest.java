@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 public class UpdateWalletRequest {
-    private long wallet_id;
+    private Long wallet_id;
     private String wallet_name;
     private String result;
 }
