@@ -123,7 +123,7 @@ public class WalletTests {
 
         assertEquals(1, walletRepository.findAll().size());
 
-        /*** Test 5: Check wallet name is longer than max length ***/
+        /*** Test 4: Check wallet name is longer than max length ***/
         request = new CreateWalletRequest();
         request.setUser_id(user_id);
         request.setWallet_name("123456789012345678901234567890123456789012345678901234567890");
@@ -136,7 +136,7 @@ public class WalletTests {
 
         assertEquals(1, walletRepository.findAll().size());
 
-        /*** Test 6: Check successful request ***/
+        /*** Test 5: Check successful request ***/
         request = new CreateWalletRequest();
         request.setUser_id(user_id);
         request.setWallet_name("Wallet2");
@@ -187,5 +187,46 @@ public class WalletTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(1, walletRepository.findAll().size());
+
+        /*** Test 3: Check wallet name is existed ***/
+        request = new UpdateWalletRequest();
+        request.setWallet_id(wallet_id);
+        request.setWallet_name("Wallet1");
+
+        mvc.perform(put("/wallet/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, walletRepository.findAll().size());
+
+        /*** Test 4: Check wallet name is longer than max length ***/
+        request = new UpdateWalletRequest();
+        request.setWallet_id(wallet_id);
+        request.setWallet_name("123456789012345678901234567890123456789012345678901234567890");
+
+        mvc.perform(put("/wallet/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, walletRepository.findAll().size());
+
+        /*** Test 5: Check successful request ***/
+        request = new UpdateWalletRequest();
+        request.setWallet_id(wallet_id);
+        request.setWallet_name("Wallet2");
+
+        mvc.perform(put("/wallet/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, walletRepository.findAll().size());
     }
+
+
 }

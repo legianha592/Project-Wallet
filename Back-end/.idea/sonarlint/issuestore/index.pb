@@ -97,8 +97,6 @@ y
 Isrc/main/java/org/example/RestAPI/request/user/CheckValidUserRequest.java,7\4\74a7943ffda5397d75e940b46288413688884dc7
 €
 Psrc/test/java/org/example/RestAPI/JUnitTest/converter/ConvertObjectToString.java,c\f\cf9a5ebae6977f8efd0be3522c7e8eae4a5afc6c
-c
-3src/main/java/org/example/RestAPI/model/Wallet.java,4\9\49bc65ae1497b331cec576a9a75f1cc2c5cbc388
 a
 1src/main/java/org/example/RestAPI/model/User.java,9\6\961b60ff73cbcf24bdf8986d40dd03aec1c41cfb
 q
@@ -107,7 +105,5 @@ y
 Isrc/main/java/org/example/RestAPI/request/wallet/CreateWalletRequest.java,e\6\e646a659f8c1e8d079a9944d489c37c32c58b75f
 r
 Bsrc/main/java/org/example/RestAPI/repository/WalletRepository.java,3\b\3b40fa74cce174805e17cc110f456d682ff37c5e
-l
-<src/main/java/org/example/RestAPI/service/WalletService.java,1\f\1f9e5d81a6511011310cec5b00ed6e63073d2c90
 m
 =src/main/java/org/example/RestAPI/service/IWalletService.java,c\5\c57f16be04cff4db50ab984b31e7c8de0c85ad33
