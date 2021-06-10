@@ -1,0 +1,5 @@
+
+n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Æ¢ã|
+i	java:S116	"TRename this field "wallet_id" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(­Ë’¼
+p	java:S116
+"VRename this field "wallet_name" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(õÁìžýÿÿÿÿ
