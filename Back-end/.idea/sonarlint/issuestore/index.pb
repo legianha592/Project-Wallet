@@ -111,5 +111,3 @@ l
 <src/main/java/org/example/RestAPI/service/WalletService.java,1\f\1f9e5d81a6511011310cec5b00ed6e63073d2c90
 m
 =src/main/java/org/example/RestAPI/service/IWalletService.java,c\5\c57f16be04cff4db50ab984b31e7c8de0c85ad33
-y
-Isrc/main/java/org/example/RestAPI/request/wallet/UpdateWalletRequest.java,f\1\f14cc6bac5acbf0c98afdac6a68f6551e5927930
