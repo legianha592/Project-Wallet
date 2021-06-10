@@ -33,8 +33,6 @@ Qsrc/main/java/org/example/RestAPI/request/typerecord/CreateTypeRecordRequest.ja
 Qsrc/main/java/org/example/RestAPI/request/typerecord/DeleteTypeRecordRequest.java,0\4\04dfd911956c8273666eb802dee6699f87e611cc
 Å
 Qsrc/main/java/org/example/RestAPI/request/typerecord/UpdateTypeRecordRequest.java,6\c\6c08584189afdd8f84966314a78b220d2947bbe2
-y
-Isrc/main/java/org/example/RestAPI/request/wallet/DeleteWalletRequest.java,1\3\13c06062534a3f9825ec69caf0f76388a30c24f1
 É
 Ssrc/main/java/org/example/RestAPI/response/exporter/TypeRecordExporterResponse.java,5\c\5cfe3e7e60aa1e069acb782f4225052a3a114286
 Ç
