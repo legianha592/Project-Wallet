@@ -20,8 +20,6 @@ Fsrc/main/java/org/example/RestAPI/repository/TypeRecordRepository.java,7\f\7f5
 }
 Msrc/main/java/org/example/RestAPI/request/record/CheckValidRecordRequest.java,3\6\3620828a3f91e1800aaa6f4acd14d93650d1c081
 y
-Isrc/main/java/org/example/RestAPI/request/record/CreateRecordRequest.java,b\0\b0c5ead82227cfbce2b45d2113c9178527731c51
-y
 Isrc/main/java/org/example/RestAPI/request/record/DeleteRecordRequest.java,f\a\faff1b8c2bccc85495e9c1156838ed75fbf992d4
 y
 Isrc/main/java/org/example/RestAPI/request/record/UpdateRecordRequest.java,8\1\81ce562e053d927da9e1a4682731d91859f38aa6
