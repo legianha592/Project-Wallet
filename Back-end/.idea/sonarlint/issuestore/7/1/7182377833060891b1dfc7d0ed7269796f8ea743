@@ -1,5 +1,0 @@
-
-t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(¨®»úÿÿÿÿÿ
-k	java:S116"VRename this field "record_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºó£
-l	java:S116"WRename this field "created_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µñ·ù
-m	java:S116"XRename this field "modified_date" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Š¯Óâ

@@ -9,10 +9,6 @@ s
 Csrc/main/java/org/example/RestAPI/importer/WalletExcelImporter.java,1\e\1e99294f325b8f2250239781fce699f084413fd0
 d
 4src/main/java/org/example/RestAPI/model/Message.java,c\6\c618a1d81f4bbeb2d5193ebd25da8a548de251ed
-c
-3src/main/java/org/example/RestAPI/model/Record.java,7\1\7182377833060891b1dfc7d0ed7269796f8ea743
-g
-7src/main/java/org/example/RestAPI/model/TypeRecord.java,0\8\08b7fdba81e4393e8e5271d0ff8a13d16cd1e986
 r
 Bsrc/main/java/org/example/RestAPI/repository/RecordRepository.java,7\c\7c0889398afec3f351d37d30dc73d5f827656c0e
 v
@@ -25,8 +21,6 @@ y
 Isrc/main/java/org/example/RestAPI/request/record/UpdateRecordRequest.java,8\1\81ce562e053d927da9e1a4682731d91859f38aa6
 Ö
 Usrc/main/java/org/example/RestAPI/request/typerecord/CheckValidTypeRecordRequest.java,d\7\d73a99331e8d56eb77cc045b8c23a7b214aa0501
-Å
-Qsrc/main/java/org/example/RestAPI/request/typerecord/CreateTypeRecordRequest.java,b\8\b88ab0ef88ed8dd2d1da9f3ed4733e980131dd6e
 Å
 Qsrc/main/java/org/example/RestAPI/request/typerecord/DeleteTypeRecordRequest.java,0\4\04dfd911956c8273666eb802dee6699f87e611cc
 Å
