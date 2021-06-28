@@ -9,6 +9,7 @@ import org.example.RestAPI.repository.TypeRecordRepository;
 import org.example.RestAPI.repository.UserRepository;
 import org.example.RestAPI.repository.WalletRepository;
 import org.example.RestAPI.request.record.CreateRecordRequest;
+import org.example.RestAPI.request.record.UpdateRecordRequest;
 import org.example.RestAPI.service.IRecordService;
 import org.junit.After;
 import org.junit.Before;
@@ -30,6 +31,7 @@ import static org.example.RestAPI.JUnitTest.converter.ConvertObjectToString.asJs
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -98,7 +100,6 @@ public class RecordTests {
         /*** Check if insert record successfully ***/
         Optional<Record> record = recordService.findByRecord_title("Title");
         assertNotEquals(record, null);
-        Long record_id = record.get().getId();
         Long wallet_id = record.get().getWallet().getId();
         Long typeRecord_id = record.get().getTypeRecord().getId();
 
@@ -186,5 +187,100 @@ public class RecordTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(2, recordRepository.findAll().size());
+    }
+
+    @Test
+    public void checkUpdateRecord() throws Exception {
+        /*** Check if insert record successfully ***/
+        Optional<Record> record = recordService.findByRecord_title("Title");
+        assertNotEquals(record, null);
+        Long record_id = record.get().getId();
+        Long wallet_id = record.get().getWallet().getId();
+        Long typeRecord_id = record.get().getTypeRecord().getId();
+
+        /*** Test 1: check if record is existed ***/
+        UpdateRecordRequest request = new UpdateRecordRequest();
+        request.setRecord_id(record_id + 1);
+        request.setTitle("Title123");
+        request.setNote("Note123");
+        request.setAmount(30000.0);
+        request.setRecord_date(new Date());
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(put("/record/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 2: check if type record is existed ***/
+        request = new UpdateRecordRequest();
+        request.setRecord_id(record_id);
+        request.setTitle("Title123");
+        request.setNote("Note123");
+        request.setAmount(30000.0);
+        request.setRecord_date(new Date());
+        request.setTypeRecord_id(typeRecord_id + 1);
+
+        mvc.perform(put("/record/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 3: check mandatory field is empty: title ***/
+        request = new UpdateRecordRequest();
+        request.setRecord_id(record_id);
+        request.setTitle(null);
+        request.setNote("Note123");
+        request.setAmount(30000.0);
+        request.setRecord_date(new Date());
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(put("/record/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 4: check title/note is longer than max length ***/
+        request = new UpdateRecordRequest();
+        request.setRecord_id(record_id);
+        request.setTitle("123456789012345678901234567890123456789012345678901234567890");
+        request.setNote("Note123");
+        request.setAmount(30000.0);
+        request.setRecord_date(new Date());
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(put("/record/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 5: check successfully request ***/
+        request = new UpdateRecordRequest();
+        request.setRecord_id(record_id);
+        request.setTitle("Title123");
+        request.setNote("Note123");
+        request.setAmount(30000.0);
+        request.setRecord_date(new Date());
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(put("/record/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
     }
 }

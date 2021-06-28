@@ -9,11 +9,11 @@ import java.util.Date;
 @Data
 @RequiredArgsConstructor
 public class UpdateRecordRequest {
-    private long record_id;
+    private Long record_id;
     private String title;
     private String note;
-    private double amount;
+    private Double amount;
     private Date record_date;
-    private long typeRecord_id;
+    private Long typeRecord_id;
     private String result;
 }
