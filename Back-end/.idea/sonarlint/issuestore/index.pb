@@ -7,8 +7,6 @@ s
 Csrc/main/java/org/example/RestAPI/importer/WalletExcelImporter.java,1\e\1e99294f325b8f2250239781fce699f084413fd0
 d
 4src/main/java/org/example/RestAPI/model/Message.java,c\6\c618a1d81f4bbeb2d5193ebd25da8a548de251ed
-y
-Isrc/main/java/org/example/RestAPI/request/record/DeleteRecordRequest.java,f\a\faff1b8c2bccc85495e9c1156838ed75fbf992d4
 Ö
 Usrc/main/java/org/example/RestAPI/request/typerecord/CheckValidTypeRecordRequest.java,d\7\d73a99331e8d56eb77cc045b8c23a7b214aa0501
 Å
