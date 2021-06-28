@@ -11,4 +11,5 @@ public interface IRecordService {
 
     Optional<Record> findById(long record_id);
 
+    Optional<Record> findByRecord_title(String record_title);
 }

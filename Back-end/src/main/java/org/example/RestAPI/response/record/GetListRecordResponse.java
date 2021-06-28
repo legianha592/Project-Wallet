@@ -8,6 +8,7 @@ import org.example.RestAPI.model.Wallet;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,7 +21,7 @@ public class GetListRecordResponse {
         String note;
         LocalDateTime created_date;
         LocalDateTime modified_date;
-        LocalDateTime record_date;
+        Date record_date;
         double amount;
         long typeRecord_id;
     }

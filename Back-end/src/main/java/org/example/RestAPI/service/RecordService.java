@@ -27,5 +27,8 @@ public class RecordService implements IRecordService{
         return recordRepository.findById(record_id);
     }
 
-
+    @Override
+    public Optional<Record> findByRecord_title(String record_title){
+        return recordRepository.findByRecord_title(record_title);
+    }
 }

@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Table(name = "record")
@@ -18,7 +19,7 @@ public class Record {
     private double amount;
     private String title;
     private String note;
-    private LocalDateTime record_date;
+    private Date record_date;
     private LocalDateTime created_date;
     @PrePersist
     public void prePersist(){

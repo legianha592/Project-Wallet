@@ -3,6 +3,7 @@ package org.example.RestAPI.request.record;
 import org.example.RestAPI.finalstring.FinalMessage;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 public class CheckValidRecordRequest {
     public static void checkCreateRecordRequest(CreateRecordRequest request){
@@ -10,7 +11,7 @@ public class CheckValidRecordRequest {
         String title = request.getTitle();
         String note = request.getNote();
         Double amount = request.getAmount();
-        LocalDateTime record_date = request.getRecord_date();
+        Date record_date = request.getRecord_date();
         Long wallet_id = request.getWallet_id();
         Long typeRecord_id = request.getTypeRecord_id();
 
@@ -35,7 +36,7 @@ public class CheckValidRecordRequest {
         String title = request.getTitle();
         String note = request.getNote();
         Double amount = request.getAmount();
-        LocalDateTime record_date = request.getRecord_date();
+        Date record_date = request.getRecord_date();
         Long typeRecord_id = request.getTypeRecord_id();
 
         if (record_id == null || title == null || note == null || amount == null || record_date == null || typeRecord_id == null){

@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
@@ -12,7 +13,7 @@ public class UpdateRecordRequest {
     private String title;
     private String note;
     private double amount;
-    private LocalDateTime record_date;
+    private Date record_date;
     private long typeRecord_id;
     private String result;
 }
