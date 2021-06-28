@@ -1,9 +1,9 @@
 package org.example.RestAPI.JUnitTest.record;
 
+import org.example.RestAPI.model.Record;
 import org.example.RestAPI.model.TypeRecord;
 import org.example.RestAPI.model.User;
 import org.example.RestAPI.model.Wallet;
-import org.example.RestAPI.model.Record;
 import org.example.RestAPI.repository.RecordRepository;
 import org.example.RestAPI.repository.TypeRecordRepository;
 import org.example.RestAPI.repository.UserRepository;
@@ -23,10 +23,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Month;
 import java.util.Date;
 import java.util.Optional;
 
@@ -83,8 +79,7 @@ public class RecordTests {
         record.setTitle("Title");
         record.setNote("Note");
         record.setAmount(10000.0);
-        Date date = new Date();
-        record.setRecord_date(date);
+        record.setRecord_date(new Date());
         record.setWallet(wallet);
         record.setTypeRecord(typeRecord);
         recordRepository.save(record);
@@ -112,8 +107,7 @@ public class RecordTests {
         request.setTitle("Title123");
         request.setNote("Note123");
         request.setAmount(20000.0);
-        Date date = new Date();
-        request.setRecord_date(date);
+        request.setRecord_date(new Date());
         request.setWallet_id(wallet_id + 1);
         request.setTypeRecord_id(typeRecord_id);
 
@@ -124,5 +118,73 @@ public class RecordTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 2: check if type record is existed ***/
+        request = new CreateRecordRequest();
+        request.setTitle("Title123");
+        request.setNote("Note123");
+        request.setAmount(20000.0);
+        request.setRecord_date(new Date());
+        request.setWallet_id(wallet_id);
+        request.setTypeRecord_id(typeRecord_id + 1);
+
+        mvc.perform(post("/record/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 3: check mandatory field is empty: title ***/
+        request = new CreateRecordRequest();
+        request.setTitle(null);
+        request.setNote("Note123");
+        request.setAmount(20000.0);
+        request.setRecord_date(new Date());
+        request.setWallet_id(wallet_id);
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(post("/record/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 4: check title/note is longer than max length ***/
+        request = new CreateRecordRequest();
+        request.setTitle("123456789012345678901234567890123456789012345678901234567890");
+        request.setNote("Note123");
+        request.setAmount(20000.0);
+        request.setRecord_date(new Date());
+        request.setWallet_id(wallet_id);
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(post("/record/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, recordRepository.findAll().size());
+
+        /*** Test 5: check successfully request ***/
+        request = new CreateRecordRequest();
+        request.setTitle("Title123");
+        request.setNote("Note123");
+        request.setAmount(20000.0);
+        request.setRecord_date(new Date());
+        request.setWallet_id(wallet_id);
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(post("/record/create")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(2, recordRepository.findAll().size());
     }
 }
