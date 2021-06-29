@@ -4,5 +4,5 @@ import lombok.Data;
 
 @Data
 public class DeleteTypeRecordRequest {
-    private long typeRecord_id;
+    private Long typeRecord_id;
 }

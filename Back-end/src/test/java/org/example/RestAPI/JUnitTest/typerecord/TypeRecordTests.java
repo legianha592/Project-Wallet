@@ -3,6 +3,7 @@ package org.example.RestAPI.JUnitTest.typerecord;
 import org.example.RestAPI.model.TypeRecord;
 import org.example.RestAPI.repository.TypeRecordRepository;
 import org.example.RestAPI.request.typerecord.CreateTypeRecordRequest;
+import org.example.RestAPI.request.typerecord.DeleteTypeRecordRequest;
 import org.example.RestAPI.request.typerecord.UpdateTypeRecordRequest;
 import org.example.RestAPI.service.ITypeRecordService;
 import org.junit.After;
@@ -23,8 +24,7 @@ import java.util.Optional;
 import static org.example.RestAPI.JUnitTest.converter.ConvertObjectToString.asJsonString;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -181,7 +181,34 @@ public class TypeRecordTests {
     }
 
     @Test
-    public void checkDeleteTypeRecord(){
+    public void checkDeleteTypeRecord() throws Exception {
+        /*** check if insert type record successfully ***/
+        Optional<TypeRecord> typeRecord = typeRecordService.findByTypeRecord_name("Type record");
+        assertNotEquals(typeRecord, null);
+        Long typeRecord_id = typeRecord.get().getId();
 
+        /*** Test 1: check if type record is existed ***/
+        DeleteTypeRecordRequest request = new DeleteTypeRecordRequest();
+        request.setTypeRecord_id(typeRecord_id + 1);
+
+        mvc.perform(delete("/typeRecord/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, typeRecordRepository.findAll().size());
+
+        /*** Test 2: delete type record successfully ***/
+        request = new DeleteTypeRecordRequest();
+        request.setTypeRecord_id(typeRecord_id);
+
+        mvc.perform(delete("/typeRecord/delete")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(0, typeRecordRepository.findAll().size());
     }
 }
