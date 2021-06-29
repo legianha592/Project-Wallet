@@ -3,6 +3,7 @@ package org.example.RestAPI.JUnitTest.typerecord;
 import org.example.RestAPI.model.TypeRecord;
 import org.example.RestAPI.repository.TypeRecordRepository;
 import org.example.RestAPI.request.typerecord.CreateTypeRecordRequest;
+import org.example.RestAPI.request.typerecord.UpdateTypeRecordRequest;
 import org.example.RestAPI.service.ITypeRecordService;
 import org.junit.After;
 import org.junit.Before;
@@ -23,6 +24,7 @@ import static org.example.RestAPI.JUnitTest.converter.ConvertObjectToString.asJs
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
@@ -112,5 +114,74 @@ public class TypeRecordTests {
                 .andDo(MockMvcResultHandlers.print());
 
         assertEquals(2, typeRecordRepository.findAll().size());
+    }
+
+    @Test
+    public void checkUpdateTypeRecord() throws Exception {
+        /*** check if insert type record successfully ***/
+        Optional<TypeRecord> typeRecord = typeRecordService.findByTypeRecord_name("Type record");
+        assertNotEquals(typeRecord, null);
+        Long typeRecord_id = typeRecord.get().getId();
+
+        /*** Test 1: check if type record is existed ***/
+        UpdateTypeRecordRequest request = new UpdateTypeRecordRequest();
+        request.setTypeRecord_id(typeRecord_id + 1);
+        request.setTypeRecord_name("Type record 2");
+        request.setImage_url("Image url");
+
+        mvc.perform(put("/typeRecord/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, typeRecordRepository.findAll().size());
+
+        /*** Test 2: check mandatory field is empty: image url ***/
+        request = new UpdateTypeRecordRequest();
+        request.setTypeRecord_id(typeRecord_id);
+        request.setTypeRecord_name("Type record 2");
+        request.setImage_url(null);
+
+        mvc.perform(put("/typeRecord/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, typeRecordRepository.findAll().size());
+
+        /*** Test 3: check type record name is longer than max length ***/
+        request = new UpdateTypeRecordRequest();
+        request.setTypeRecord_id(typeRecord_id);
+        request.setTypeRecord_name("1234567890123456789012345678901234567890123456789012345678901234567890");
+        request.setImage_url("Image url");
+
+        mvc.perform(put("/typeRecord/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isBadRequest())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, typeRecordRepository.findAll().size());
+
+        /*** Test 4: update type record successfully ***/
+        request = new UpdateTypeRecordRequest();
+        request.setTypeRecord_id(typeRecord_id);
+        request.setTypeRecord_name("Type record 2");
+        request.setImage_url("Image url 2");
+
+        mvc.perform(put("/typeRecord/update")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(request)))
+                .andExpect(status().isOk())
+                .andDo(MockMvcResultHandlers.print());
+
+        assertEquals(1, typeRecordRepository.findAll().size());
+    }
+
+    @Test
+    public void checkDeleteTypeRecord(){
+
     }
 }

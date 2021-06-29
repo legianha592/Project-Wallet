@@ -5,10 +5,6 @@ s
 Csrc/main/java/org/example/RestAPI/importer/WalletExcelImporter.java,1\e\1e99294f325b8f2250239781fce699f084413fd0
 d
 4src/main/java/org/example/RestAPI/model/Message.java,c\6\c618a1d81f4bbeb2d5193ebd25da8a548de251ed
-Å
-Qsrc/main/java/org/example/RestAPI/request/typerecord/DeleteTypeRecordRequest.java,0\4\04dfd911956c8273666eb802dee6699f87e611cc
-Å
-Qsrc/main/java/org/example/RestAPI/request/typerecord/UpdateTypeRecordRequest.java,6\c\6c08584189afdd8f84966314a78b220d2947bbe2
 É
 Ssrc/main/java/org/example/RestAPI/response/exporter/TypeRecordExporterResponse.java,5\c\5cfe3e7e60aa1e069acb782f4225052a3a114286
 Ç
