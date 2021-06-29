@@ -10,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface TypeRecordRepository extends JpaRepository<TypeRecord, Long> {
-    @Query(value = "SELECT * FROM TYPE_RECORD WHERE typeRecord_name = :typeRecord_name", nativeQuery = true)
+    @Query(value = "SELECT * FROM TYPE_RECORD WHERE type_record_name = :typeRecord_name", nativeQuery = true)
     Optional<TypeRecord> findByTypeRecord_name(@Param("typeRecord_name") String name);
 }

@@ -1,0 +1,5 @@
+
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(×†‡Ôýÿÿÿÿ
+c
+java:S1128"ARemove this unused import 'org.example.RestAPI.model.TypeRecord'.(Öâ™¢ÿÿÿÿÿ8 ÁÛ‹¥/
+j	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡Â»²8àðØ‹¥/
