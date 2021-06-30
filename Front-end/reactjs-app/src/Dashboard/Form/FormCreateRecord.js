@@ -112,7 +112,7 @@ export default function FormCreateRecord() {
     record.wallet_id = parseInt(walletId);
     record.typeRecord_id = currentTypeRecord.id;
     let d = new Date(date);
-    record.record_date = `${date}T23:59:59.000`;
+    record.record_date = `${date}T00:00:00.000`;
     //record.note = "test";
     console.log(record);
     let result = await addRecord(record);

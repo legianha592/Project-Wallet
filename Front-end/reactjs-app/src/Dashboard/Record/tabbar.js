@@ -215,38 +215,33 @@ var dateToInt = function (date) {
 };
 
 var getRecordByMonth = function (records, date) {
-  return records.filter(
-    (record) =>
-      record.record_date[1] === date.getMonth() + 1 &&
-      record.record_date[0] === date.getFullYear()
-  );
+  return records.filter((record) => isSameMonth(record, date));
 };
 
 var getInComeOfListRecord = function (records, date) {
   let list = records.filter(
-    (record) =>
-      record.record_date[1] === date.getMonth() + 1 &&
-      record.record_date[0] === date.getFullYear() &&
-      record.amount > 0
+    (record) => isSameMonth(record, date) && record.amount > 0
   );
   return moneyStr(list.reduce((sum, record) => (sum = sum + record.amount), 0));
 };
 
 var getOutComeOfListRecord = function (records, date) {
   let list = records.filter(
-    (record) =>
-      record.record_date[1] === date.getMonth() + 1 &&
-      record.record_date[0] === date.getFullYear() &&
-      record.amount < 0
+    (record) => isSameMonth(record, date) && record.amount < 0
   );
   return moneyStr(list.reduce((sum, record) => (sum = sum + record.amount), 0));
 };
 
 var getSumOfListRecord = function (records, date) {
-  let list = records.filter(
-    (record) =>
-      record.record_date[1] === date.getMonth() + 1 &&
-      record.record_date[0] === date.getFullYear()
-  );
+  let list = records.filter((record) => isSameMonth(record, date));
   return moneyStr(list.reduce((sum, record) => (sum = sum + record.amount), 0));
+};
+
+var isSameMonth = function (record, date) {
+  let myDate = new Date(record.record_date);
+  console.log(myDate.getMonth(), myDate.getFullYear());
+  return (
+    myDate.getMonth() + 1 === date.getMonth() + 1 &&
+    myDate.getFullYear() === date.getFullYear()
+  );
 };

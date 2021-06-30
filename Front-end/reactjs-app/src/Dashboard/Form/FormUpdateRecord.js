@@ -92,8 +92,7 @@ export default function FormUpdateRecord(props) {
 
     let date = props.record.record_date;
     if (date != null) {
-      let dateStr = `${date[0]}/${date[1]}/${date[2]}`;
-      var curr = new Date(dateStr);
+      var curr = new Date(date);
       var intlDate = Intl.DateTimeFormat("en-US", {
         year: "numeric",
         month: "2-digit",
