@@ -21,6 +21,7 @@ export async function addTypeRecord(typeRecord_name) {
   console.log(typeRecord_name);
   let typeRecord = {
     typeRecord_name: typeRecord_name,
+    image_url:"",
   };
   let response = await axios.post(baseURL + "/create", typeRecord);
   console.log(response.data);
