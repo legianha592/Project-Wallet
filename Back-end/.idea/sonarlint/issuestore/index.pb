@@ -49,8 +49,6 @@ y
 Isrc/main/java/org/example/RestAPI/request/user/ChangePasswordRequest.java,f\4\f45b441a7da6aee3808fa4153d3b89e3bc4609a0
 y
 Isrc/main/java/org/example/RestAPI/request/user/CheckValidUserRequest.java,7\4\74a7943ffda5397d75e940b46288413688884dc7
-a
-1src/main/java/org/example/RestAPI/model/User.java,9\6\961b60ff73cbcf24bdf8986d40dd03aec1c41cfb
 q
 Asrc/main/java/org/example/RestAPI/request/user/SignupRequest.java,9\d\9d35d32b9a63c8c5bf23b28df2dd73e937acbe4a
 y
@@ -67,8 +65,6 @@ o
 ?src/test/java/org/example/RestAPI/JUnitTest/user/UserTests.java,4\9\497712daf376a07340194986c94fd31a9744545b
 l
 <src/main/java/org/example/RestAPI/service/WalletService.java,1\f\1f9e5d81a6511011310cec5b00ed6e63073d2c90
-g
-7src/main/java/org/example/RestAPI/model/TypeRecord.java,0\8\08b7fdba81e4393e8e5271d0ff8a13d16cd1e986
 k
 ;src/main/java/org/example/RestAPI/service/IUserService.java,b\7\b7ae40d2f0764c2e0da503cf2bb82ba581d2cf43
 p
